@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -29,10 +29,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('OK');
+  
+    if(this.form.invalid){
+      return Object.values(this.form.controls).forEach(control => {
+        control.markAllAsTouched();
+      })
+    }
+
+    console.log(this.form.value);
+
   }
 
   get emailValid(){
     return this.form.get('email')?.invalid && this.form.get('email')?.touched
   }
+
+  get passwordValid () {
+    return this.form.get('password')?.invalid && this.form.get('password')?.touched
+  }
+
+  get f() {
+    return this.form.controls;
+  }
+
+
 }

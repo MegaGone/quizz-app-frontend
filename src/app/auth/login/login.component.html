@@ -11,7 +11,7 @@
       <span></span>
     </div>
     <div class="container pt-lg-md">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center animate__animated animate__backInLeft">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-white">
@@ -34,7 +34,9 @@
 
               <!-- FORM -->
               <form autocomplete="off" [formGroup]="form" (ngSubmit)="login()">
-                <div class="form-group mb-3">
+
+                <!-- Email -->
+                <div class="form-group mb-3" [ngClass]="{'has-danger': emailValid, 'animate__animated animate__fadeIn': emailValid}">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
@@ -46,21 +48,39 @@
                     type="email"
                     formControlName="email"
                     [ngClass]="{'focused':focus===true}">
-
                   </div>
 
-
+                  <div *ngIf="f.email.touched && f.email.invalid">
+                    <div *ngIf="f.email.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Email is required.</small></div>
+                    <div *ngIf="f.email.errors?.email"><small class="text-danger animate__animated animate__fadeIn">Please, enter valid email address.</small></div>
+                  </div>
+        
                 </div>
-                <div class="form-group">
+
+                <!-- Password -->
+                <div class="form-group" [ngClass]="{'has-danger': passwordValid, 'animate__animated animate__fadeIn': passwordValid}">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Password" type="password">
+
+                    <input 
+                    class="form-control" 
+                    placeholder="Password"
+                    type="password"
+                    formControlName="password"
+                    [ngClass]="{'focused':focus===true}">
                   </div>
+
+                  <div *ngIf="f.password.touched && f.password.invalid">
+                    <div *ngIf="f.password.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Password is required.</small></div>
+                    <div *ngIf="f.password.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Password must be at least 8 characters.</small></div>
+                  </div>
+
                 </div>
+
                 <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <input class="custom-control-input animate__animated animate__fadeIn" id=" customCheckLogin" type="checkbox">
                   <label class="custom-control-label" for=" customCheckLogin">
                     <span>Remember me</span>
                   </label>
