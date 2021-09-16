@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   public focus4!: boolean;
   public focus5!: boolean;
   public form!: FormGroup;
+  public submitted = false;
 
   constructor(private fb: FormBuilder) { }
 
@@ -26,14 +27,37 @@ export class RegisterComponent implements OnInit {
     this.form = this.fb.group({
       fName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
       lName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      password:   ['', [Validators.required, Validators.minLength(8), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      password2:  ['', [Validators.required, Validators.minLength(8), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      password:   ['', [Validators.required, Validators.minLength(8)]],
+      password2:  ['', [Validators.required]],
       email:      ['', [Validators.required, Validators.email]],
       terms:      [false, Validators.requiredTrue]
+    }, 
+    {
+      validators: [this.MustMatch('password', 'password2')]
     })
   }
 
+  // Confirm password
+  MustMatch(controlName: string, matchingControlName: string) {
+    
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.MustMatch) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ MustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    }
+  }
+
   register() {
+    // To validate the checkbox
+    this.submitted = true;
 
     if(this.form.invalid){
       return Object.values(this.form.controls).forEach(control => {
@@ -41,7 +65,7 @@ export class RegisterComponent implements OnInit {
       })
     }
 
-    console.log('OK');
+    console.log(this.form.value);
   }
 
   get f() {
@@ -69,6 +93,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get termsValid() {
-    return this.form.get('terms')?.invalid && this.form.get('terms')?.touched
+    return this.form.get('terms')?.invalid
   }
+
 }

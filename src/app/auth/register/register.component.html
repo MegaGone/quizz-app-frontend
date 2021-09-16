@@ -112,7 +112,7 @@
                   <div *ngIf="f.password.touched && f.password.invalid">
                     <div *ngIf="f.password.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Password is required.</small></div>
                     <div *ngIf="f.password.errors?.minlength && !f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Password must be at least 8 characters.</small></div>
-                    <div *ngIf="f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Only characters accepted</small></div>
+                    <!-- <div *ngIf="f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Only characters accepted</small></div> -->
                   </div>
                 </div>
 
@@ -131,8 +131,7 @@
                   </div>
                   <div *ngIf="f.password2.touched && f.password2.invalid">
                     <div *ngIf="f.password2.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Confirm password is required.</small></div>
-                    <div *ngIf="f.password2.errors?.minlength && !f.password2.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Password must be at least 8 characters.</small></div>
-                    <div *ngIf="f.password2.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Only characters accepted</small></div>
+                    <div *ngIf="f.password2.errors?.MustMatch"><small class="text-danger animate__animated animate__fadeIn">Passwords Didn't Match</small></div>
                   </div>
                 </div>
 
@@ -148,6 +147,8 @@
                   <label class="custom-control-label" for=" customCheckLogin">
                     <span>I Accept conditions</span>
                   </label>
+
+                  <div *ngIf="f.terms.errors?.required && submitted"><small class="text-danger animate__animated animate__fadeIn">Terms conditions required</small></div>
                 </div>
 
                 <div class="text-center">
