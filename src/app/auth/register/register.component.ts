@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,13 +22,14 @@ export class RegisterComponent implements OnInit {
   }
 
   initForm() {
+    // Validators.pattern("^.+\s.+$]")
     this.form = this.fb.group({
-      fName:      ['', [Validators.required, Validators.minLength(5)]],
-      lName:      ['', [Validators.required, Validators.minLength(5)]],
-      password:   ['', [Validators.required, Validators.minLength(8)]],
-      password2:  ['', [Validators.required, Validators.minLength(8)]],
+      fName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      lName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      password:   ['', [Validators.required, Validators.minLength(8), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      password2:  ['', [Validators.required, Validators.minLength(8), Validators.pattern("^[a-zA-Z0-9_]*$")]],
       email:      ['', [Validators.required, Validators.email]],
-      terms:      ['', Validators.requiredTrue]
+      terms:      [false, Validators.requiredTrue]
     })
   }
 
