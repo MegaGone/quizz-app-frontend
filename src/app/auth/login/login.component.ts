@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   public focus1!: boolean;
   public form!: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -35,7 +36,9 @@ export class LoginComponent implements OnInit {
       })
     }
 
+    // TODO: Service to login and get JWT, 'cause JWT its can activate
     console.log(this.form.value);
+    this.router.navigate(['/home/myquizzes'])
 
   }
 
