@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -25,11 +26,11 @@ export class RegisterComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      fName:      ['Frontend', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      lName:      ['User1', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      password:   ['12345678', [Validators.required, Validators.minLength(6)]],
-      password2:  ['12345678', [Validators.required]],
-      email:      ['jm@gmail.com', [Validators.required, Validators.email]],
+      fName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      lName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      password:   ['', [Validators.required, Validators.minLength(6)]],
+      password2:  ['', [Validators.required]],
+      email:      ['', [Validators.required, Validators.email]],
       terms:      [false, Validators.requiredTrue]
     }, 
     {
@@ -67,7 +68,15 @@ export class RegisterComponent implements OnInit {
 
     this.authSvc.createUser(this.form.value).subscribe( res => {
       console.log(res);
-    }, (err) => console.warn(err))
+    }, (err) => {
+      
+      if(err.error.errors[0].msg === undefined){
+        Swal.fire('Error', 'Error to create user', 'error')
+      } 
+      
+      Swal.fire('Error', err.error.errors[0].msg, 'error')
+
+    })
   }
 
   get f() {
