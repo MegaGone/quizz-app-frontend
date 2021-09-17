@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,20 +17,19 @@ export class RegisterComponent implements OnInit {
   public form!: FormGroup;
   public submitted = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authSvc: AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
-    // Validators.pattern("^.+\s.+$]")
     this.form = this.fb.group({
-      fName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      lName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      password:   ['', [Validators.required, Validators.minLength(8)]],
-      password2:  ['', [Validators.required]],
-      email:      ['', [Validators.required, Validators.email]],
+      fName:      ['Frontend', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      lName:      ['User1', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      password:   ['12345678', [Validators.required, Validators.minLength(6)]],
+      password2:  ['12345678', [Validators.required]],
+      email:      ['jm@gmail.com', [Validators.required, Validators.email]],
       terms:      [false, Validators.requiredTrue]
     }, 
     {
@@ -65,7 +65,9 @@ export class RegisterComponent implements OnInit {
       })
     }
 
-    console.log(this.form.value);
+    this.authSvc.createUser(this.form.value).subscribe( res => {
+      console.log(res);
+    }, (err) => console.warn(err))
   }
 
   get f() {
