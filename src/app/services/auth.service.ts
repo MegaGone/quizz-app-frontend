@@ -41,4 +41,14 @@ export class AuthService {
         })
       )
   }
+
+  googleSignIn( token: string ) {
+    // return console.log(token);
+    return this.http.post(`${base_url}/auth/google`, { token })
+        .pipe(
+          tap( (res: any) => {
+            localStorage.setItem('token', res.token)
+          })
+        )
+  }
 }

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
+declare const gapi: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,11 +18,14 @@ export class LoginComponent implements OnInit {
   public focus1!: boolean;
   public form!: FormGroup;
 
+  public auth2: any;
+
   constructor(private fb: FormBuilder, private router: Router, private authSvc: AuthService) { 
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.renderButton();
   }
 
   initForm() {
@@ -69,5 +74,39 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
+  renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark'
+    });
 
+    this.startApp();
+  }
+
+  startApp() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+      });
+      this.attachSignin(document.getElementById('my-signin2'));
+    });
+  };
+
+  attachSignin(element: any) {
+    this.auth2.attachClickHandler(element, {}, (googleUser: any) => {
+
+      const id_token = googleUser.getAuthResponse().id_token;
+      
+      this.authSvc.googleSignIn( id_token ).subscribe();
+
+      // TODO: navigate to home
+
+    }, function(error: any) {
+        alert(JSON.stringify(error, undefined, 2));
+    });
+  }
 }
