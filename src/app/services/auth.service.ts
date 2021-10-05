@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from "rxjs/operators";
+import { catchError, map, tap } from "rxjs/operators";
 
 import { environment } from 'src/environments/environment';
 
 import { RegisterUser } from '../interfaces/register-user.interface';
 import { Login } from '../interfaces/login.interface';
+import { Observable, of } from 'rxjs';
 
 const base_url = environment.base_url;
 
@@ -14,6 +15,23 @@ const base_url = environment.base_url;
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  validateToken(): Observable<boolean> {
+    const token = localStorage.getItem('token') || '';
+
+    return this.http.get(`${base_url}/auth/renew`, {
+      headers: {
+        'x-token': token
+      }
+    }).pipe(
+      tap( (res: any) => {
+        localStorage.setItem('token', res.token)
+      }),
+      map( resp => true),
+      catchError( err => of(false)) // CatchError atrapa el error que va en el flujo y debuelve un nuevo Observable con un nuevo valor
+    );
+
+  }
 
   createUser(user: RegisterUser) {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2'
 @Component({
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
   public form!: FormGroup;
   public submitted = false;
 
-  constructor(private fb: FormBuilder, private authSvc: AuthService) { }
+  constructor(private fb: FormBuilder, private authSvc: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -67,7 +68,9 @@ export class RegisterComponent implements OnInit {
     }
 
     this.authSvc.createUser(this.form.value).subscribe( res => {
-      console.log(res);
+      
+      this.router.navigate(['/home/myquizzes'])
+
     }, (err) => {
       
       if(err.error.errors[0].msg === undefined){
