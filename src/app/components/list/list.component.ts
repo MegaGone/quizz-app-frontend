@@ -1,31 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+
 import { Quiz, Quizzes } from '../../interfaces';
+import { QuizService } from '../../services/quiz.service';
+import { SortEvent, NgbdSortableHeaderDirective } from '../../directives/ngbd-sortable-header.directive';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styles: [
-  ]
+  providers: [QuizService, DecimalPipe]
 })
 export class ListComponent implements OnInit {
 
-  // Pagination
-  public page = 1;
-  public pageSize = 5;
-  public collectionSize = Quizzes.length;
-  public quizzes!: Quiz[];
+  countries$!: Observable<Quiz[]>;
+  total$!: Observable<number>;
 
-  constructor() { 
-    this.refreshQuizzes();
+  @ViewChildren(NgbdSortableHeaderDirective) headers!: QueryList<NgbdSortableHeaderDirective>;
+
+  constructor(public service: QuizService) {
+    this.countries$ = service.countries$;
+    this.total$ = service.total$;
   }
 
   ngOnInit(): void {
   }
 
-  refreshQuizzes() {
-    this.quizzes = Quizzes
-      .map((quiz, i) => ({id: i + 1, ...quiz}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  onSort({column, direction}: SortEvent) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
   }
 
 }

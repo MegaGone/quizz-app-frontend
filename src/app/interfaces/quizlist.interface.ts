@@ -1,5 +1,5 @@
 export interface Quiz {
-    id?: string | number;
+    id?: string | number | any;
     name: string;
     icon?: string;
     code: string;
@@ -9,7 +9,7 @@ export interface Quiz {
 export const Quizzes: Quiz[] = [
     {
         id: '1',
-        name: 'Quiz1',
+        name: 'Test',
         code: 'abc',
         participants: 10,
         icon: 'https://i.imgur.com/mX35EH6.png'
