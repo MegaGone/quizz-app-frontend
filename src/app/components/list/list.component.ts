@@ -1,6 +1,7 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Quiz, Quizzes } from '../../interfaces';
 import { QuizService } from '../../services/quiz.service';
@@ -18,7 +19,7 @@ export class ListComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeaderDirective) headers!: QueryList<NgbdSortableHeaderDirective>;
 
-  constructor(public service: QuizService) {
+  constructor(public service: QuizService, private router: Router) {
     this.countries$ = service.countries$;
     this.total$ = service.total$;
   }
@@ -38,4 +39,8 @@ export class ListComponent implements OnInit {
     this.service.sortDirection = direction;
   }
 
+  navigateToQuiz(id: string | number) {
+    console.log(id);
+    this.router.navigate(['/home/quizzes'])
+  }
 }
