@@ -1,0 +1,49 @@
+<main class="profile-page animate__animated animate__fadeIn">
+    <section class="section-home-cover section-shaped my-0">
+      <!-- Circles background -->
+      <div class="shape shape-style-1 shape-primary alpha-4">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- SVG separator -->
+      <div class="separator separator-bottom separator-skew">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+      
+      <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+        <div class="container">
+            <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link no-caret ml-3 text-white" data-toggle="dropdown" role="button" [routerLink]="['/home/myquizzes']">
+                        <i class="fad fa-long-arrow-left fa-2x"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto ">
+              <li class="nav-item dropdown">
+                <h1 class="text-white mr-5">QUIZ</h1>
+              </li>
+            </ul>
+        </div>
+      </nav>
+
+    </section>
+    <section class="section mt-3">
+      <div class="container">
+  
+        <div class="card card-profile shadow mt--300">
+          <div class="row justify-content-center ">
+            <app-form></app-form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

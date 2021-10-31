@@ -41,6 +41,6 @@ export class ListComponent implements OnInit {
 
   navigateToQuiz(id: string | number) {
     console.log(id);
-    this.router.navigate(['/home/quizzes'])
+    this.router.navigate(['/home/quiz'])
   }
 }

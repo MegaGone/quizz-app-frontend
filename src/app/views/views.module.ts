@@ -8,14 +8,15 @@ import { ComponentsModule } from '../components/components.module';
 // My Components
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { QuizzesComponent } from './quizzes/quizzes.component';
-
+import { QuizComponent } from './quiz/quiz.component';
+import { InvitedComponent } from './invited/invited.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ProfileComponent,
-    QuizzesComponent
+    QuizComponent,
+    InvitedComponent
   ],
   imports: [
     CommonModule,

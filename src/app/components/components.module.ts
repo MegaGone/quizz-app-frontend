@@ -2,26 +2,33 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // My components
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListComponent } from './list/list.component';
+import { FormComponent } from './form/form.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    ListComponent
+    ListComponent,
+    FormComponent,
+    QuestionsComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
-    ListComponent
+    ListComponent,
+    FormComponent,
+    QuestionsComponent
   ]
 })
 export class ComponentsModule { }
