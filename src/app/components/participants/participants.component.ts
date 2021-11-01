@@ -2,21 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Quiz, Quizzes } from '../../interfaces';
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  selector: 'app-participants',
+  templateUrl: './participants.component.html',
+  styleUrls: ['./participants.component.css']
 })
-export class QuestionsComponent implements OnInit {
+export class ParticipantsComponent implements OnInit {
 
   public page = 1;
   public pageSize = 5;
   public collectionSize = Quizzes.length;
   public quizzes!: Quiz[];
 
-  constructor() { }
+  constructor() { 
+    this.refreshQuizzes();
+  }
 
   ngOnInit(): void {
-    this.refreshQuizzes();
   }
 
   refreshQuizzes() {

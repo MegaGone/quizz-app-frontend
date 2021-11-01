@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ListComponent } from './list/list.component';
 import { FormComponent } from './form/form.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { ParticipantsComponent } from './participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { QuestionsComponent } from './questions/questions.component';
     ListComponent,
     FormComponent,
     QuestionsComponent,
+    ParticipantsComponent,
   ],
   imports: [
     CommonModule,
