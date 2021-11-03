@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Quiz, Quizzes } from '../../interfaces';
 
 @Component({
@@ -13,7 +14,7 @@ export class QuestionsComponent implements OnInit {
   public collectionSize = Quizzes.length;
   public quizzes!: Quiz[];
 
-  constructor() { }
+  constructor(private modalSvc: NgbModal) { }
 
   ngOnInit(): void {
     this.refreshQuizzes();
@@ -25,4 +26,7 @@ export class QuestionsComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
+  openVerticallyCentered(content: any) {
+    this.modalSvc.open(content, { centered: true });
+  }
 }

@@ -16,6 +16,7 @@ export class ParticipantsComponent implements OnInit {
 
   // Modal
   public closeResult!: string;
+  public tempId!: string | number;
 
   constructor(private modalSvc: NgbModal) {
     this.refreshQuizzes();
@@ -30,7 +31,18 @@ export class ParticipantsComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  openVerticallyCentered(content: any) {
+  openVerticallyCentered(content: any, id: number | string) {
     this.modalSvc.open(content, { centered: true });
+    this.tempId = id;
+  }
+
+  removeParticipant(id: number | string) {
+    console.log(`${id} removed...`);
+    this.refreshQuizzes();
+  }
+
+  viewResults(id: number | string) {
+    console.log(`${id} stats...`);
+    this.refreshQuizzes();
   }
 }
