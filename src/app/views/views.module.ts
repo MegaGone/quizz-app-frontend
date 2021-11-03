@@ -16,7 +16,7 @@ import { InvitedComponent } from './invited/invited.component';
     HomeComponent,
     ProfileComponent,
     QuizComponent,
-    InvitedComponent
+    InvitedComponent,
   ],
   imports: [
     CommonModule,

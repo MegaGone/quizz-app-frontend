@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Quiz, Quizzes } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-participants',
@@ -16,9 +17,9 @@ export class ParticipantsComponent implements OnInit {
 
   // Modal
   public closeResult!: string;
-  public tempId!: string | number;
+  public tempId!: string | number; // Participant Options
 
-  constructor(private modalSvc: NgbModal) {
+  constructor(private modalSvc: NgbModal, private toastSvc: ToastrService) {
     this.refreshQuizzes();
   }
 
@@ -39,10 +40,16 @@ export class ParticipantsComponent implements OnInit {
   removeParticipant(id: number | string) {
     console.log(`${id} removed...`);
     this.refreshQuizzes();
+    this.modalSvc.dismissAll();
+    this.toastSvc.success('Participant removed.', 'Successfully', {
+      progressBar: true,
+      timeOut: 1250
+    });
   }
 
   viewResults(id: number | string) {
     console.log(`${id} stats...`);
     this.refreshQuizzes();
+    this.modalSvc.dismissAll();
   }
 }
