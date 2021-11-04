@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { Quiz, Quizzes } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -10,26 +11,34 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ParticipantsComponent implements OnInit {
 
+  @Input() list: Quiz[] = [];  
+
+  /*
+  ** PAGINATION
+  */
   public page = 1;
   public pageSize = 5;
-  public collectionSize = Quizzes.length;
+  public collectionSize !: number;
   public quizzes!: Quiz[];
 
-  // Modal
+  /*
+  ** MODAL
+  */
   public closeResult!: string;
   public tempId!: string | number; // Participant Options
 
   constructor(private modalSvc: NgbModal, private toastSvc: ToastrService) {
+  }
+
+  ngOnInit() {
     this.refreshQuizzes();
   }
 
-  ngOnInit(): void {
-  }
-
   refreshQuizzes() {
-    this.quizzes = Quizzes
-      .map((country, i) => ({ id: i + 1, ...country }))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    this.collectionSize = this.list.length; // Initialize to the pagination    
+    this.quizzes = this.list
+    .map((quiz, i) => ({id: i + 1, ...quiz }))
+    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
   openVerticallyCentered(content: any, id: number | string) {
@@ -52,4 +61,5 @@ export class ParticipantsComponent implements OnInit {
     this.refreshQuizzes();
     this.modalSvc.dismissAll();
   }
+
 }
