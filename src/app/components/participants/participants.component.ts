@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Quiz, Quizzes } from '../../interfaces';
+import { Quiz } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,6 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ParticipantsComponent implements OnInit {
 
+  /*
+  ** ARRAY FROM PARENT COMPONENT
+  */
   @Input() list: Quiz[] = [];  
 
   /*
