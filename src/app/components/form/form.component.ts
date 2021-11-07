@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'  
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 
 import { ToastrService } from 'ngx-toastr';
-import { Quizzes, Quiz } from '../../interfaces';
-
+import { Quizzes, Quiz, QuizInterface } from '../../interfaces';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -32,16 +31,16 @@ export class FormComponent implements OnInit {
   initForm() {
     this.quizForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
-      code: [{value: 'ABCDEF', disabled: true}],
+      code: [{ value: 'ABCDEF', disabled: true }],
       description: ['', [Validators.required, Validators.minLength(10)]],
       questions: this.fb.array([]),
       participants: this.fb.array([])
     })
   }
 
-  createQuiz(){
+  createQuiz() {
 
-    if(this.quizForm.valid){
+    if (this.quizForm.valid) {
       console.log("OK");
     }
 
