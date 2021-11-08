@@ -2,7 +2,7 @@ import { ParticipantInterface, QuestionInterface } from "../interfaces";
 
 export class QuizModel {
   constructor(
-    id: number,
+    id: string,
     description: string,
     title: string,
     author: string,
