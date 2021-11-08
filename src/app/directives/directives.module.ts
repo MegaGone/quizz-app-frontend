@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbdSortableHeaderDirective } from './ngbd-sortable-header.directive';
-
+import { NgbdSortableQuizHeaderDirective } from './ngbd-sorteable-headerquiz.directive';
 
 
 @NgModule({
   declarations: [
-    NgbdSortableHeaderDirective
+    NgbdSortableQuizHeaderDirective
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    NgbdSortableHeaderDirective
+    NgbdSortableQuizHeaderDirective
   ]
 })
 export class DirectivesModule { }

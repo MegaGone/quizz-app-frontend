@@ -7,18 +7,18 @@ import { ToastrModule } from 'ngx-toastr';
 
 // My components
 import { NavbarComponent } from './navbar/navbar.component';
-import { ListComponent } from './list/list.component';
 import { FormComponent } from './form/form.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ParticipantsComponent } from './participants/participants.component';
+import { QuizlistComponent } from './quizlist/quizlist.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    ListComponent,
     FormComponent,
     QuestionsComponent,
     ParticipantsComponent,
+    QuizlistComponent,
   ],
   imports: [
     CommonModule,
@@ -30,9 +30,9 @@ import { ParticipantsComponent } from './participants/participants.component';
   ],
   exports: [
     NavbarComponent,
-    ListComponent,
     FormComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    QuizlistComponent
   ]
 })
 export class ComponentsModule { }

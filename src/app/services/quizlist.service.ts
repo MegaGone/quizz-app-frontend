@@ -3,11 +3,11 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 
-import { Quiz, Quizzes } from '../interfaces';
-import { SortColumn, SortDirection } from '../directives/ngbd-sortable-header.directive';
+import { SortColumn, SortDirection } from '../directives/ngbd-sorteable-headerquiz.directive';
+import { QuizInterface, QuizzesExample } from '../interfaces';
 
 interface SearchResult {
-  quizzes: Quiz[];
+  quizzes: QuizInterface[];
   total: number;
 }
 
@@ -21,7 +21,7 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(countries: Quiz[], column: SortColumn, direction: string): Quiz[] {
+function sort(countries: QuizInterface[], column: SortColumn, direction: string): QuizInterface[] {
   if (direction === '' || column === '') {
     return countries;
   } else {
@@ -32,18 +32,19 @@ function sort(countries: Quiz[], column: SortColumn, direction: string): Quiz[] 
   }
 }
 
-function matches(quiz: Quiz, term: string, pipe: PipeTransform) {
-  return quiz.name.toLowerCase().includes(term.toLowerCase())
+function matches(quiz: QuizInterface, term: string, pipe: PipeTransform) {
+  return quiz.title.toLowerCase().includes(term.toLowerCase())
     || pipe.transform(quiz.participants).includes(term);
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuizService {
+export class QuizlistService {
+
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _countries$ = new BehaviorSubject<Quiz[]>([]);
+  private _countries$ = new BehaviorSubject<QuizInterface[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
@@ -54,8 +55,7 @@ export class QuizService {
     sortDirection: ''
   };
 
-
-  constructor(private pipe: DecimalPipe) { 
+  constructor(private pipe: DecimalPipe) {
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -77,11 +77,11 @@ export class QuizService {
   get pageSize() { return this._state.pageSize; }
   get searchTerm() { return this._state.searchTerm; }
 
-  set page(page: number) { this._set({page}); }
-  set pageSize(pageSize: number) { this._set({pageSize}); }
-  set searchTerm(searchTerm: string) { this._set({searchTerm}); }
-  set sortColumn(sortColumn: SortColumn) { this._set({sortColumn}); }
-  set sortDirection(sortDirection: SortDirection) { this._set({sortDirection}); }
+  set page(page: number) { this._set({ page }); }
+  set pageSize(pageSize: number) { this._set({ pageSize }); }
+  set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
+  set sortColumn(sortColumn: SortColumn) { this._set({ sortColumn }); }
+  set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
 
   private _set(patch: Partial<State>) {
     Object.assign(this._state, patch);
@@ -89,10 +89,10 @@ export class QuizService {
   }
 
   private _search(): Observable<SearchResult> {
-    const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
+    const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let quizzes = sort(Quizzes, sortColumn, sortDirection);
+    let quizzes = sort(QuizzesExample, sortColumn, sortDirection);
 
     // 2. filter
     quizzes = quizzes.filter(quiz => matches(quiz, searchTerm, this.pipe));
@@ -100,6 +100,7 @@ export class QuizService {
 
     // 3. paginate
     quizzes = quizzes.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({quizzes, total});
+    return of({ quizzes, total });
   }
+
 }
