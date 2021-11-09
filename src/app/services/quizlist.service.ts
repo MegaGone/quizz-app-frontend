@@ -34,7 +34,7 @@ function sort(countries: QuizInterface[], column: SortColumn, direction: string)
 
 function matches(quiz: QuizInterface, term: string, pipe: PipeTransform) {
   return quiz.title.toLowerCase().includes(term.toLowerCase())
-    || pipe.transform(quiz.participants).includes(term);
+    || pipe.transform(quiz.participants.length).includes(term);
 }
 
 @Injectable({
