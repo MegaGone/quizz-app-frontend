@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 
 import { ToastrService } from 'ngx-toastr';
-import { Quizzes, Quiz, QuizInterface } from '../../interfaces';
+import { QuizzesExample, QuizInterface } from '../../interfaces';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -10,7 +10,7 @@ import { Quizzes, Quiz, QuizInterface } from '../../interfaces';
 })
 export class FormComponent implements OnInit {
 
-  public participants!: Array<Quiz>;
+  public participants!: Array<QuizInterface>;
 
   /*
   ** FORM
@@ -24,7 +24,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.participants = Quizzes;
+    this.participants = QuizzesExample;
   }
 
   // TODO: Check if the minlength validation is equal like backend and Validate the whitespaces and check the disabled on code html/ts

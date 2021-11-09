@@ -8,9 +8,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let quiz of quizzes">
-            <th scope="row">{{ quiz.id }}</th>
-            <td>{{ quiz.name }}</td>
+        <tr *ngFor="let quiz of quizzes; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ quiz.title }}</td>
             <td>{{ quiz.code }}</td>
             <td>
                 <button class="rounded-button-elipsis" (click)="openVerticallyCentered(content, quiz.id)"><i class="far fa-ellipsis-v"></i></button>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Quiz, Quizzes } from '../../interfaces';
+import { QuizInterface, QuizzesExample } from '../../interfaces';
 
 @Component({
   selector: 'app-questions',
@@ -12,12 +12,12 @@ export class QuestionsComponent implements OnInit {
   /*
   ** ARRAY FROM PARENT COMPONENT
   */
-  @Input() Questions: Quiz[] = [];
+  @Input() Questions: QuizInterface[] = [];
 
   public page = 1;
   public pageSize = 5;
   public collectionSize!: number;
-  public quizzes!: Quiz[];
+  public quizzes!: QuizInterface[];
 
   constructor(private modalSvc: NgbModal) { }
 

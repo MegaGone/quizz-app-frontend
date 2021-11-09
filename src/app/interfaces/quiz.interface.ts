@@ -629,7 +629,7 @@ export const QuizzesExample: QuizInterface[] = [
     },
     {
         "id": "aaaaaaaaaa8",
-        "title": "Quiz VII",
+        "title": "Quiz VIII",
         "description": "Description VIII",
         "questions": [
             {
