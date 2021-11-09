@@ -1,5 +1,5 @@
 export interface ParticipantInterface {
-    userId?:            string,
+    userId?:        string | any,
     name:           string,
     joinIn:         string,
     correctAnswers: number

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 
 import { ToastrService } from 'ngx-toastr';
-import { QuizzesExample, QuizInterface } from '../../interfaces';
+import { QuizzesExample, QuizInterface, QuizzExample } from '../../interfaces';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -11,6 +11,8 @@ import { QuizzesExample, QuizInterface } from '../../interfaces';
 export class FormComponent implements OnInit {
 
   public participants!: Array<QuizInterface>;
+
+  public quiz!: QuizInterface;
 
   /*
   ** FORM
@@ -23,6 +25,8 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.quiz = QuizzExample;
+    console.info(this.quiz)
     this.initForm();
     this.participants = QuizzesExample;
   }
@@ -30,9 +34,9 @@ export class FormComponent implements OnInit {
   // TODO: Check if the minlength validation is equal like backend and Validate the whitespaces and check the disabled on code html/ts
   initForm() {
     this.quizForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      code: [{ value: 'ABCDEF', disabled: true }],
-      description: ['', [Validators.required, Validators.minLength(10)]],
+      title: [this.quiz.title, [Validators.required, Validators.minLength(5)]],
+      code: [{ value: this.quiz.code, disabled: true }],
+      description: [this.quiz.description, [Validators.required, Validators.minLength(10)]],
       questions: this.fb.array([]),
       participants: this.fb.array([])
     })
@@ -41,7 +45,7 @@ export class FormComponent implements OnInit {
   createQuiz() {
 
     if (this.quizForm.valid) {
-      console.log("OK");
+      console.log(this.quizForm.value);
     }
 
   }

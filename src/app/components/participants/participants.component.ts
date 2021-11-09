@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { QuizInterface } from '../../interfaces';
+import { ParticipantInterface } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,7 +14,7 @@ export class ParticipantsComponent implements OnInit {
   /*
   ** ARRAY FROM PARENT COMPONENT
   */
-  @Input() list: QuizInterface[] = [];  
+  @Input() list: ParticipantInterface[] = [];  
 
   /*
   ** PAGINATION
@@ -22,7 +22,7 @@ export class ParticipantsComponent implements OnInit {
   public page = 1;
   public pageSize = 5;
   public collectionSize !: number;
-  public quizzes!: QuizInterface[];
+  public quizzes!: ParticipantInterface[];
 
   /*
   ** MODAL

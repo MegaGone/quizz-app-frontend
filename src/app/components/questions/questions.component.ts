@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { QuizInterface, QuizzesExample } from '../../interfaces';
+import { QuestionInterface, QuizInterface } from '../../interfaces';
 
 @Component({
   selector: 'app-questions',
@@ -12,12 +12,12 @@ export class QuestionsComponent implements OnInit {
   /*
   ** ARRAY FROM PARENT COMPONENT
   */
-  @Input() Questions: QuizInterface[] = [];
+  @Input() Questions: QuestionInterface[] = [];
 
   public page = 1;
   public pageSize = 5;
   public collectionSize!: number;
-  public quizzes!: QuizInterface[];
+  public quizzes!: QuestionInterface[];
 
   constructor(private modalSvc: NgbModal) { }
 
@@ -28,11 +28,15 @@ export class QuestionsComponent implements OnInit {
   refreshQuizzes() {
     this.collectionSize = this.Questions.length;
     this.quizzes = this.Questions
-    .map((quiz, i) => ({id: i + 1, ...quiz }))
-    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      .map((quiz, i) => ({ id: i + 1, ...quiz }))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  openVerticallyCentered(content: any) {
+  openVerticallyCentered(content: any,) {
     this.modalSvc.open(content, { centered: true });
+  }
+
+  deleteQuestion(id: string | number | undefined) {
+    console.log(id);
   }
 }
