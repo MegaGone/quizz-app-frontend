@@ -21,7 +21,22 @@
   width: 31px;
   height: 31px;
   background: #d3d3d3;
-  color: #ffffff;
+  color: red;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.rounded-button-edit {
+  width: 31px;
+  height: 31px;
+  background: #d3d3d3;
+  color: #579af1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -33,5 +48,5 @@
 }
 
 .rounded-button:hover {
-  background: #a3a3a3;
+  background: #b43434;
 }

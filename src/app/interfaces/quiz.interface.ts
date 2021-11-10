@@ -923,6 +923,10 @@ export const QuizzExample: QuizInterface = {
                 {
                     "isCorrect": true,
                     "title": "Res 2"
+                },
+                {
+                    "isCorrect": true,
+                    "title": "Res 3"
                 }
             ]
         },
