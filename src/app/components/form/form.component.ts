@@ -37,8 +37,8 @@ export class FormComponent implements OnInit {
       title: [this.quiz.title, [Validators.required, Validators.minLength(5)]],
       code: [{ value: this.quiz.code, disabled: true }],
       description: [this.quiz.description, [Validators.required, Validators.minLength(10)]],
-      questions: this.fb.array([]),
-      participants: this.fb.array([])
+      questions: [this.fb.array([]), [Validators.required]],
+      participants: [this.fb.array([]), [Validators.required]]
     })
   }
 

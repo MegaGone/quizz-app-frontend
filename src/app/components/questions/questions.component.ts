@@ -3,6 +3,29 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface, QuizInterface } from '../../interfaces';
 
+// TODO: Just for sample
+const questionSample: QuestionInterface = {
+  title: "Question",
+  answers: [
+    {
+      title: 'Answer1',
+      isCorrect: false
+    },
+    {
+      title: 'Answer2',
+      isCorrect: false
+    },
+    {
+      title: 'Answer13',
+      isCorrect: false
+    },
+    {
+      title: 'Answer4',
+      isCorrect: true
+    }
+  ]
+}
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -21,6 +44,11 @@ export class QuestionsComponent implements OnInit {
   public questionForm!: FormGroup;
 
   /*
+  ** Sample
+  */
+  public sampleQuestion: QuestionInterface = questionSample;
+
+  /*
   ** Pagination
   */
   public page = 1;
@@ -31,10 +59,10 @@ export class QuestionsComponent implements OnInit {
   constructor(private modalSvc: NgbModal, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.refreshQuizzes();
+    this.refreshQuestions();
   }
 
-  refreshQuizzes() {
+  refreshQuestions() {
     this.collectionSize = this.Questions.length;
     this.quizzes = this.Questions
       .map((quiz, i) => ({ id: i + 1, ...quiz }))
@@ -44,8 +72,10 @@ export class QuestionsComponent implements OnInit {
   openVerticallyCentered(content: any, quiz?: QuestionInterface) {
     this.modalSvc.open(content, { centered: true });
     
+    this.initializeComponent();
+
     if(quiz){
-      console.log(quiz);
+      this.setForm(quiz);
     }
 
   }
@@ -54,6 +84,7 @@ export class QuestionsComponent implements OnInit {
     console.log(id);
   }
 
+  // TODO: Get the answers from the question
   initializeComponent() {
     this.questionForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
@@ -72,5 +103,19 @@ export class QuestionsComponent implements OnInit {
 
   deleteAnswer(i: number) {
     this.answers.removeAt(i);
+  }
+
+  setForm (question: QuestionInterface){ 
+       
+    const data: QuestionInterface = {
+      "title": question.title,
+      "answers": question.answers
+    }
+    
+    this.questionForm.patchValue({
+      title: data.title,
+      answers: data.answers
+    })
+    
   }
 }
