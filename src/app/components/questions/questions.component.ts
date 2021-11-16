@@ -47,7 +47,6 @@ export class QuestionsComponent implements OnInit {
   /*
   ** Sample
   */
-  public sampleQuestion: QuestionInterface = questionSample;
 
   /*
   ** Pagination
@@ -70,24 +69,12 @@ export class QuestionsComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-<<<<<<< HEAD
   openVerticallyCentered(content: any, question?: QuestionInterface) {
     this.modalSvc.open(content, { centered: true });
 
     if(question) {
       console.log(question);
     }
-=======
-  openVerticallyCentered(content: any, quiz?: QuestionInterface) {
-    this.modalSvc.open(content, { centered: true });
-    
-    this.initializeComponent();
-
-    if(quiz){
-      this.setForm(quiz);
-    }
-
->>>>>>> 3575b0c6777cf100ab020ef853091f1030d453d2
   }
 
   deleteQuestion(id: string | number | undefined) {
