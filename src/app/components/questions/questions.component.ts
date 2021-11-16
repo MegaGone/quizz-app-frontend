@@ -2,12 +2,36 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface, QuizInterface } from '../../interfaces';
 
+const QuestionSample: QuestionInterface = {
+  title: "Question",
+  answers: [
+    {
+      title: "Cambiar",
+      isCorrect: false
+    },
+    {
+      title: "Cambiar 2",
+      isCorrect: false
+    },
+    {
+      title: "Cambiar 3",
+      isCorrect: true
+    },
+    {
+      title: "Cambiar 4",
+      isCorrect: false
+    }
+  ]
+}
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
+
+  public temporal = QuestionSample;
 
   /*
   ** ARRAY FROM PARENT COMPONENT
@@ -32,8 +56,12 @@ export class QuestionsComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  openVerticallyCentered(content: any,) {
+  openVerticallyCentered(content: any, question?: QuestionInterface) {
     this.modalSvc.open(content, { centered: true });
+
+    if(question) {
+      console.log(question);
+    }
   }
 
   deleteQuestion(id: string | number | undefined) {
