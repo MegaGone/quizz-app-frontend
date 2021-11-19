@@ -100,13 +100,13 @@ select::-ms-expand {
 .select {
   position: relative;
   display: flex;
-  width: 20em;
+  width: 20.5em;
   height: 3em;
   line-height: 3;
   background: #ff0000;
   overflow: hidden;
   border-radius: .25em;
-  box-shadow: 0 15px 35px rgb(50 50 93 / 20%), 0 5px 15px rgb(0 0 0 / 17%);
+  box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);;
 }
 .select::after {
   content: '\25BC';
