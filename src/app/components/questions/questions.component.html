@@ -40,7 +40,7 @@
 <!-- New Question Modal -->
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Create Quiz</h4>
+        <h4 class="modal-title">Create Question</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -69,7 +69,7 @@
 
             <div class="row text-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-default">Add Answer</button>
+                    <button type="button" class="btn btn-default" (click)="answerModel(answerContent)">Add Answer</button>
                 </div>
             </div>
 
@@ -95,4 +95,48 @@
     <div class="modal-footer">
         <button type="submit" class="btn btn-default" (click)="modal.close('Close click')">Save</button>
     </div>
+</ng-template>
+
+<!-- New Answer modal -->
+<ng-template #answerContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">New Answer</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-4">
+                            <input class="form-control" placeholder="Answer Name" type="text">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="select">
+                        <select name="format" id="format">
+                           <option selected disabled>Answer value</option>
+                           <option value="false">False</option>
+                           <option value="true">True</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default" (click)="modal.close('Close click')">Create Answer</button>
+    </div>
+
+
 </ng-template>

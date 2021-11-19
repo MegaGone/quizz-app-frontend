@@ -77,6 +77,13 @@ export class QuestionsComponent implements OnInit {
     }
   }
 
+  /*
+  ** Open Answer Modal Form
+  */
+  answerModel(content: any) {
+    this.modalSvc.open(content, {centered: true, size: "sm"})
+  }
+
   deleteQuestion(id: string | number | undefined) {
     console.log(id);
   }
