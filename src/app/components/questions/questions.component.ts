@@ -99,7 +99,8 @@ export class QuestionsComponent implements OnInit {
   }
 
   deleteAnswer(i: number) {
-    this.answers.removeAt(i);
+    // this.answers.removeAt(i);
+    console.log(this.temporal.answers.length);
   }
 
   setForm (question: QuestionInterface){ 

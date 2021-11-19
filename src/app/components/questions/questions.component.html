@@ -60,6 +60,13 @@
                 </div>
             </div>
 
+            <!-- Validated -->
+            <!-- <div class="row text-center" *ngIf="temporal.answers.length < 4">
+                <div class="col-12">
+                    <button type="button" class="btn btn-default">Add Answer</button>
+                </div>
+            </div> -->
+
             <div class="row text-center">
                 <div class="col-12">
                     <button type="button" class="btn btn-default">Add Answer</button>
@@ -67,17 +74,18 @@
             </div>
 
             <!-- Answers -->
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="container">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary mt-2 w-45" *ngFor="let answer of temporal.answers; let i = index;">
+            <div class="row mt-3 justify-content-around">
+                <div class="card option col-xs-5 bg-primary mt-1" *ngFor="let answer of temporal.answers; let i = index;">
+                    <button type="button" class="btn btn-primary">
+                        <div class="row">
+                            <div class="col-9 text-center">
                                 <span>{{ answer.title }}</span>
-                                <span class="badge badge-white"><i class="fad fa-trash"></i></span>
-                                <p>{{ answer.isCorrect }}</p>
-                            </button>
+                            </div>
+                            <div class="col-3 text-center">
+                                <button class="myButton" type="button" (click)="deleteAnswer(i)"><i class="fad fa-trash"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </button>
                 </div>
             </div>
 
