@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { QuestionInterface, QuizInterface } from '../../interfaces';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuestionInterface, QuizInterface, AnswerInterface } from '../../interfaces';
 
 const QuestionSample: QuestionInterface = {
   title: "Question",
@@ -40,13 +40,15 @@ export class QuestionsComponent implements OnInit {
   @Input() Questions: QuestionInterface[] = [];
 
   /*
-  ** Form
+  ** Forms
   */
   public questionForm!: FormGroup;
+  public answerForm!:   FormGroup;
 
   /*
-  ** Sample
+  ** Modals
   */
+  public closeResult!: string;
 
   /*
   ** Pagination
@@ -80,8 +82,11 @@ export class QuestionsComponent implements OnInit {
   /*
   ** Open Answer Modal Form
   */
-  answerModel(content: any) {
+  answerModal(content: any) {
     this.modalSvc.open(content, {centered: true, size: "sm"})
+    
+    // Initialize the answer form
+    this.initAnswerForm();
   }
 
   deleteQuestion(id: string | number | undefined) {
@@ -89,25 +94,15 @@ export class QuestionsComponent implements OnInit {
   }
 
   // TODO: Get the answers from the question
-  initializeComponent() {
+  initQuestionForm() {
     this.questionForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       answers: this.fb.array([])
     })
   }
 
-  // Get the answers array
-  get answers() {
-    return this.questionForm.get('answers') as FormArray;
-  }
-
   addQuestion() {
     this.answers.push(this.fb.control('', Validators.required))
-  }
-
-  deleteAnswer(i: number) {
-    // this.answers.removeAt(i);
-    console.log(this.temporal.answers.length);
   }
 
   setForm (question: QuestionInterface){ 
@@ -117,10 +112,54 @@ export class QuestionsComponent implements OnInit {
       "answers": question.answers
     }
     
-    this.questionForm.patchValue({
-      title: data.title,
-      answers: data.answers
-    })
+    // this.questionForm.patchValue({
+    //   title: data.title,
+    //   answers: data.answers
+    // })
     
+  }
+
+
+  /**
+   * Answers methods 
+  **/
+  initAnswerForm() {
+    this.answerForm = this.fb.group({
+      title:      ['', Validators.required],
+      isCorrect:  [false]
+    })
+  }
+
+  createAnswer() {
+
+    if(this.answerForm.invalid) {
+      return console.log('Invalid');
+    } 
+
+    // TODO: Close the modal answer
+    console.log(this.answerForm.value);
+  }
+
+  deleteAnswer(i: number) {
+    // this.answers.removeAt(i);
+    console.log(this.temporal.answers.length);
+  }
+
+  // Get the answers array
+  get answers() {
+    return this.questionForm.get('answers') as FormArray;
+  }
+
+  /**
+   * Modals methods 
+  **/
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }
