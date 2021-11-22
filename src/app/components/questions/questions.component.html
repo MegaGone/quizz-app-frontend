@@ -110,12 +110,21 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'has-danger': answerTitleValid, 'animate__animated animate__fadeIn': answerTitleValid}">
                         <div class="input-group input-group-alternative mb-4">
-                            <input class="form-control" placeholder="Answer Name" type="text" formControlName="title">
+                            <input class="form-control" 
+                            placeholder="Answer Name" 
+                            type="text" 
+                            formControlName="title">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                             </div>
+                        </div>
+
+                        <div *ngIf="fAnswer.title.touched && fAnswer.title.invalid">
+                            <div *ngIf="fAnswer.title.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
+                            <div *ngIf="fAnswer.title.errors?.minlength && !fAnswer.title.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Answers name's must be at least 5 characters</small></div>
+                            <div *ngIf="fAnswer.title.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Answer name's must not contains spaces.</small></div>
                         </div>
                     </div>
                 </div>

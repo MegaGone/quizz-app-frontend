@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface, QuizInterface, AnswerInterface } from '../../interfaces';
 
 const QuestionSample: QuestionInterface = {
@@ -48,7 +48,8 @@ export class QuestionsComponent implements OnInit {
   /*
   ** Modals
   */
-  public closeResult!: string;
+  public answerClose!: NgbModalRef;
+  public questionClose!: NgbModalRef;
 
   /*
   ** Pagination
@@ -83,7 +84,7 @@ export class QuestionsComponent implements OnInit {
   ** Open Answer Modal Form
   */
   answerModal(content: any) {
-    this.modalSvc.open(content, {centered: true, size: "sm"})
+    this.answerClose = this.modalSvc.open(content, {centered: true, size: "sm"})
     
     // Initialize the answer form
     this.initAnswerForm();
@@ -96,8 +97,8 @@ export class QuestionsComponent implements OnInit {
   // TODO: Get the answers from the question
   initQuestionForm() {
     this.questionForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      answers: this.fb.array([])
+      title:    ['', [Validators.required, Validators.minLength(5)]],
+      answers:  this.fb.array([])
     })
   }
 
@@ -125,7 +126,7 @@ export class QuestionsComponent implements OnInit {
   **/
   initAnswerForm() {
     this.answerForm = this.fb.group({
-      title:      ['', Validators.required],
+      title:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
       isCorrect:  [false]
     })
   }
@@ -133,11 +134,14 @@ export class QuestionsComponent implements OnInit {
   createAnswer() {
 
     if(this.answerForm.invalid) {
-      return console.log('Invalid');
+      return Object.values(this.answerForm.controls).forEach(control => {
+        control.markAsTouched();
+      })
     } 
 
     // TODO: Close the modal answer
     console.log(this.answerForm.value);
+    this.answerClose.close();
   }
 
   deleteAnswer(i: number) {
@@ -161,5 +165,17 @@ export class QuestionsComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  /** 
+   *  Getters to input validations 
+  **/
+
+  get answerTitleValid() {
+    return this.answerForm.get('title')?.touched && this.answerForm.get('title')?.invalid;
+  }
+
+  get fAnswer() {
+    return this.answerForm.controls;
   }
 }
