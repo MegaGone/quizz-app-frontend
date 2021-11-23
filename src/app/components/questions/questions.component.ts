@@ -102,10 +102,6 @@ export class QuestionsComponent implements OnInit {
     })
   }
 
-  addQuestion() {
-    this.answers.push(this.fb.control('', Validators.required))
-  }
-
   setForm (question: QuestionInterface){ 
        
     const data: QuestionInterface = {
@@ -139,7 +135,6 @@ export class QuestionsComponent implements OnInit {
       })
     } 
 
-    // TODO: Close the modal answer
     console.log(this.answerForm.value);
     this.answerClose.close();
   }
@@ -152,19 +147,6 @@ export class QuestionsComponent implements OnInit {
   // Get the answers array
   get answers() {
     return this.questionForm.get('answers') as FormArray;
-  }
-
-  /**
-   * Modals methods 
-  **/
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
   }
 
   /** 
