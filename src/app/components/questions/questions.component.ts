@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface, QuizInterface, AnswerInterface } from '../../interfaces';
 
@@ -63,6 +63,7 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshQuestions();
+    this.initQuestionForm();
   }
 
   refreshQuestions() {
@@ -135,7 +136,19 @@ export class QuestionsComponent implements OnInit {
       })
     } 
 
-    console.log(this.answerForm.value);
+    // console.log(this.answerForm.value);
+
+    const { title: tempTitle, isCorrect: tempCorrect } = this.answerForm.value; 
+
+    const tempAnswer = new FormGroup({
+      title: new FormControl(tempTitle),
+      isCorrect: new FormControl(tempCorrect || false)
+    })
+
+    this.answers.push(tempAnswer);
+
+    console.log(this.answers.value);
+
     this.answerClose.close();
   }
 
