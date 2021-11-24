@@ -1,0 +1,40 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answers</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let question of quizzes; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ question.title }}</td>
+            <td>
+                <!-- <button class="rounded-button-edit" type="button" (click)="openVerticallyCentered(content, question)"><i class="fad fa-edit"></i></button> -->
+                <button class="rounded-button-edit" type="button"><i class="fad fa-edit"></i></button>
+            </td>
+            <td>
+                <button class="rounded-button-elipsis" type="button" (click)="deleteQuestion(question.id)"><i class="fad fa-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-1">
+        <div class="float-left">
+            <!-- <button class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i class="fad fa-plus"></i></button> -->
+            <button class="rounded-button mt-1"><i class="fad fa-plus"></i></button>
+        </div>
+    </div>
+    <div class="col-11">
+        <div class="float-right">
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                    (pageChange)="refreshQuestions()">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

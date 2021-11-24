@@ -11,6 +11,7 @@ import { FormComponent } from './form/form.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { QuizlistComponent } from './quizlist/quizlist.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { QuizlistComponent } from './quizlist/quizlist.component';
     QuestionsComponent,
     ParticipantsComponent,
     QuizlistComponent,
+    QuestionComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { QuizlistComponent } from './quizlist/quizlist.component';
     NavbarComponent,
     FormComponent,
     QuestionsComponent,
-    QuizlistComponent
+    QuizlistComponent,
+    QuestionComponent
   ]
 })
 export class ComponentsModule { }
