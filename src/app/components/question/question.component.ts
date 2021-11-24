@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface } from 'src/app/interfaces';
 
 @Component({
@@ -27,6 +27,12 @@ export class QuestionComponent implements OnInit {
    *  FORMS 
   **/
   public formParent!: FormGroup;
+
+  /**
+   *  MODALS 
+  **/
+  public questionClose!:  NgbModalRef;
+  public answerClose!:    NgbModalRef;
 
   constructor(private modalSvc: NgbModal) { }
 
@@ -81,4 +87,20 @@ export class QuestionComponent implements OnInit {
   getCtrl(key: string, form: FormGroup) {
     return form.get(key);
   }
+
+  /**
+   *  MODALS METHODS
+  **/
+  openVerticallyCentered(content: any, question?: QuestionInterface) {
+    this.modalSvc.open(content, { centered: true });
+
+    if(question) {
+      console.log(question);
+    }
+  }
+
+  answerModal(content: any) {
+    this.answerClose = this.modalSvc.open(content, {centered: true, size: "sm"});
+  }
+
 }
