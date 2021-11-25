@@ -46,9 +46,13 @@
         </button>
     </div>
     <div class="modal-body">
+        
+        <!-- FORM PARENT -->
         <form>
             <div class="row">
                 <div class="col-12">
+
+                    <!-- Question Name -->
                     <div class="form-group">
                         <div class="input-group input-group-alternative mb-4">
                             <input class="form-control" placeholder="Question name" type="text">
@@ -57,6 +61,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /Question Name -->
+
                 </div>
             </div>
 
@@ -79,21 +85,38 @@
                 <div class="card option col-xs-5 bg-primary mt-1">
                     <button type="button" class="btn btn-primary">
                         <div class="row">
-                            <div class="col-9 text-center">
-                                <span>HOLA</span>
+                            <div class="col-12 text-center">
+
+                                <!-- Answer Name -->
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-alternative text-center" placeholder="Si">
+                                </div>
+
                             </div>
-                            <div class="col-3 text-center">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+
+                                <!-- Answer Status -->
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-alternative text-center" placeholder="true">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-12">
+                                
                                 <!-- <button class="myButton" type="button" (click)="deleteAnswer(i)"><i class="fad fa-trash"></i></button> -->
                                 <button class="myButton" type="button"><i class="fad fa-trash"></i></button>
-
                             </div>
                         </div>
                     </button>
                 </div>
             </div>
-
-
         </form>
+        <!-- FORM PARENT -->
+
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-default" (click)="modal.close('Close click')">Save</button>
