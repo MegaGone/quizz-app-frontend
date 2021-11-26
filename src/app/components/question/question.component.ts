@@ -81,11 +81,14 @@ export class QuestionComponent implements OnInit {
   // Agregar respuesta
   addAnswer(): void {
     const refAnswers = this.formParent.get('answers') as FormArray;
-    refAnswers.push(this.initFormAnswer())
+    refAnswers.push(this.initFormAnswer());
+
+    console.log(this.formParent.value);
   }
 
-  getCtrl(key: string, form: FormGroup) {
-    return form.get(key);
+  // Get Answers to HTML
+  getControls() {
+    return (this.formParent.get('answers') as FormArray).controls;
   }
 
   /**
