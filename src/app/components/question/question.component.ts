@@ -11,7 +11,7 @@ import { QuestionInterface } from 'src/app/interfaces';
 export class QuestionComponent implements OnInit {
 
   /*
-  ** ARRAY FROM PARENT COMPONENT
+  **  ARRAY FROM PARENT COMPONENT
   */
   @Input() Questions: QuestionInterface[] = [];
 
@@ -55,7 +55,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form padre
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title:    new FormControl('', [Validators.required]),
+      title:    new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]),
       answers:  new FormArray([], [Validators.required])
     })
   }  
@@ -73,7 +73,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form hijo
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('', [Validators.required]),
+      title:      new FormControl('PRUEBA', [Validators.required, Validators.minLength(4), Validators.pattern("^[a-zA-Z0-9_]*$")]),
       isCorrect:  new FormControl(false, [Validators.required])
     })
   }
@@ -106,4 +106,15 @@ export class QuestionComponent implements OnInit {
     this.answerClose = this.modalSvc.open(content, {centered: true, size: "sm"});
   }
 
+  /**
+   *  GETTERS TO VALIDATE
+  **/
+
+  get questionTitleValidation() {
+    return this.formParent.get('title')?.touched && this.formParent.get('title')?.invalid;
+  }
+
+  get pForm() {
+    return this.formParent.controls;
+  }
 }
