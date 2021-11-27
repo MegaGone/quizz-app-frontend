@@ -91,6 +91,10 @@ export class QuestionComponent implements OnInit {
     return (this.formParent.get('answers') as FormArray).controls;
   }
 
+  deleteAnswer(i: number) {
+    this.getControls().splice(i, 1);
+  }
+
   /**
    *  MODALS METHODS
   **/
