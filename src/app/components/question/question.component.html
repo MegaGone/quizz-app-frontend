@@ -53,7 +53,7 @@
                 <div class="col-12">
 
                     <!-- Question Name -->
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'has-danger': questionTitleValidation, 'animate__animated animate__fadeIn': questionTitleValidation}">
                         <div class="input-group input-group-alternative mb-4">
                             <input 
                             class="form-control" 
@@ -77,7 +77,7 @@
 
             <div class="row text-center" *ngIf="getControls().length < 4">
                 <div class="col-12">
-                    <button type="button" class="btn btn-default" (click)="addAnswer()" [disabled]="initFormAnswer().invalid">Add Answer</button>
+                    <button type="button" class="btn btn-default" (click)="addAnswer()">Add Answer</button>
                 </div>
             </div>
 
@@ -97,6 +97,10 @@
                                     class="form-control form-control-alternative text-center" 
                                     placeholder="Si"
                                     formControlName="title">
+
+                                    <div *ngIf="getKey(formChild,'title').errors?.required"><small class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
+                                    <div *ngIf="getKey(formChild, 'title').errors?.minlength && !getKey(formChild, 'title').errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4 characters.</small></div>
+                                    <div *ngIf="getKey(formChild, 'title').errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Spaces not supported, please enter a valid name.</small></div>
                                 </div>
 
                             </div>

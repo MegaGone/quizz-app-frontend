@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface } from 'src/app/interfaces';
 
@@ -121,4 +121,27 @@ export class QuestionComponent implements OnInit {
   get pForm() {
     return this.formParent.controls;
   }
+
+  patternKey(index: number, key: string) {
+    const refParent = this.formParent.get('answers') as FormArray;
+    const refSingle = refParent.at(index).get(key) as FormControl;
+
+    return refSingle.errors?.pattern && refParent.invalid;
+  }
+
+  getKey(index: number, key: string) {
+    const refParent = this.formParent.get('answers') as FormArray;
+    const refSingle = refParent.at(index).get(key) as FormControl;
+
+    return refSingle;
+  }
+
+  getValidation(index: number, key: string) {
+    const refParent = this.formParent.get('answers') as FormArray;
+    const refSingle = refParent.at(index).get(key) as FormGroup;
+
+    return refSingle.invalid;
+  }
+
+  // TODO: Validate if the formChildren its valid, if its invalid, addAnswer Button disabled
 }
