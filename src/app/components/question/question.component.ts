@@ -32,7 +32,6 @@ export class QuestionComponent implements OnInit {
    *  MODALS 
   **/
   public questionClose!:  NgbModalRef;
-  public answerClose!:    NgbModalRef;
 
   constructor(private modalSvc: NgbModal) { }
 
@@ -65,6 +64,17 @@ export class QuestionComponent implements OnInit {
     console.log(id);
   }
 
+  createQuestion() {
+    if(this.formParent.invalid) {
+      return Object.values(this.formParent.controls).forEach(control => {
+        control.markAsTouched();
+      })  
+    }
+
+    this.questionClose.close();
+
+    console.log(this.formParent.value);
+  }
 
   /**
    *  ANSWERS METHODS
@@ -73,7 +83,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form hijo
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('PRUEBA', [Validators.required, Validators.minLength(4), Validators.pattern("^[a-zA-Z0-9_]*$")]),
+      title:      new FormControl('', [Validators.required, Validators.minLength(4), Validators.pattern("^[a-zA-Z0-9_]*$")]),
       isCorrect:  new FormControl(false, [Validators.required])
     })
   }
@@ -99,15 +109,11 @@ export class QuestionComponent implements OnInit {
    *  MODALS METHODS
   **/
   openVerticallyCentered(content: any, question?: QuestionInterface) {
-    this.modalSvc.open(content, { centered: true });
+    this.questionClose = this.modalSvc.open(content, { centered: true });
 
     if(question) {
       console.log(question);
     }
-  }
-
-  answerModal(content: any) {
-    this.answerClose = this.modalSvc.open(content, {centered: true, size: "sm"});
   }
 
   /**
