@@ -59,8 +59,7 @@
                             class="form-control" 
                             placeholder="Question name" 
                             type="text"
-                            formControlName="title"
-                            (keydown)="startSpace($event)">
+                            formControlName="title">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                             </div>
@@ -71,6 +70,8 @@
                         <div *ngIf="pForm.title.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Question name's required.</small></div>
                         <!-- <div *ngIf="pForm.title.errors?.minlength && !pForm.title.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Question name's must be at least 5 characters.</small></div> -->
                         <div *ngIf="pForm.title.hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
+                        <div *ngIf="pForm.title.hasError('start')"><small class="text-danger animate__animated animate__fadeIn">Start</small></div>
+                        <div *ngIf="pForm.title.hasError('end')"><small class="text-danger animate__animated animate__fadeIn">Last</small></div>
                     </div>
 
                 </div>

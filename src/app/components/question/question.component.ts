@@ -55,7 +55,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form padre
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace]),
+      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.startSpace, SpacesValidator.lastSpace]),
       answers:  new FormArray([], [Validators.required])
     })
   }  
