@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionInterface } from 'src/app/interfaces';
+import { SpacesValidator } from '../../utils/whitespaces.validation';
 
 @Component({
   selector: 'app-question',
@@ -54,7 +55,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form padre
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title:    new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]),
+      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace]),
       answers:  new FormArray([], [Validators.required])
     })
   }  
@@ -150,4 +151,9 @@ export class QuestionComponent implements OnInit {
   }
 
   // TODO: Validate if the formChildren its valid, if its invalid, addAnswer Button disabled
+  startSpace(event: any) {
+    if(event.target.selectionStart === 0 && event.code === "Space") {
+      event.preventDefault();
+    }
+  }
 }
