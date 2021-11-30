@@ -55,7 +55,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form padre
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.startSpace, SpacesValidator.lastSpace]),
+      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
       answers:  new FormArray([], [Validators.required])
     })
   }  
@@ -84,7 +84,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form hijo
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('', [Validators.required, Validators.minLength(4), Validators.pattern("^[a-zA-Z0-9_]*$")]),
+      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace]),
       isCorrect:  new FormControl(false, [Validators.required])
     })
   }

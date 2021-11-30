@@ -36,4 +36,21 @@ export class SpacesValidator {
 
         return null;
     }
+
+    static spaces(control: AbstractControl): { [key: string]: boolean } | null {
+
+        const value = control.value;
+
+        const splited = value.split("");
+
+        if (splited[0] === " " || undefined || null) {
+            return { space: true }
+        } 
+        
+        else if (splited.at(-1) === " " || undefined || null) {
+            return { space: true }
+        }
+
+        return null;
+    }
 }
