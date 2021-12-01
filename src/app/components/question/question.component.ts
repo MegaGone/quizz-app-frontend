@@ -128,18 +128,4 @@ export class QuestionComponent implements OnInit {
   get pForm() {
     return this.formParent.controls;
   }
-
-  getKey(index: number, key: string) {
-    const refParent = this.formParent.get('answers') as FormArray;
-    const refSingle = refParent.at(index).get(key) as FormControl;
-
-    return refSingle;
-  }
-
-  // TODO: Validate if the formChildren its valid, if its invalid, addAnswer Button disabled
-  startSpace(event: any) {
-    if(event.target.selectionStart === 0 && event.code === "Space") {
-      event.preventDefault();
-    }
-  }
 }
