@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { QuestionInterface } from 'src/app/interfaces';
 import { SpacesValidator } from '../../utils/whitespaces.validation';
 
@@ -34,7 +35,7 @@ export class QuestionComponent implements OnInit {
   **/
   public questionClose!:  NgbModalRef;
 
-  constructor(private modalSvc: NgbModal) { }
+  constructor(private modalSvc: NgbModal, private toastSvc: ToastrService) { }
 
   ngOnInit(): void {
     this.refreshQuestions();
@@ -60,21 +61,32 @@ export class QuestionComponent implements OnInit {
     })
   }  
 
-  // Eliminar pregunta
+  // DeleteQuestion
   deleteQuestion(id?: number | string) {
     console.log(id);
   }
 
-  createQuestion() {
+  async createQuestion() {
     if(this.formParent.invalid) {
       return Object.values(this.formParent.controls).forEach(control => {
         control.markAsTouched();
       })  
     }
 
+    await this.addQuestion(this.formParent.value);
     this.questionClose.close();
+  }
 
-    console.log(this.formParent.value);
+  // ADD QUESTION
+  addQuestion(question: QuestionInterface) {
+
+    this.Questions.push(question);
+
+    this.toastSvc.success('Question Add', 'Successfully', {
+      progressBar: true,
+      timeOut: 1250
+    })
+
   }
 
   /**
@@ -89,7 +101,7 @@ export class QuestionComponent implements OnInit {
     })
   }
 
-  // Agregar respuesta
+  // ADD ANSWER
   addAnswer(): void {
     const refAnswers = this.formParent.get('answers') as FormArray;
     refAnswers.push(this.initFormAnswer());
