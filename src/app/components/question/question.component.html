@@ -94,14 +94,15 @@
                                 <!-- Answer Name -->
                                 <div class="form-group">
                                     <input 
-                                    type="email" 
+                                    type="text"
                                     class="form-control form-control-alternative text-center" 
                                     placeholder="Si"
                                     formControlName="title">
 
-                                    <div *ngIf="getKey(formChild,'title').errors?.required"><small class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
-                                    <div *ngIf="getKey(formChild, 'title').errors?.minlength && !getKey(formChild, 'title').hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4 characters.</small></div>
-                                    <div *ngIf="getKey(formChild, 'title').hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Dob</small></div>
+                                    <div *ngIf="answer.get('title')?.touched && answer.get('title')?.invalid"><small class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
+                                    <div *ngIf="answer.get('title')?.errors?.minlength && !answer.get('title')?.hasError('doubleSpace') && !answer.get('title')?.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4 characters.</small></div>
+                                    <div *ngIf="answer.get('title')?.hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Dob</small></div>
+                                    <div *ngIf="answer.get('title')?.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Space</small></div>
                                 </div>
 
                             </div>
