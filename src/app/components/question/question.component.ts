@@ -62,8 +62,15 @@ export class QuestionComponent implements OnInit {
   }  
 
   // DeleteQuestion
-  deleteQuestion(id?: number | string) {
-    console.log(id);
+  deleteQuestion(index: number, id?: number | string) {
+    this.Questions.splice(index, 1);
+
+    this.toastSvc.success('Question Deleted', 'Successfully', {
+      timeOut: 1250,
+      progressBar: true
+    })
+
+    this.refreshQuestions();
   }
 
   async createQuestion() {

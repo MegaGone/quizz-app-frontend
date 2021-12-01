@@ -899,7 +899,7 @@ export const QuizzExample: QuizInterface = {
     "description": "Description I",
     "questions": [
         {
-            "id": "123",
+            "id": "Question1",
             "title": "Pregunta 1",
             "answers": [
                 {
@@ -913,7 +913,7 @@ export const QuizzExample: QuizInterface = {
             ]
         },
         {
-            "id": "123",
+            "id": "Question2",
             "title": "Pregunta 2",
             "answers": [
                 {
@@ -931,7 +931,7 @@ export const QuizzExample: QuizInterface = {
             ]
         },
         {
-            "id": "123",
+            "id": "Question3",
             "title": "Pregunta 3",
             "answers": [
                 {
@@ -945,7 +945,7 @@ export const QuizzExample: QuizInterface = {
             ]
         },
         {
-            "id": "123",
+            "id": "Question4",
             "title": "Pregunta 4",
             "answers": [
                 {
@@ -959,7 +959,7 @@ export const QuizzExample: QuizInterface = {
             ]
         },
         {
-            "id": "123",
+            "id": "Question5",
             "title": "Pregunta 5",
             "answers": [
                 {
@@ -973,7 +973,7 @@ export const QuizzExample: QuizInterface = {
             ]
         },
         {
-            "id": "123",
+            "id": "Question6",
             "title": "Pregunta 6",
             "answers": [
                 {
