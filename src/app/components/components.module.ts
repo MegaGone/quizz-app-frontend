@@ -8,7 +8,6 @@ import { ToastrModule } from 'ngx-toastr';
 // My components
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
-import { QuestionsComponent } from './questions/questions.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { QuizlistComponent } from './quizlist/quizlist.component';
 import { QuestionComponent } from './question/question.component';
@@ -17,7 +16,6 @@ import { QuestionComponent } from './question/question.component';
   declarations: [
     NavbarComponent,
     FormComponent,
-    QuestionsComponent,
     ParticipantsComponent,
     QuizlistComponent,
     QuestionComponent,
@@ -33,7 +31,6 @@ import { QuestionComponent } from './question/question.component';
   exports: [
     NavbarComponent,
     FormComponent,
-    QuestionsComponent,
     QuizlistComponent,
     QuestionComponent
   ]

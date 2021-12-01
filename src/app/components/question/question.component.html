@@ -110,17 +110,17 @@
                             <div class="col-12">
 
                                 <!-- Answer Status -->
-                                <div class="form-group">
-                                    <input 
-                                    type="email" 
-                                    class="form-control form-control-alternative text-center" 
-                                    placeholder="true"
-                                    formControlName="isCorrect">
+                                <div class="select">
+                                    <select name="format" id="format" formControlName="isCorrect" class="text-center">
+                                       <option selected disabled>Answer value</option>
+                                       <option value="false">False</option>
+                                       <option value="true">True</option>
+                                    </select>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="row text-center">
+                        <div class="row text-center mt-2">
                             <div class="col-12">
                                 <button class="myButton" type="button" (click)="deleteAnswer(formChild)"><i class="fad fa-trash"></i></button>
                             </div>

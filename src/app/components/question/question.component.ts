@@ -84,7 +84,7 @@ export class QuestionComponent implements OnInit {
   // Inicializar el form hijo
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace]),
+      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
       isCorrect:  new FormControl(false, [Validators.required])
     })
   }
@@ -129,25 +129,11 @@ export class QuestionComponent implements OnInit {
     return this.formParent.controls;
   }
 
-  patternKey(index: number, key: string) {
-    const refParent = this.formParent.get('answers') as FormArray;
-    const refSingle = refParent.at(index).get(key) as FormControl;
-
-    return refSingle.errors?.pattern && refParent.invalid;
-  }
-
   getKey(index: number, key: string) {
     const refParent = this.formParent.get('answers') as FormArray;
     const refSingle = refParent.at(index).get(key) as FormControl;
 
     return refSingle;
-  }
-
-  getValidation(index: number, key: string) {
-    const refParent = this.formParent.get('answers') as FormArray;
-    const refSingle = refParent.at(index).get(key) as FormGroup;
-
-    return refSingle.invalid;
   }
 
   // TODO: Validate if the formChildren its valid, if its invalid, addAnswer Button disabled
