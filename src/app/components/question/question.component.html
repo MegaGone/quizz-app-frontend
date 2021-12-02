@@ -1,38 +1,53 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Question</th>
-            <th scope="col">Answers</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let question of quizzes; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ question.title }}</td>
-            <td>
-                <button class="rounded-button-edit" type="button" (click)="openVerticallyCentered(content, question)"><i class="fad fa-edit"></i></button>
-            </td>
-            <td>
-                <button class="rounded-button-elipsis" type="button" (click)="deleteQuestion(i, question.id)"><i class="fad fa-trash"></i></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div class="row">
-    <div class="col-1">
-        <div class="float-left">
-            <button class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i class="fad fa-plus"></i></button>
+<div *ngIf="Questions.length >= 1">
+    <h4 class="text-center">Questions</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Answers</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of quizzes; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ question.title }}</td>
+                <td>
+                    <button class="rounded-button-edit" type="button" (click)="openVerticallyCentered(content, question)"><i class="fad fa-edit"></i></button>
+                </td>
+                <td>
+                    <button class="rounded-button-elipsis" type="button" (click)="deleteQuestion(i, question.id)"><i class="fad fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-1">
+            <div class="float-left">
+                <button class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i class="fad fa-plus"></i></button>
+            </div>
+        </div>
+        <div class="col-11">
+            <div class="float-right">
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                        (pageChange)="refreshQuestions()">
+                    </ngb-pagination>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-11">
-        <div class="float-right">
-            <div class="d-flex justify-content-between p-2">
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-                    (pageChange)="refreshQuestions()">
-                </ngb-pagination>
-            </div>
+</div>
+
+<!-- IF QUESTIONS DONT EXIST -->
+<div *ngIf="Questions.length === 0" class="m-2 animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-12 card p-3 bg-primary">
+            <i class="fad fa-exclamation fa-5x text-white"></i>
+
+            <h2 class="text-white">You dont have questions added.</h2>
+            <button class="btn btn-dark" type="button" (click)="openVerticallyCentered(content)">Create Question</button>
         </div>
     </div>
 </div>
@@ -87,7 +102,7 @@
                 <div class="card option col-xs-5 bg-primary mt-1 text-danger animate__animated animate__fadeIn" *ngFor="let answer of getControls(); index as formChild;">
 
                     <!-- FORMCHILD -->
-                    <button type="button" class="btn btn-primary" [formGroupName]="formChild">
+                    <div class="card bg-primary p-2" [formGroupName]="formChild">
                         <div class="row">
                             <div class="col-12 text-center">
 
@@ -96,7 +111,7 @@
                                     <input 
                                     type="text"
                                     class="form-control form-control-alternative text-center" 
-                                    placeholder="Si"
+                                    placeholder="Answer name"
                                     formControlName="title">
 
                                     <div *ngIf="answer.get('title')?.touched && answer.get('title')?.dirty">
@@ -129,7 +144,8 @@
                                 <button class="myButton" type="button" (click)="deleteAnswer(formChild)"><i class="fad fa-trash"></i></button>
                             </div>
                         </div>
-                    </button>
+                    </div>
+
                     <!-- /FORMCHILD -->
 
                 </div>

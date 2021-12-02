@@ -12,6 +12,8 @@ import { SpacesValidator } from '../../utils/whitespaces.validation';
 })
 export class QuestionComponent implements OnInit {
 
+  // TODO: CLEAR THE FORM WHEN CLICK OUTSIDE OR ITS NEW AND UPLOAD THE QUESTION SELECT.
+
   /*
   **  ARRAY FROM PARENT COMPONENT
   */
@@ -81,6 +83,7 @@ export class QuestionComponent implements OnInit {
     }
 
     await this.addQuestion(this.formParent.value);
+    this.refreshQuestions();
     this.questionClose.close();
   }
 
@@ -112,8 +115,6 @@ export class QuestionComponent implements OnInit {
   addAnswer(): void {
     const refAnswers = this.formParent.get('answers') as FormArray;
     refAnswers.push(this.initFormAnswer());
-
-    console.log(this.formParent.value);
   }
 
   // Get Answers to HTML
