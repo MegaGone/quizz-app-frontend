@@ -12,7 +12,7 @@ import { SpacesValidator } from '../../utils/whitespaces.validation';
 })
 export class QuestionComponent implements OnInit {
 
-  // TODO: CLEAR THE FORM WHEN CLICK OUTSIDE OR ITS NEW AND UPLOAD THE QUESTION SELECT.
+  // TODO: UPLOAD THE QUESTION SELECT.
 
   /*
   **  ARRAY FROM PARENT COMPONENT
@@ -44,6 +44,7 @@ export class QuestionComponent implements OnInit {
     this.initFormParent();
   }
 
+  // REFRESH THE QUESTIONS TO PAGINATE
   refreshQuestions() {
     this.collectionSize = this.Questions.length;
     this.quizzes = this.Questions
@@ -55,7 +56,7 @@ export class QuestionComponent implements OnInit {
    *  QUESTION METHODS 
   **/
 
-  // Inicializar el form padre
+  // INIT FORMPARENT (QUESTIONFORM)
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
@@ -63,7 +64,22 @@ export class QuestionComponent implements OnInit {
     })
   }  
 
-  // DeleteQuestion
+  // CLEAR ALL THE FORM PARENT
+  clearForm() {
+
+    this.formParent.patchValue({
+      title: ''
+    })
+
+    const control = <FormArray>this.formParent.controls['answers'];
+
+    for(let i = control.length-1; i >= 0; i--) {
+      control.removeAt(i)
+    }
+
+  }
+
+  // DELETE QUESTION
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
 
@@ -75,6 +91,7 @@ export class QuestionComponent implements OnInit {
     this.refreshQuestions();
   }
 
+  // CREATE AND PUSH QUESTION
   async createQuestion() {
     if(this.formParent.invalid) {
       return Object.values(this.formParent.controls).forEach(control => {
@@ -85,6 +102,8 @@ export class QuestionComponent implements OnInit {
     await this.addQuestion(this.formParent.value);
     this.refreshQuestions();
     this.questionClose.close();
+    this.clearForm();
+    // this.initFormParent();
   }
 
   // ADD QUESTION
@@ -103,7 +122,7 @@ export class QuestionComponent implements OnInit {
    *  ANSWERS METHODS
   **/
 
-  // Inicializar el form hijo
+  // INIT FORM CHILDREN (ANSWER FORM)
   initFormAnswer(): FormGroup {
     return new FormGroup({
       title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
@@ -117,11 +136,12 @@ export class QuestionComponent implements OnInit {
     refAnswers.push(this.initFormAnswer());
   }
 
-  // Get Answers to HTML
+  // GET ANSWERS TO HTML
   getControls() {
     return (this.formParent.get('answers') as FormArray).controls;
   }
 
+  // DELETE ANSWERS
   deleteAnswer(i: number) {
     this.getControls().splice(i, 1);
   }
@@ -130,6 +150,9 @@ export class QuestionComponent implements OnInit {
    *  MODALS METHODS
   **/
   openVerticallyCentered(content: any, question?: QuestionInterface) {
+
+    this.clearForm();
+
     this.questionClose = this.modalSvc.open(content, { centered: true });
 
     if(question) {
