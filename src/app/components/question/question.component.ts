@@ -146,6 +146,17 @@ export class QuestionComponent implements OnInit {
     this.getControls().splice(i, 1);
   }
 
+  // LOAD ANSWER
+  loadData (Question: QuestionInterface): void {
+
+    for (const _ of Question.answers) {
+      this.addAnswer();
+    }
+
+    this.formParent.patchValue(Question)
+
+  }
+
   /**
    *  MODALS METHODS
   **/
@@ -156,7 +167,7 @@ export class QuestionComponent implements OnInit {
     this.questionClose = this.modalSvc.open(content, { centered: true });
 
     if(question) {
-      console.log(question);
+      this.loadData(question);
     }
   }
 
