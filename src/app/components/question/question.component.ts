@@ -12,8 +12,6 @@ import { SpacesValidator } from '../../utils/whitespaces.validation';
 })
 export class QuestionComponent implements OnInit {
 
-  // TODO: UPLOAD THE QUESTION SELECT.
-
   /*
   **  ARRAY FROM PARENT COMPONENT
   */
