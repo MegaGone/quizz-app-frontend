@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { QuestionInterface } from 'src/app/interfaces';
-import { SpacesValidator } from '../../utils/whitespaces.validation';
+import { SpacesValidator, LengthValidation } from '../../utils';
 
 @Component({
   selector: 'app-question',
@@ -11,6 +11,8 @@ import { SpacesValidator } from '../../utils/whitespaces.validation';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
+
+  // TODO: Validate if the question have just false and validate if the question exist dont push again
 
   /*
   **  ARRAY FROM PARENT COMPONENT
@@ -58,7 +60,7 @@ export class QuestionComponent implements OnInit {
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required])
+      answers:  new FormArray([], [Validators.required, LengthValidation.minLengthArray(2)])
     })
   }  
 
@@ -179,5 +181,9 @@ export class QuestionComponent implements OnInit {
 
   get pForm() {
     return this.formParent.controls;
+  }
+
+  get answers() {
+    return this.formParent.get('answers');
   }
 }
