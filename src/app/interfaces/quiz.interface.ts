@@ -985,6 +985,62 @@ export const QuizzExample: QuizInterface = {
                     "title": "Res 2"
                 }
             ]
+        },
+        {
+            "id": "Question7",
+            "title": "Pregunta 7",
+            "answers": [
+                {
+                    "isCorrect": false,
+                    "title": "Res 1"
+                },
+                {
+                    "isCorrect": true,
+                    "title": "Res 2"
+                }
+            ]
+        },
+        {
+            "id": "Question8",
+            "title": "Pregunta 8",
+            "answers": [
+                {
+                    "isCorrect": false,
+                    "title": "Res 1"
+                },
+                {
+                    "isCorrect": true,
+                    "title": "Res 2"
+                }
+            ]
+        },
+        {
+            "id": "Question9",
+            "title": "Pregunta 9",
+            "answers": [
+                {
+                    "isCorrect": false,
+                    "title": "Res 1"
+                },
+                {
+                    "isCorrect": true,
+                    "title": "Res 2"
+                }
+            ]
+        },
+        {
+            "id": "Question10",
+            "title": "Pregunta 10",
+            "answers": [
+                {
+                    "isCorrect": false,
+                    "title": "Res 1"
+                },
+                {
+                    "isCorrect": true,
+                    "title": "Res 2"
+                }
+            ]
         }
     ],
     "author": "611da32861eecc1f28dfbde3",

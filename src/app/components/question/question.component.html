@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let question of quizzes; let i = index">
+            <tr *ngFor="let question of questions; let i = index">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ question.title }}</td>
                 <td>
@@ -23,7 +23,7 @@
         </tbody>
     </table>
     <div class="row">
-        <div class="col-1">
+        <div class="col-1" *ngIf="Questions.length < 12">
             <div class="float-left">
                 <button class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i class="fad fa-plus"></i></button>
             </div>

@@ -21,9 +21,9 @@ export class QuestionComponent implements OnInit {
   **  PAGINATION
   */
   public page = 1;
-  public pageSize = 5;
+  public pageSize = 4;
   public collectionSize!: number;
-  public quizzes!: QuestionInterface[];
+  public questions!: QuestionInterface[];
 
   /**
    *  FORMS 
@@ -45,7 +45,7 @@ export class QuestionComponent implements OnInit {
   // REFRESH THE QUESTIONS TO PAGINATE
   refreshQuestions() {
     this.collectionSize = this.Questions.length;
-    this.quizzes = this.Questions
+    this.questions = this.Questions
       .map((quiz, i) => ({ id: i + 1, ...quiz }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
