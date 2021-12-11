@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { QuestionInterface } from 'src/app/interfaces';
-import { SpacesValidator, LengthValidation } from '../../utils';
+import { AnswerInterface, QuestionInterface } from 'src/app/interfaces';
+import { SpacesValidator, AnswersValidations } from '../../utils';
 
 @Component({
   selector: 'app-question',
@@ -60,7 +60,7 @@ export class QuestionComponent implements OnInit {
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required, LengthValidation.minLengthArray(2)])
+      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.answersInvalid])
     })
   }  
 
