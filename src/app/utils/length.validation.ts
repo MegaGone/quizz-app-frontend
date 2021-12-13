@@ -19,7 +19,7 @@ export class AnswersValidations {
     const answerFiltered = answers.filter((answer: AnswerInterface) => answer.isCorrect === false);
 
     // Validation with 4, cause 4 answers is the maximum, if the all answers are false.
-    if(answerFiltered.length === 4) {
+    if(answerFiltered.length === answers.length) {
       return { answersFalse: true };
     }
     
