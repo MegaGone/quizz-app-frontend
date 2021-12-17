@@ -93,10 +93,9 @@ export class QuestionComponent implements OnInit {
 
   // CREATE AND PUSH QUESTION
   async createQuestion() {
-    if(this.formParent.invalid) {
-      return Object.values(this.formParent.controls).forEach(control => {
-        control.markAsTouched();
-      })  
+    if(this.answers?.invalid) {
+      console.log('Invalid');
+      return;
     }
 
     await this.addQuestion(this.formParent.value);
