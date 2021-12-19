@@ -106,7 +106,7 @@
     background: #ADB5BD;
     overflow: hidden;
     border-radius: .25em;
-    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
   }
   .select::after {
     content: '\25BC';
@@ -122,6 +122,16 @@
   }
   .select:hover::after {
     color: #565858;
+  }
+
+  .card-shadow {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: .25em;
+    box-shadow: 0 8px 8px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
   }
   
   @media (max-width: 503px) {
