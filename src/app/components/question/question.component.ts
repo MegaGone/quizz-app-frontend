@@ -60,7 +60,7 @@ export class QuestionComponent implements OnInit {
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.answersInvalid])
+      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue])
     })
   }  
 

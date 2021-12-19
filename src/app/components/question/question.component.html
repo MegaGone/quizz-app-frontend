@@ -91,6 +91,7 @@
                     <div *ngIf="answers?.touched && answers?.invalid" class="text-center mb-2">
                         <div *ngIf="answers?.hasError('minLengthArray')"><small class="text-danger animate__animated animate__fadeIn">Question must be at least 2 answers.</small></div>
                         <div *ngIf="answers?.hasError('answersFalse')"><small class="text-danger animate__animated animate__fadeIn">At least one answer must be correct.</small> </div>
+                        <div *ngIf="answers?.hasError('answersTrue')"><small class="text-danger animate__animated animate__fadeIn">At least one answer must be incorrect.</small> </div>
                     </div>
 
                 </div>
