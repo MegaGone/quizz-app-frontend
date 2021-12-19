@@ -91,18 +91,26 @@ export class QuestionComponent implements OnInit {
     this.refreshQuestions();
   }
 
+  getKey(index: number, key: string) {
+    const refParent = this.formParent.get('answers') as FormArray;
+    const refSingle = refParent.at(index).get(key) as FormControl;
+
+    return refSingle;
+  }
+
   // CREATE AND PUSH QUESTION
   async createQuestion() {
-    if(this.answers?.invalid) {
-      console.log('Invalid');
-      return;
+    if(this.formParent.invalid) {
+      return Object.values(this.formParent.controls).forEach(control => {
+        control.markAsTouched();
+      })
     }
 
     await this.addQuestion(this.formParent.value);
     this.refreshQuestions();
     this.questionClose.close();
-    this.clearForm();
-    // this.initFormParent();
+    // this.clearForm();
+    this.initFormParent();
   }
 
   // ADD QUESTION
