@@ -12,7 +12,7 @@ import { SpacesValidator, AnswersValidations } from '../../utils';
 })
 export class QuestionComponent implements OnInit {
 
-  // TODO: Validate if the question have just false and validate if the question exist dont push again
+  // TODO: Validate if the question exist dont push again
 
   /*
   **  ARRAY FROM PARENT COMPONENT
@@ -60,7 +60,7 @@ export class QuestionComponent implements OnInit {
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue])
+      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue, AnswersValidations.NoDuplicateAnswers])
     })
   }  
 
