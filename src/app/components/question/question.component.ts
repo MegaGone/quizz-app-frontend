@@ -117,13 +117,36 @@ export class QuestionComponent implements OnInit {
   // ADD QUESTION
   addQuestion(question: QuestionInterface) {
 
-    this.Questions.push(question);
+    const questionExist = this.validateQuestion(question);
 
-    this.toastSvc.success('Question Add', 'Successfully', {
+    if(!questionExist) {
+
+      this.Questions.push(question);
+
+      this.toastSvc.success('Question Add', 'Successfully', {
+        progressBar: true,
+        timeOut: 1250
+      })
+
+    }
+
+    return this.toastSvc.error('Question already exist', 'Error', {
       progressBar: true,
       timeOut: 1250
     })
 
+  }
+
+  // Validate if question exist
+  validateQuestion(question: QuestionInterface): Boolean {
+
+    // Obtener los title de las questions
+    const questions = this.questions.map(question => question.title);
+
+    // Obtener la question nueva
+    const questionTitle = question.title;
+
+    return questions.indexOf(questionTitle) >- 1;
   }
 
   /**
