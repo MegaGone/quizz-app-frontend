@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AnswerInterface, QuestionInterface } from 'src/app/interfaces';
 import { SpacesValidator, AnswersValidations } from '../../utils';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { ValidationMessageService } from 'src/app/services';
 
 @Component({
   selector: 'app-question',
@@ -36,9 +37,9 @@ export class QuestionComponent implements OnInit {
   /**
    *  MODALS 
   **/
-  public questionClose!:  NgbModalRef;
+  public questionClose!: NgbModalRef;
 
-  constructor(private modalSvc: NgbModal, private toastSvc: ToastrService) { }
+  constructor(private modalSvc: NgbModal, private toastSvc: ToastrService, private messageSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
     this.refreshQuestions();
@@ -60,10 +61,10 @@ export class QuestionComponent implements OnInit {
   // INIT FORMPARENT (QUESTIONFORM)
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue])
+      title: new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
+      answers: new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue])
     })
-  }  
+  }
 
   // CLEAR ALL THE FORM PARENT
   clearForm() {
@@ -74,7 +75,7 @@ export class QuestionComponent implements OnInit {
 
     const control = <FormArray>this.formParent.controls['answers'];
 
-    for(let i = control.length-1; i >= 0; i--) {
+    for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
     }
 
@@ -84,10 +85,7 @@ export class QuestionComponent implements OnInit {
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
 
-    this.toastSvc.success('Question Deleted', 'Successfully', {
-      timeOut: 1250,
-      progressBar: true
-    })
+    this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
 
     this.refreshQuestions();
   }
@@ -101,7 +99,7 @@ export class QuestionComponent implements OnInit {
 
   // CREATE AND PUSH QUESTION
   async createQuestion() {
-    if(this.formParent.invalid) {
+    if (this.formParent.invalid) {
       return Object.values(this.formParent.controls).forEach(control => {
         control.markAsTouched();
       })
@@ -117,21 +115,15 @@ export class QuestionComponent implements OnInit {
   // ADD QUESTION
   async addQuestion(question: QuestionInterface) {
 
-    const questionExist = await this.validateQuestion(question);
+    const questionRepeated = await this.validateQuestion(question);
 
-    if(questionExist) {
-      return this.toastSvc.error('Question already exist', 'Error', {
-        progressBar: true,
-        timeOut: 1250
-      })
-    } 
+    if (questionRepeated) {
+      return this.messageSvc.showMessage('Question already exist', 'Error', false);
+    }
 
     this.Questions.push(question);
 
-    return this.toastSvc.success('Question Add', 'Successfully', {
-      progressBar: true,
-      timeOut: 1250
-    })
+    return this.messageSvc.showMessage('Question Added', 'Successfully', true);
 
   }
 
@@ -144,7 +136,7 @@ export class QuestionComponent implements OnInit {
     // Obtener la question nueva
     const questionTitle = question.title;
 
-    return questions.indexOf(questionTitle) >- 1;
+    return questions.indexOf(questionTitle) > - 1;
   }
 
   /**
@@ -154,8 +146,8 @@ export class QuestionComponent implements OnInit {
   // INIT FORM CHILDREN (ANSWER FORM)
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces, RxwebValidators.unique({ message: 'You must enter a unique answer title.'})]),
-      isCorrect:  new FormControl(false, [Validators.required])
+      title: new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces, RxwebValidators.unique({ message: 'You must enter a unique answer title.' })]),
+      isCorrect: new FormControl(false, [Validators.required])
     })
   }
 
@@ -176,7 +168,7 @@ export class QuestionComponent implements OnInit {
   }
 
   // LOAD ANSWER
-  loadData (Question: QuestionInterface): void {
+  loadData(Question: QuestionInterface): void {
 
     for (const _ of Question.answers) {
       this.addAnswer();
@@ -195,7 +187,7 @@ export class QuestionComponent implements OnInit {
 
     this.questionClose = this.modalSvc.open(content, { centered: true });
 
-    if(question) {
+    if (question) {
       this.loadData(question);
     }
   }

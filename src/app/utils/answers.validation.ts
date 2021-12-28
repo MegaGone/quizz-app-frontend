@@ -40,24 +40,4 @@ export class AnswersValidations {
 
     return null;
   }
-
-  static NoDuplicateAnswers(control: AbstractControl): { [key: string]: boolean } | null { 
-
-    // Obtener las answers
-    // Inicializar otro array
-    // Filtrar si ya existe un answer con el mismo titulo no pusheo - includes
-    // Si los array tienen el mismo length quiere decir que no hay dups
-
-    // Obtengo las answers
-    const answers: AnswerInterface[] = control.value;
-
-    // Inicializo answers temporales
-    const temp: any[] = [];
-
-
-    console.log(temp);
-    
-
-    return null;
-  }
 }
