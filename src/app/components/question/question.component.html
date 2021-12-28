@@ -126,6 +126,7 @@
                                         <div *ngIf="answer.get('title')?.errors?.minlength && !answer.get('title')?.hasError('doubleSpace') && !answer.get('title')?.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4 characters.</small></div>
                                         <div *ngIf="answer.get('title')?.hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
                                         <div *ngIf="answer.get('title')?.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Spaces to start/end not allowed.</small></div>
+                                        <div *ngIf="answer.get('title')?.errors?.unique.message"><small class="text-danger animate__animated animate__fadeIn">{{ answer.get('title')?.errors?.unique.message }}</small></div>
                                     </div>
 
                                 </div>

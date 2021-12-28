@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AnswerInterface, QuestionInterface } from 'src/app/interfaces';
 import { SpacesValidator, AnswersValidations } from '../../utils';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-question',
@@ -60,7 +61,7 @@ export class QuestionComponent implements OnInit {
   initFormParent(): void {
     this.formParent = new FormGroup({
       title:    new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
-      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue, AnswersValidations.NoDuplicateAnswers])
+      answers:  new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue])
     })
   }  
 
@@ -132,7 +133,7 @@ export class QuestionComponent implements OnInit {
   // INIT FORM CHILDREN (ANSWER FORM)
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
+      title:      new FormControl('', [Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces, RxwebValidators.unique({ message: 'You must enter a unique answer title.'})]),
       isCorrect:  new FormControl(false, [Validators.required])
     })
   }
