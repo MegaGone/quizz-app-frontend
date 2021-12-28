@@ -115,22 +115,20 @@ export class QuestionComponent implements OnInit {
   }
 
   // ADD QUESTION
-  addQuestion(question: QuestionInterface) {
+  async addQuestion(question: QuestionInterface) {
 
-    const questionExist = this.validateQuestion(question);
+    const questionExist = await this.validateQuestion(question);
 
-    if(!questionExist) {
-
-      this.Questions.push(question);
-
-      this.toastSvc.success('Question Add', 'Successfully', {
+    if(questionExist) {
+      return this.toastSvc.error('Question already exist', 'Error', {
         progressBar: true,
         timeOut: 1250
       })
+    } 
 
-    }
+    this.Questions.push(question);
 
-    return this.toastSvc.error('Question already exist', 'Error', {
+    return this.toastSvc.success('Question Add', 'Successfully', {
       progressBar: true,
       timeOut: 1250
     })
