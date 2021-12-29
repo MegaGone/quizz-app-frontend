@@ -11,7 +11,7 @@
         <tr *ngFor="let quiz of quizzes; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ quiz.name }}</td>
-            <td>{{ quiz.joinIn }}</td>
+            <td>{{ quiz.joinIn | date: 'longDate' }}</td>
             <td>
                 <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, quiz.userId)"><i class="far fa-ellipsis-v"></i></button>
             </td>

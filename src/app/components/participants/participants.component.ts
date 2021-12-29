@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ParticipantInterface } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ValidationMessageService } from 'src/app/services';
 
 @Component({
   selector: 'app-participants',
@@ -24,17 +25,20 @@ export class ParticipantsComponent implements OnInit {
   public collectionSize !: number;
   public quizzes!: ParticipantInterface[];
 
+  public MyDate = new Date().toDateString();
+
   /*
   ** MODAL
   */
   public closeResult!: string;
   public tempId!: string | number; // Participant Options
 
-  constructor(private modalSvc: NgbModal, private toastSvc: ToastrService) {
+  constructor(private modalSvc: NgbModal, private messagesSvc: ValidationMessageService) {
   }
 
   ngOnInit() {
     this.refreshQuizzes();
+    console.log(this.MyDate);
   }
 
   refreshQuizzes() {
@@ -53,12 +57,13 @@ export class ParticipantsComponent implements OnInit {
     console.log(`${id} removed...`);
     this.refreshQuizzes();
     this.modalSvc.dismissAll();
-    this.toastSvc.success('Participant removed.', 'Successfully', {
-      progressBar: true,
-      timeOut: 1250
-    });
+    this.messagesSvc.showMessage('Participant removed', 'Successfully', true);
   }
 
+  /**
+   * 
+   * @param id : String | Number = View result of the participant
+   */
   viewResults(id: number | string) {
     console.log(`${id} stats...`);
     this.refreshQuizzes();
