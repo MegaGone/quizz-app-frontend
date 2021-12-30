@@ -42,3 +42,13 @@
 .my-input:focus {
   outline: none;
 }
+
+::selection {
+  color: #000;
+  cursor: move;   
+}
+
+::-moz-selection {
+  color: #000;
+  cursor: move;
+}

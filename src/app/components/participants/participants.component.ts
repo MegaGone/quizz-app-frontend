@@ -18,6 +18,8 @@ export class ParticipantsComponent implements OnInit {
   */
   @Input() Participants: ParticipantInterface[] = [];  
 
+  // TODO: Get quiz code with input from parent component.
+
   /*
   ** PAGINATION
   */

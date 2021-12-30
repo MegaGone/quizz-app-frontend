@@ -12,6 +12,7 @@ export class ValidationMessageService {
      * @param text : String   - Message to show in the alert
      * @param title: String   - Title of the message
      * @param flag : Boolean  - Indicate if the message will be of success or error
+     * @returns An alert with your text.
      */
     showMessage(text: string, title: string, flag: boolean) {
 
@@ -29,6 +30,12 @@ export class ValidationMessageService {
 
     }
 
+    /**
+     * 
+     * @param text 
+     * @param title 
+     * @returns An alert indicating the text copied.
+     */
     showCopyToClipboard(text: string, title: string) {
 
         return this.toastSvc.info(text, title, {
