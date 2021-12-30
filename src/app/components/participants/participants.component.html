@@ -1,30 +1,33 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">User</th>
-            <th scope="col">Joined</th>
-            <th scope="col">Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let quiz of quizzes; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ quiz.name }}</td>
-            <td>{{ quiz.joinIn | date: 'longDate' }}</td>
-            <td>
-                <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, quiz.userId, i)"><i class="far fa-ellipsis-v"></i></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div class="row">
-    <div class="col-12">
-        <div class="float-right">
-            <div class="d-flex justify-content-between p-2">
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-                    (pageChange)="refreshQuizzes()">
-                </ngb-pagination>
+<div class="containter text-center" *ngIf="Participants.length >= 1">
+    <h4>Participants</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Joined</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of members; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ member.name }}</td>
+                <td>{{ member.joinIn | date: 'longDate' }}</td>
+                <td>
+                    <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, member.userId, i)"><i class="far fa-ellipsis-v"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-12">
+            <div class="float-right">
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                        (pageChange)="refreshQuizzes()">
+                    </ngb-pagination>
+                </div>
             </div>
         </div>
     </div>
@@ -62,3 +65,14 @@
         <button type="submit" class="btn btn-primary" (click)="modal.close('Close click')">CANCEL</button>
     </div>
 </ng-template>
+
+<div *ngIf="Participants.length === 0" class="m-2 animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-12 card p-3 bg-primary">
+            <i class="fad fa-frown fa-5x text-white"></i>
+
+            <h2 class="text-white">No one seems to have joined the Quiz.</h2>
+            <small class="text-white text-uppercase">Share the quiz code and invite to your friends to play!</small>
+        </div>
+    </div>
+</div>

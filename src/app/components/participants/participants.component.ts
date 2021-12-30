@@ -24,7 +24,7 @@ export class ParticipantsComponent implements OnInit {
   public page = 1;
   public pageSize = 5;
   public collectionSize !: number;
-  public quizzes!: ParticipantInterface[];
+  public members!: ParticipantInterface[];
   /*
   ** MODAL
   */
@@ -41,7 +41,7 @@ export class ParticipantsComponent implements OnInit {
 
   refreshQuizzes() {
     this.collectionSize = this.Participants.length; // Initialize to the pagination    
-    this.quizzes = this.Participants
+    this.members = this.Participants
     .map((quiz, i) => ({id: i + 1, ...quiz }))
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
