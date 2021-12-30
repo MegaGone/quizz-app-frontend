@@ -82,4 +82,10 @@ export class ParticipantsComponent implements OnInit {
     this.router.navigate(['play/results'])
   }
 
+  // Copy to clipboard
+  copyInputMessage(input: any) {
+    input.select();
+    document.execCommand('copy');
+    input.setSelectRange(0,0);
+  }
 }
