@@ -4,6 +4,7 @@ import { ParticipantInterface } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationMessageService } from 'src/app/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-participants',
@@ -24,9 +25,6 @@ export class ParticipantsComponent implements OnInit {
   public pageSize = 5;
   public collectionSize !: number;
   public quizzes!: ParticipantInterface[];
-
-  public MyDate = new Date().toDateString();
-
   /*
   ** MODAL
   */
@@ -34,12 +32,11 @@ export class ParticipantsComponent implements OnInit {
   public tempId!: string | number; // Participant Options
   public tempIndex!: number;
 
-  constructor(private modalSvc: NgbModal, private messagesSvc: ValidationMessageService) {
+  constructor(private modalSvc: NgbModal, private messagesSvc: ValidationMessageService, private router: Router) {
   }
 
   ngOnInit() {
     this.refreshQuizzes();
-    console.log(this.MyDate);
   }
 
   refreshQuizzes() {
@@ -78,9 +75,11 @@ export class ParticipantsComponent implements OnInit {
    * @param id : String | Number = View result of the participant
    */
   viewResults(id: number | string) {
-    console.log(`${id} stats...`);
-    this.refreshQuizzes();
     this.modalSvc.dismissAll();
+
+    // TODO: Call the method to get the results of the participant using the id
+
+    this.router.navigate(['play/results'])
   }
 
 }
