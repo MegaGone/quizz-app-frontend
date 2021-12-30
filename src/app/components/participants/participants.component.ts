@@ -15,7 +15,7 @@ export class ParticipantsComponent implements OnInit {
   /*
   ** ARRAY FROM PARENT COMPONENT
   */
-  @Input() list: ParticipantInterface[] = [];  
+  @Input() Participants: ParticipantInterface[] = [];  
 
   /*
   ** PAGINATION
@@ -32,6 +32,7 @@ export class ParticipantsComponent implements OnInit {
   */
   public closeResult!: string;
   public tempId!: string | number; // Participant Options
+  public tempIndex!: number;
 
   constructor(private modalSvc: NgbModal, private messagesSvc: ValidationMessageService) {
   }
@@ -42,19 +43,31 @@ export class ParticipantsComponent implements OnInit {
   }
 
   refreshQuizzes() {
-    this.collectionSize = this.list.length; // Initialize to the pagination    
-    this.quizzes = this.list
+    this.collectionSize = this.Participants.length; // Initialize to the pagination    
+    this.quizzes = this.Participants
     .map((quiz, i) => ({id: i + 1, ...quiz }))
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  openVerticallyCentered(content: any, id: number | string) {
+  /**
+   * 
+   * @param content : Any = Content of the modal.
+   * @param id      : String | String = Id of the participant.
+   * @param i       : Number = Index of the participant to remove.
+   */
+  openVerticallyCentered(content: any, id: number | string, i: number) {
     this.modalSvc.open(content, { centered: true });
+
+    // Save in a temporal variable to send to the options.
     this.tempId = id;
+    this.tempIndex = i;
   }
 
   removeParticipant(id: number | string) {
-    console.log(`${id} removed...`);
+    // This to remove only in the Frontend
+    this.Participants.splice(this.tempIndex, 1);
+    
+    // TODO: Call the method to remove participant in the backend.
     this.refreshQuizzes();
     this.modalSvc.dismissAll();
     this.messagesSvc.showMessage('Participant removed', 'Successfully', true);

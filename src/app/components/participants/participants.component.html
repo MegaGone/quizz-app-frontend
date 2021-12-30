@@ -13,7 +13,7 @@
             <td>{{ quiz.name }}</td>
             <td>{{ quiz.joinIn | date: 'longDate' }}</td>
             <td>
-                <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, quiz.userId)"><i class="far fa-ellipsis-v"></i></button>
+                <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, quiz.userId, i)"><i class="far fa-ellipsis-v"></i></button>
             </td>
         </tr>
     </tbody>

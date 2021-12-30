@@ -85,6 +85,8 @@ export class QuestionComponent implements OnInit {
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
 
+    // TODO: Call the method to delete in the backend.
+
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
 
     this.refreshQuestions();
