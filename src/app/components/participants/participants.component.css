@@ -38,3 +38,7 @@
   text-align: center;
   color: white;
 }
+
+.my-input:focus {
+  outline: none;
+}

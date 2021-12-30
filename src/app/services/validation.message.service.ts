@@ -28,4 +28,12 @@ export class ValidationMessageService {
         })
 
     }
+
+    showCopyToClipboard(text: string, title: string) {
+
+        return this.toastSvc.info(text, title, {
+            timeOut: 400
+        })
+
+    }
 }

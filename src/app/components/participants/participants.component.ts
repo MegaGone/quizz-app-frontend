@@ -83,9 +83,10 @@ export class ParticipantsComponent implements OnInit {
   }
 
   // Copy to clipboard
-  copyInputMessage(input: any) {
+  copyInputMessage(input: HTMLInputElement) {
+    this.messagesSvc.showCopyToClipboard('Copy to clipboard', 'Copied')
     input.select();
     document.execCommand('copy');
-    input.setSelectRange(0,0);
+    input.setSelectionRange(0,0);
   }
 }
