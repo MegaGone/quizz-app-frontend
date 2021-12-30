@@ -31,3 +31,10 @@
 .rounded-button:hover {
   background: #a3a3a3;
 }
+
+.my-input {
+  background: transparent;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  color: white;
+}
