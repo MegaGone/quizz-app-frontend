@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/views.module').then(m => m.ViewsModule)
   },
   {
+    path: 'play',
+    loadChildren: () => import('./play/play.module').then(m => m.PlayModule)
+  },
+  {
     path: '**',
     redirectTo: 'auth'
   }

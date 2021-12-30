@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 // My Modules
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
-import { ToastrModule } from 'ngx-toastr';
+import { PlayModule } from './play/play.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     AuthModule,
     NgbModule,
-    ComponentsModule
+    ComponentsModule,
+    PlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]
