@@ -13,7 +13,7 @@ import { QuizComponent } from './quiz/quiz.component';
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [ AuthGuard ],
+    canActivate: [ AuthGuard ],
     children: [
       { path: 'myquizzes',  component: HomeComponent    },
       { path: 'profile',    component: ProfileComponent },
