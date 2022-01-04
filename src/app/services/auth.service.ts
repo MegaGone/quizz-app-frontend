@@ -27,8 +27,8 @@ export class AuthService {
       tap( (res: any) => {
         localStorage.setItem('token', res.token)
       }),
-      map( resp => true),
-      catchError( err => of(false)) // CatchError atrapa el error que va en el flujo y debuelve un nuevo Observable con un nuevo valor
+      map( resp => true),           // Transforma la response a true
+      catchError( err => of(false)) // CatchError atrapa el error que va en el flujo y regresa un nuevo Observable con un nuevo valor en este caso False
     );
 
   }
