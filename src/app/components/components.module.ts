@@ -13,6 +13,9 @@ import { QuestionComponent } from './question/question.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { QuizzlistComponent } from './quizzlist/quizzlist.component';
 
+// Pipes
+import { QuizzesPipe } from '../pipes/quizzes.pipe';
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -20,6 +23,7 @@ import { QuizzlistComponent } from './quizzlist/quizzlist.component';
     ParticipantsComponent,
     QuestionComponent,
     QuizzlistComponent,
+    QuizzesPipe
   ],
   imports: [
     CommonModule,

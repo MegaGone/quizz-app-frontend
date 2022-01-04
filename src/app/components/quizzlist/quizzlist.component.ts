@@ -6,34 +6,42 @@ import { QuizService } from 'src/app/services';
 @Component({
   selector: 'app-quizzlist',
   templateUrl: './quizzlist.component.html',
-  styleUrls: ['./quizzlist.component.css']
+  styleUrls: ['./quizzlist.component.css'],
 })
 export class QuizzlistComponent implements OnInit {
-
   public QuizzesToList: QuizzList[] = [];
   public errMsg!: string;
+  public page: number = 0;
 
-  constructor(private quizSvc: QuizService) { }
+  constructor(private quizSvc: QuizService) {}
 
   ngOnInit(): void {
     this.getQuizzes();
   }
 
   getQuizzes() {
-    this.quizSvc.getQuizzes().subscribe( 
-      data => this.QuizzesToList = data,    // If dont have errors, assign the quizzes with the response
-      err => this.throwErrorMsg(err)
-    )
+    this.quizSvc.getQuizzes().subscribe(
+      (data) => (this.QuizzesToList = data), // If dont have errors, assign the quizzes with the response
+      (err) => this.throwErrorMsg(err)
+    );
   }
 
   private throwErrorMsg(error: HttpErrorResponse) {
-    
-    if(error.status != 200) {
-      return this.errMsg = "Server error"
+    if (error.status != 200) {
+      return (this.errMsg = 'Server error');
     }
-
-    return this.errMsg = error.error.text;
-
+    return (this.errMsg = error.error.text);
   }
 
+  prevPage() {
+    console.log(this.QuizzesToList);
+    
+    this.page -= 5;
+  }
+
+  nxtPage() {
+    console.log(this.QuizzesToList);
+
+    this.page += 5;
+  }
 }

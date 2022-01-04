@@ -11,9 +11,10 @@ import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { PlayModule } from './play/play.module';
 
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
