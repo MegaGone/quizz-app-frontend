@@ -1,0 +1,25 @@
+<table class="table table-striped text-center">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Code</th>
+      <th scope="col">Participants</th>
+      <th scope="col">Stats</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let quiz of QuizzesToList">
+          <th>{{ quiz.no }}</th>
+          <td>{{ quiz.title }}</td>
+          <td>{{ quiz.code }}</td>
+          <td>{{ quiz.participants.length }}</td>
+          <td>
+            <a href="javascript:void(0)"><i class="fad fa-chevron-right"></i></a>
+          </td>
+          <!-- <a href="javascript:void(0)" (click)="navigateToQuiz(quiz.id)"><i class="fad fa-chevron-right"></i></a> -->
+      </tr>
+  </tbody>
+</table>
+
+{{ errMsg}}

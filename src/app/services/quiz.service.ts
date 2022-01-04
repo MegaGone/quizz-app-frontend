@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { QuizzList, QuizzResponseInterface } from '../interfaces';
 
 const base_url = environment.base_url;
 
@@ -27,13 +27,25 @@ export class QuizService {
     
     const token = this.getToken();
     
-    return this.http.get(`${base_url}/quiz/quizzes`, {
+    return this.http.get<QuizzResponseInterface>(`${base_url}/quiz/quizzes`, {
       headers: {
         'x-token': token
       }
     }).pipe(
-      catchError(err => of(err))
+      map( this.transformToQuizzesToList)
     )
+  }
 
+  private transformToQuizzesToList( res: QuizzResponseInterface): QuizzList[]{
+
+    const quizzesList: QuizzList[] = res.quizzes.map( (quiz, i: number) => {
+
+      return {
+        no: i + 1,
+        ...quiz
+      }
+    })
+
+    return quizzesList;
   }
 }

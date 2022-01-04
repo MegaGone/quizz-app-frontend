@@ -11,15 +11,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
 import { QuestionComponent } from './question/question.component';
 import { ParticipantsComponent } from './participants/participants.component';
-import { QuizlistComponent } from './quizlist/quizlist.component';
+import { QuizzlistComponent } from './quizzlist/quizzlist.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     FormComponent,
     ParticipantsComponent,
-    QuizlistComponent,
     QuestionComponent,
+    QuizzlistComponent,
   ],
   imports: [
     CommonModule,
@@ -33,8 +33,8 @@ import { QuizlistComponent } from './quizlist/quizlist.component';
   exports: [
     NavbarComponent,
     FormComponent,
-    QuizlistComponent,
-    QuestionComponent
+    QuestionComponent,
+    QuizzlistComponent
   ]
 })
 export class ComponentsModule { }
