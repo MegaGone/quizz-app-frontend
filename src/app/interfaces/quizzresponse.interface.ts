@@ -1,17 +1,13 @@
-import { ParticipantInterface, QuestionInterface, QuizInterface } from ".";
+import { ParticipantInterface, QuizInterface } from ".";
 
 export interface QuizzResponseInterface {
     total:   number;
     quizzes: QuizInterface[];
 }
-
-export interface QuizzList {
+export interface QuizToList {
     no?: number,
-    id?: string | any,
-    title: string,
-    description: string,
-    author: string,
+    id: string
+    name: string,
     code: string,
-    participants: Array<ParticipantInterface> | any,
-    questions: Array<QuestionInterface>
+    participants: Array<ParticipantInterface> | any
 }

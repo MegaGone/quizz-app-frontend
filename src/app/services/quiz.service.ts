@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
-import { QuizzList, QuizzResponseInterface } from '../interfaces';
+import { QuizToList, QuizzResponseInterface } from '../interfaces';
 
 const base_url = environment.base_url;
 
@@ -36,16 +36,17 @@ export class QuizService {
     )
   }
 
-  private transformToQuizzesToList( res: QuizzResponseInterface): QuizzList[]{
+  private transformToQuizzesToList( res: QuizzResponseInterface): QuizToList[]{
 
-    const quizzesList: QuizzList[] = res.quizzes.map( (quiz, i: number) => {
-
+    const quizzesList: QuizToList[] = res.quizzes.map( (quiz, i: number) => {      
       return {
         no: i + 1,
-        ...quiz
+        id: quiz.id,
+        name: quiz.title,
+        code: quiz.code,
+        participants: quiz.participants
       }
     })
-
     return quizzesList;
   }
 }

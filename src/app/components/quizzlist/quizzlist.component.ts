@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { QuizzList } from 'src/app/interfaces';
+import { QuizToList } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 
 @Component({
@@ -9,7 +9,7 @@ import { QuizService } from 'src/app/services';
   styleUrls: ['./quizzlist.component.css'],
 })
 export class QuizzlistComponent implements OnInit {
-  public QuizzesToList: QuizzList[] = [];
+  public QuizzesToList: QuizToList[] = [];
   public errMsg!: string;
   public page: number = 0;
 
@@ -34,14 +34,12 @@ export class QuizzlistComponent implements OnInit {
   }
 
   prevPage() {
-    console.log(this.QuizzesToList);
-    
-    this.page -= 5;
+    if (this.page >= 1) {
+      this.page -= 5;
+    }
   }
 
   nxtPage() {
-    console.log(this.QuizzesToList);
-
-    this.page += 5;
+      this.page += 5;
   }
 }
