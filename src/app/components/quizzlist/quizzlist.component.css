@@ -47,3 +47,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.list {
+  min-height: 365px !important;
+  max-height: 365px !important;
+  height: 365px !important;
+}
