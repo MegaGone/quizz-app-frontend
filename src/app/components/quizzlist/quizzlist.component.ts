@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuizToList } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 
@@ -13,7 +14,7 @@ export class QuizzlistComponent implements OnInit {
   public errMsg!: string;
   public page: number = 0;
 
-  constructor(private quizSvc: QuizService) {}
+  constructor(private quizSvc: QuizService, private router: Router) {}
 
   ngOnInit(): void {
     this.getQuizzes();
@@ -41,5 +42,9 @@ export class QuizzlistComponent implements OnInit {
 
   nxtPage() {
       this.page += 5;
+  }
+
+  createQuiz() {
+    this.router.navigate(['/home/quiz']);
   }
 }
