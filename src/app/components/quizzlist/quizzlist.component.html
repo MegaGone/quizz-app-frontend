@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr [ngStyle]="{width: '120px'}" *ngFor="let quiz of QuizzesToList | quizzes:page">
+          <tr [ngStyle]="{width: '120px'}" *ngFor="let quiz of QuizzesToList | quizzes:page:term">
             <th>{{ quiz.no }}</th>
             <td>{{ quiz.name }}</td>
             <td>{{ quiz.code }}</td>
@@ -29,9 +29,15 @@
     <div class="ml-2 col-1">
       <div class="float-left pb-3" [ngStyle]="{display: 'inline-flex'}">
         <button class="rounded-button mt-1" (click)="prevPage()"><i class="fas fa-chevron-double-left"></i></button>
-        <button class="rounded-button mt-1 ml-2" [disabled]="(QuizzesToList | quizzes:page).length < 5"
+        <button class="rounded-button mt-1 ml-2" [disabled]="(QuizzesToList | quizzes:page:term).length < 5"
           (click)="nxtPage()"><i class="fas fa-chevron-double-right"></i></button>
       </div>
+    </div>
+
+    <div class="col-7"></div>
+
+    <div class="col-3 text-right">
+      <input type="text" class="form-control" #txtSearch (keyup)="searchQuiz(txtSearch.value)">
     </div>
   </div>
 </ng-container>

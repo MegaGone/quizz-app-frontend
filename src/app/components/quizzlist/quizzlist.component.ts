@@ -13,6 +13,7 @@ export class QuizzlistComponent implements OnInit {
   public QuizzesToList: QuizToList[] = [];
   public errMsg!: string;
   public page: number = 0;
+  public term: string = '';
 
   constructor(private quizSvc: QuizService, private router: Router) {}
 
@@ -46,5 +47,10 @@ export class QuizzlistComponent implements OnInit {
 
   createQuiz() {
     this.router.navigate(['/home/quiz']);
+  }
+
+  searchQuiz(term: string) {
+    this.page = 0;
+    this.term = term;
   }
 }
