@@ -52,4 +52,16 @@ export class QuizService {
 
     return quizzesList;
   }
+
+  getQuizById(id: string) {
+
+    const token = this.getToken();
+
+    return this.http.get(`${base_url}/quiz/${id}`, {
+      headers: {
+        'x-token': token
+      }
+    })
+
+  }
 }

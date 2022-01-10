@@ -50,12 +50,13 @@ export class QuizzlistComponent implements OnInit {
    * @param quiz: QuizToList = Need Quiz to navigate to QuizComponent and get the quiz info to update or set the component with this data.
    */
   navigateToQuiz(quiz: string) {
-    console.log(quiz);
 
     if (quiz) {
-    
-      // this.quizSvc.tempQuiz = quiz;
-      this.router.navigate(['/home/quiz'])
+      this.quizSvc.getQuizById(quiz).subscribe(res => {
+        
+        console.log(res);
+        
+      })
     }
 
     return;
