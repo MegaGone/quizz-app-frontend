@@ -6,7 +6,7 @@ export interface QuizzResponseInterface {
 }
 export interface QuizToList {
     no?: number,
-    id: string
+    _id: string
     name: string,
     code: string,
     participants: Array<ParticipantInterface> | any

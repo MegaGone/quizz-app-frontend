@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 
 import { ToastrService } from 'ngx-toastr';
+import { QuizService } from 'src/app/services';
 import { QuizzesExample, QuizInterface, QuizzExample } from '../../interfaces';
 @Component({
   selector: 'app-form',
@@ -22,11 +23,13 @@ export class FormComponent implements OnInit {
   public focus2!: boolean;
   public focus3!: boolean;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private quizSvc: QuizService) { }
 
   ngOnInit(): void {
     this.quiz = QuizzExample;
-    console.info(this.quiz)
+    
+    // console.log(this.quizSvc.tempQuiz);
+  
     this.initForm();
     this.participants = QuizzesExample;
   }

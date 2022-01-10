@@ -1,7 +1,7 @@
 import { ParticipantInterface, QuestionInterface } from ".";
 
 export interface QuizInterface {
-    id?: string | any,
+    _id?: string | any,
     title: string,
     description: string,
     author: string,
@@ -12,7 +12,7 @@ export interface QuizInterface {
 
 export const QuizzesExample: QuizInterface[] = [
     {
-        "id": "aaaaaaaaaa1",
+        "_id": "aaaaaaaaaa1",
         "title": "Quiz I",
         "description": "Description I",
         "questions": [
@@ -100,7 +100,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa2",
+        "_id": "aaaaaaaaaa2",
         "title": "Quiz II",
         "description": "Description II",
         "questions": [
@@ -188,7 +188,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa3",
+        "_id": "aaaaaaaaaa3",
         "title": "Quiz III",
         "description": "Description III",
         "questions": [
@@ -276,7 +276,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa4",
+        "_id": "aaaaaaaaaa4",
         "title": "Quiz IV",
         "description": "Description IV",
         "questions": [
@@ -364,7 +364,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa5",
+        "_id": "aaaaaaaaaa5",
         "title": "Quiz V",
         "description": "Description V",
         "questions": [
@@ -452,7 +452,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa6",
+        "_id": "aaaaaaaaaa6",
         "title": "Quiz VI",
         "description": "Description VI",
         "questions": [
@@ -540,7 +540,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa7",
+        "_id": "aaaaaaaaaa7",
         "title": "Quiz VII",
         "description": "Description VII",
         "questions": [
@@ -628,7 +628,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa8",
+        "_id": "aaaaaaaaaa8",
         "title": "Quiz VIII",
         "description": "Description VIII",
         "questions": [
@@ -716,7 +716,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa9",
+        "_id": "aaaaaaaaaa9",
         "title": "Quiz IX",
         "description": "Description IX",
         "questions": [
@@ -804,7 +804,7 @@ export const QuizzesExample: QuizInterface[] = [
         ]
     },
     {
-        "id": "aaaaaaaaaa10",
+        "_id": "aaaaaaaaaa10",
         "title": "Quiz X",
         "description": "Description X",
         "questions": [
@@ -894,7 +894,7 @@ export const QuizzesExample: QuizInterface[] = [
 ]
 
 export const QuizzExample: QuizInterface = {
-    "id": "aaaaaaaaaa1",
+    "_id": "aaaaaaaaaa1",
     "title": "Quiz I",
     "description": "Description I",
     "questions": [

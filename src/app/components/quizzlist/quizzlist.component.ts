@@ -15,7 +15,7 @@ export class QuizzlistComponent implements OnInit {
   public page: number = 0;
   public term: string = '';
 
-  constructor(private quizSvc: QuizService, private router: Router) {}
+  constructor(private quizSvc: QuizService, private router: Router) { }
 
   ngOnInit(): void {
     this.getQuizzes();
@@ -42,7 +42,23 @@ export class QuizzlistComponent implements OnInit {
   }
 
   nxtPage() {
-      this.page += 5;
+    this.page += 5;
+  }
+
+  /**
+   * 
+   * @param quiz: QuizToList = Need Quiz to navigate to QuizComponent and get the quiz info to update or set the component with this data.
+   */
+  navigateToQuiz(quiz: string) {
+    console.log(quiz);
+
+    if (quiz) {
+    
+      // this.quizSvc.tempQuiz = quiz;
+      this.router.navigate(['/home/quiz'])
+    }
+
+    return;
   }
 
   createQuiz() {

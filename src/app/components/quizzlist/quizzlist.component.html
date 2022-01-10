@@ -18,7 +18,7 @@
             <td>{{ quiz.code }}</td>
             <td>{{ quiz.participants.length }}</td>
             <td>
-              <a href="javascript:void(0)"><i class="fad fa-chevron-right"></i></a>
+              <a href="javascript:void(0)" (click)="navigateToQuiz(quiz._id)"><i class="fad fa-chevron-right"></i></a>
             </td>
           </tr>
         </tbody>
@@ -46,8 +46,7 @@
   <div class="row">
     <div class="col-12 p-3 text-center">
       <i class="fad fa-exclamation-triangle fa-5x"></i>
-      <!-- <i class="fad fa-exclamation fa-5x "></i> -->
-
+      
       <h4 class="text-uppercase mt-2">{{ errMsg }}</h4>
 
       <button class="btn btn-primary" type="button" (click)="createQuiz()">Create Quiz</button>
