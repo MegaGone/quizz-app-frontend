@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.quiz = QuizzExample;
     
-    // console.log(this.quizSvc.tempQuiz);
+    console.log(this.quizSvc.tempQuiz);
   
     this.initForm();
     this.participants = QuizzesExample;

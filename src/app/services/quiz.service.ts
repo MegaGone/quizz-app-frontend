@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
-import { QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
+import { GetQuizResponse, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
 
 const base_url = environment.base_url;
 
@@ -10,7 +10,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class QuizService {
-  public tempQuiz!: QuizToList;
+  public tempQuiz!: QuizInterface;
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +38,22 @@ export class QuizService {
     )
   }
 
+  getQuizById(id: string) {
+
+    const token = this.getToken();
+
+    return this.http.get<GetQuizResponse>(`${base_url}/quiz/${id}`, {
+      headers: {
+        'x-token': token
+      }
+    }).pipe(
+      map(this.transformToQuiz)
+    )
+
+  }
+
+  // Methods to transform
+
   private transformToQuizzesToList(res: QuizzResponseInterface): QuizToList[] {
 
     const quizzesList: QuizToList[] = res.quizzes.map((quiz: QuizInterface, i: number) => {
@@ -53,15 +69,18 @@ export class QuizService {
     return quizzesList;
   }
 
-  getQuizById(id: string) {
+  private transformToQuiz(res: GetQuizResponse): QuizInterface {
 
-    const token = this.getToken();
+    const temporalQuiz: QuizInterface = {
+      _id: res._id,
+      title: res.title,
+      description: res.description,
+      author: res.author,
+      code: res.code,
+      participants: res.participants,
+      questions: res.questions
+    }
 
-    return this.http.get(`${base_url}/quiz/${id}`, {
-      headers: {
-        'x-token': token
-      }
-    })
-
+    return temporalQuiz;
   }
 }

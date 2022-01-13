@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizToList } from 'src/app/interfaces';
-import { QuizService } from 'src/app/services';
+import { QuizService, ValidationMessageService } from 'src/app/services';
 
 @Component({
   selector: 'app-quizzlist',
@@ -15,7 +15,7 @@ export class QuizzlistComponent implements OnInit {
   public page: number = 0;
   public term: string = '';
 
-  constructor(private quizSvc: QuizService, private router: Router) { }
+  constructor(private quizSvc: QuizService, private router: Router, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
     this.getQuizzes();
@@ -54,8 +54,13 @@ export class QuizzlistComponent implements OnInit {
     if (quiz) {
       this.quizSvc.getQuizById(quiz).subscribe(res => {
         
-        console.log(res);
+        if(res) {
+          this.quizSvc.tempQuiz = res;
+          return this.router.navigate(['/home/quiz'])
+        }
         
+        return this.msgSvc.showMessage('Error to get quiz', 'Error', false);
+
       })
     }
 
