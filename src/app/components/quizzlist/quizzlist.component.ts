@@ -56,7 +56,7 @@ export class QuizzlistComponent implements OnInit {
         
         if(res) {
           this.quizSvc.tempQuiz = res;
-          return this.router.navigate(['/home/quiz'])
+          return this.router.navigate(['/home/quiz'], {state: {isNew: false}})
         }
         
         return this.msgSvc.showMessage('Error to get quiz', 'Error', false);
@@ -68,7 +68,7 @@ export class QuizzlistComponent implements OnInit {
   }
 
   createQuiz() {
-    this.router.navigate(['/home/quiz']);
+    this.router.navigate(['/home/quiz'], {state: {isNew: true}});
   }
 
   searchQuiz(term: string) {
