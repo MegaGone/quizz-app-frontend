@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { QuizService } from 'src/app/services';
@@ -15,6 +16,9 @@ export class FormComponent implements OnInit {
 
   public quiz!: QuizInterface;
 
+  public quizFromList !: QuizInterface;
+  public noQuiz       !: boolean;
+
   /*
   ** FORM
   */
@@ -23,14 +27,17 @@ export class FormComponent implements OnInit {
   public focus2!: boolean;
   public focus3!: boolean;
 
-  constructor(private fb: FormBuilder, private quizSvc: QuizService) { }
+  constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router) { }
 
   ngOnInit(): void {
     this.quiz = QuizzExample;
-    
-    console.log(this.quizSvc.tempQuiz);
-  
     this.initForm();
+    this.saveOnStorage();
+    this.validateQuizOnRefresh();
+    
+    // console.log(this.quizSvc.tempQuiz);
+
+
     this.participants = QuizzesExample;
   }
 
@@ -50,6 +57,33 @@ export class FormComponent implements OnInit {
     if (this.quizForm.valid) {
       console.log(this.quizForm.value);
     }
+
+  }
+
+  saveOnStorage() {
+
+    if(this.quizSvc.tempQuiz != undefined) {
+      localStorage.setItem('quiz', JSON.stringify(this.quizSvc.tempQuiz));
+    }
+
+  }
+
+  validateQuizOnRefresh() {
+
+    if(this.quizSvc.tempQuiz === undefined) {
+      const quiz = JSON.parse(localStorage.getItem('quiz') || '{"noQuiz": true}');
+
+      if(this.quizSvc.tempQuiz === undefined && quiz.noQuiz) {
+        this.router.navigate(['/home/myquizzes'])
+      } else {
+        this.quizFromList = quiz;
+      }
+
+    } else {
+      this.quizFromList = this.quizSvc.tempQuiz;      
+    }
+
+
 
   }
 }
