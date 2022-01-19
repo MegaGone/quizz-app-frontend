@@ -32,8 +32,14 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.quiz = QuizzExample;
     this.initForm();
-    this.saveOnStorage();
-    this.validateQuizOnRefresh();
+
+    const state = history.state.isNew;
+
+    if(!state) {
+      this.saveOnStorage();
+      this.validateQuizOnRefresh();
+      console.log(this.saveOnStorage);
+    }
     
     // console.log(this.quizSvc.tempQuiz);
 
