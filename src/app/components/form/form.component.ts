@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
-import { ToastrService } from 'ngx-toastr';
 import { QuizService } from 'src/app/services';
 import { QuizzesExample, QuizInterface, QuizzExample } from '../../interfaces';
 @Component({
@@ -17,7 +16,6 @@ export class FormComponent implements OnInit {
   public quiz!: QuizInterface;
 
   public quizFromList !: QuizInterface;
-  public noQuiz       !: boolean;
 
   /*
   ** FORM
@@ -30,18 +28,9 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router) { }
 
   ngOnInit(): void {
-    this.quiz = QuizzExample;
+    // this.quiz = QuizzExample;
+    this.validateRefresh();
     this.initForm();
-
-    const state = history.state.isNew;
-
-    if(!state) {
-      this.saveOnStorage();
-      this.validateQuizOnRefresh();
-      console.log(this.saveOnStorage);
-    }
-    
-    // console.log(this.quizSvc.tempQuiz);
 
 
     this.participants = QuizzesExample;
@@ -50,10 +39,10 @@ export class FormComponent implements OnInit {
   // TODO: Check if the minlength validation is equal like backend and Validate the whitespaces and check the disabled on code html/ts
   initForm() {
     this.quizForm = this.fb.group({
-      title: [this.quiz.title, [Validators.required, Validators.minLength(5)]],
-      code: [{ value: this.quiz.code, disabled: true }],
-      description: [this.quiz.description, [Validators.required, Validators.minLength(10)]],
-      questions: [this.fb.array([]), [Validators.required]],
+      title       : ['', [Validators.required, Validators.minLength(5)]],
+      code        : [{ value: '', disabled: true }],
+      description : ['', [Validators.required, Validators.minLength(10)]],
+      questions   : [this.fb.array([]), [Validators.required]],
       participants: [this.fb.array([]), [Validators.required]]
     })
   }
@@ -66,30 +55,36 @@ export class FormComponent implements OnInit {
 
   }
 
-  saveOnStorage() {
-
+  /*saveOnStorage() {
     if(this.quizSvc.tempQuiz != undefined) {
       localStorage.setItem('quiz', JSON.stringify(this.quizSvc.tempQuiz));
     }
-
   }
 
   validateQuizOnRefresh() {
-
     if(this.quizSvc.tempQuiz === undefined) {
       const quiz = JSON.parse(localStorage.getItem('quiz') || '{"noQuiz": true}');
-
       if(this.quizSvc.tempQuiz === undefined && quiz.noQuiz) {
         this.router.navigate(['/home/myquizzes'])
       } else {
         this.quizFromList = quiz;
       }
-
     } else {
       this.quizFromList = this.quizSvc.tempQuiz;      
     }
+  }*/
 
+  validateRefresh() {
 
+    const isNewQuiz = history.state.isNew;
 
+    // If the user refresh the page
+    if(this.quizSvc.tempQuiz === undefined && !isNewQuiz) {
+      return this.router.navigate(['/home/myquizzes'])
+    }
+
+    // Else I set the quiz
+    this.quiz = this.quizSvc.tempQuiz;
+    return console.log(this.quiz);
   }
 }
