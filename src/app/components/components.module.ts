@@ -15,6 +15,7 @@ import { QuizzlistComponent } from './quizzlist/quizzlist.component';
 
 // Pipes
 import { QuizzesPipe } from '../pipes/quizzes.pipe';
+import { QuizFormComponent } from './quiz-form/quiz-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { QuizzesPipe } from '../pipes/quizzes.pipe';
     ParticipantsComponent,
     QuestionComponent,
     QuizzlistComponent,
-    QuizzesPipe
+    QuizzesPipe,
+    QuizFormComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { QuizzesPipe } from '../pipes/quizzes.pipe';
     NavbarComponent,
     FormComponent,
     QuestionComponent,
-    QuizzlistComponent
+    QuizzlistComponent,
+    QuizFormComponent
   ]
 })
 export class ComponentsModule { }
