@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ParticipantInterface, ParticipantsExample } from 'src/app/interfaces';
+import { ParticipantInterface, ParticipantsExample, QuestionInterface } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 import { SpacesValidator  } from "../../utils";
 
@@ -14,7 +14,8 @@ export class QuizFormComponent implements OnInit {
 
   public disableSelect!: Boolean;
   public quizForm!: FormGroup;
-  public participants: ParticipantInterface[] = [];
+  public participants : ParticipantInterface[] = [];
+  public questions    : QuestionInterface[] = [];
 
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router) { }
 
