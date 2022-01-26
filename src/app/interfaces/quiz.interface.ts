@@ -1075,3 +1075,150 @@ export const QuizzExample: QuizInterface = {
         }
     ]
 }
+
+export const QuestionsExample: QuestionInterface[] = [
+    {
+        "id": "Question1",
+        "title": "Pregunta 1",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question2",
+        "title": "Pregunta 2",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 3"
+            }
+        ]
+    },
+    {
+        "id": "Question3",
+        "title": "Pregunta 3",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question4",
+        "title": "Pregunta 4",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question5",
+        "title": "Pregunta 5",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question6",
+        "title": "Pregunta 6",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question7",
+        "title": "Pregunta 7",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question8",
+        "title": "Pregunta 8",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question9",
+        "title": "Pregunta 9",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    },
+    {
+        "id": "Question10",
+        "title": "Pregunta 10",
+        "answers": [
+            {
+                "isCorrect": false,
+                "title": "Res 1"
+            },
+            {
+                "isCorrect": true,
+                "title": "Res 2"
+            }
+        ]
+    }
+]

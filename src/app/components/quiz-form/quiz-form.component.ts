@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ParticipantInterface, ParticipantsExample, QuestionInterface } from 'src/app/interfaces';
+import { ParticipantInterface, ParticipantsExample, QuestionInterface, QuestionsExample } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 import { SpacesValidator  } from "../../utils";
 
@@ -23,6 +23,7 @@ export class QuizFormComponent implements OnInit {
     this.initForm();
 
     // this.participants = ParticipantsExample;
+    // this.questions = QuestionsExample;
   }
 
   /**
