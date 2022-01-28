@@ -68,20 +68,8 @@ export class QuizQuestionsComponent implements OnInit {
   // INIT FORMPARENT (QUESTIONFORM)
   initFormParent(): void {
     this.formParent = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-        SpacesValidator.doubleSpace,
-        SpacesValidator.spaces,
-      ]),
-      answers: new FormArray(
-        [],
-        [
-          Validators.required,
-          AnswersValidations.minLengthArray(2),
-          AnswersValidations.allAnswersFalse,
-          AnswersValidations.allAnswersTrue,
-        ]
+      title: new FormControl('', [ Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces ]),
+      answers: new FormArray([], [ Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue]
       ),
     });
   }

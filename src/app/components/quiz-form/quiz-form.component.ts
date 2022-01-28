@@ -44,6 +44,9 @@ export class QuizFormComponent implements OnInit {
         control.markAllAsTouched();
       })
     }
+
+    console.log(this.quizForm.value);
+    
   }
 
   // Validations
