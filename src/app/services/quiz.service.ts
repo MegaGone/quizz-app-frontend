@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
-import { GetQuizResponse, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
+import { GetQuizResponse, QuestionInterface, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
+import { Observable, Subject } from 'rxjs';
 
 const base_url = environment.base_url;
 
@@ -11,6 +12,7 @@ const base_url = environment.base_url;
 })
 export class QuizService {
   public tempQuiz!: QuizInterface;
+  private subject = new Subject<QuestionInterface[]>()
 
   constructor(private http: HttpClient) { }
 
@@ -82,5 +84,13 @@ export class QuizService {
     }
 
     return temporalQuiz;
+  }
+
+  sendTest(participants: QuestionInterface[]) {
+    this.subject.next(participants);
+  }
+
+  reciveTest(): Observable<QuestionInterface[]> {
+    return this.subject.asObservable();
   }
 }
