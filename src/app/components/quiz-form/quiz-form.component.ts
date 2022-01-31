@@ -23,7 +23,8 @@ export class QuizFormComponent implements OnInit {
     this.initForm();
 
     // this.participants = ParticipantsExample;
-    // this.questions = QuestionsExample;
+    this.questions = QuestionsExample;
+    this.getTest();
   }
 
   /**
@@ -60,5 +61,11 @@ export class QuizFormComponent implements OnInit {
 
   get description() {
     return this.quizForm.get('description')?.invalid && this.quizForm.get('description')?.touched;
+  }
+
+  getTest() {
+    this.quizSvc.reciveTest().subscribe(res => {
+      console.log(res);
+    })
   }
 }

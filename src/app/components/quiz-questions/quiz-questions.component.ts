@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AnswerInterface, QuestionInterface } from 'src/app/interfaces';
 import { SpacesValidator, AnswersValidations } from '../../utils';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { ValidationMessageService } from 'src/app/services';
+import { QuizService, ValidationMessageService } from 'src/app/services';
 
 @Component({
   selector: 'app-quiz-questions',
@@ -41,7 +41,8 @@ export class QuizQuestionsComponent implements OnInit {
   constructor(
     private modalSvc: NgbModal,
     private toastSvc: ToastrService,
-    private messageSvc: ValidationMessageService
+    private messageSvc: ValidationMessageService,
+    private quizSvc: QuizService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +50,7 @@ export class QuizQuestionsComponent implements OnInit {
     this.initFormParent();
   }
 
+  // TODO: Send the subject when questions are updated.
   // REFRESH THE QUESTIONS TO PAGINATE
   refreshQuestions() {
     this.collectionSize = this.Questions.length;
@@ -59,6 +61,7 @@ export class QuizQuestionsComponent implements OnInit {
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize
     );
+    this.sendTest(this.questions);
   }
 
   /**
@@ -223,5 +226,9 @@ export class QuizQuestionsComponent implements OnInit {
 
   get answers() {
     return this.formParent.get('answers');
+  }
+
+  sendTest(data: QuestionInterface[]) {
+    return this.quizSvc.sendTest(data);
   }
 }
