@@ -65,7 +65,18 @@ export class QuizFormComponent implements OnInit {
 
   getTest() {
     this.quizSvc.reciveTest().subscribe(res => {
-      console.log(res);
+      console.log(this.Questions);
+
+      const temporalQuestions: QuestionInterface[] = res;
+
+      if(temporalQuestions.length < 8) {
+        this.questions = temporalQuestions;
+      }
+
     })
+  }
+
+  get Questions() {
+    return this.questions;
   }
 }

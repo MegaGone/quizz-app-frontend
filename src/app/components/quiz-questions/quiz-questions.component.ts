@@ -61,7 +61,7 @@ export class QuizQuestionsComponent implements OnInit {
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize
     );
-    this.sendTest(this.questions);
+    // this.sendTest(this.questions);
   }
 
   /**
@@ -94,6 +94,7 @@ export class QuizQuestionsComponent implements OnInit {
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
 
+    this.sendTest(this.Questions)
     // TODO: Call the method to delete in the backend.
 
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
@@ -117,6 +118,7 @@ export class QuizQuestionsComponent implements OnInit {
     }
 
     await this.addQuestion(this.formParent.value);
+    this.sendTest(this.Questions)
     this.refreshQuestions();
     this.questionClose.close();
     // this.clearForm();
