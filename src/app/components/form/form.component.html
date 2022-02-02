@@ -1,0 +1,79 @@
+<div class="col-lg-12">
+    <div>
+        <div class="card-body p-lg-5">
+            <form autocomplete="off" [formGroup]="quizForm" (ngSubmit)="createQuiz()">
+    
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <input 
+                                class="form-control" 
+                                placeholder="Name"
+                                type="text" 
+                                formControlName="title">
+                            </div>
+
+                            <div *ngIf="f.title.touched && f.title.invalid">
+                                <div *ngIf="f.title.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Title required</small></div>
+                                <div *ngIf="f.title.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Title must be at least 5 characters</small></div>
+                                <div *ngIf="f.title.hasError('containSpace')"><small class="text-danger animate__animated animate__fadeIn">Cannot contains spaces</small></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <input 
+                                class="form-control" 
+                                placeholder="Code" 
+                                type="text"
+                                formControlName="code"
+                                [readOnly]="disableSelect">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group mb-4">
+                            <textarea 
+                            class="form-control form-control-alternative" 
+                            name="name" 
+                            rows="4" 
+                            cols="80"
+                            placeholder="Description" 
+                            formControlName="description"></textarea>
+                        </div>
+
+                        <div *ngIf="f.description.touched && f.description.invalid">
+                            <div *ngIf="f.description.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Description required</small></div>
+                            <div *ngIf="f.description.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Description must be at least 10 characters</small></div>
+                            <div *ngIf="f.description.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Description cannot contains space at start/end</small></div>
+                            <div *ngIf="f.description.hasError('doubleSpace') && !f.description.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Description cannot contains double space</small></div>   
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-12">
+                        <!-- <app-quiz-questions [Questions]="questions"></app-quiz-questions> -->
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-12">
+                        <!-- <app-quiz-participants [Participants]="participants"></app-quiz-participants> -->
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary btn-round btn-block">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
