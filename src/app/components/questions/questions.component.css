@@ -1,0 +1,147 @@
+.rounded-button {
+  width: 31px;
+  height: 31px;
+  background: #5e72e4;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.rounded-button:hover {
+  background: #4a5ab6;
+}
+
+.rounded-button-elipsis {
+  width: 31px;
+  height: 31px;
+  background: #d3d3d3;
+  color: #bb2121;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.rounded-button:hover {
+  background: #b43434;
+}
+
+.rounded-button-edit {
+  width: 31px;
+  height: 31px;
+  background: #d3d3d3;
+  color: #218fbb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.option {
+  min-width: 235px;
+  max-width: 235px;
+}
+
+.myButton {
+  width: 25px;
+  height: 25px;
+  background: #d3d3d3;
+  color: #bb2121;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.myButton:hover {
+  background: #b43434;
+  color: #ffffff;
+}
+
+/* Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #ffffff;
+  background-image: none;
+  flex: 1;
+  padding: 0 .5em;
+  color: #ADB5BD;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 3em;
+  line-height: 3;
+  background: #ADB5BD;
+  overflow: hidden;
+  border-radius: .25em;
+  box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+}
+
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: none;
+  cursor: pointer;
+  pointer-events: none;
+  transition: .25s all ease;
+  color: #ADB5BD;
+}
+
+.select:hover::after {
+  color: #565858;
+}
+
+.card-shadow {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: .25em;
+  box-shadow: 0 8px 8px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+}
+
+@media (max-width: 503px) {
+  .option {
+    min-width: 48%;
+    max-width: 48%;
+    margin: 1px;
+  }
+}
