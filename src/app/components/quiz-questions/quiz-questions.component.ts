@@ -93,8 +93,6 @@ export class QuizQuestionsComponent implements OnInit {
   // DELETE QUESTION
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
-
-    this.sendTest(this.Questions)
     // TODO: Call the method to delete in the backend.
 
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
@@ -118,7 +116,6 @@ export class QuizQuestionsComponent implements OnInit {
     }
 
     await this.addQuestion(this.formParent.value);
-    this.sendTest(this.Questions)
     this.refreshQuestions();
     this.questionClose.close();
     // this.clearForm();
@@ -228,9 +225,5 @@ export class QuizQuestionsComponent implements OnInit {
 
   get answers() {
     return this.formParent.get('answers');
-  }
-
-  sendTest(data: QuestionInterface[]) {
-    return this.quizSvc.sendTest(data);
   }
 }
