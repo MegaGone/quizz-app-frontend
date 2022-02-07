@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { QuestionInterface } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 import { SpacesValidator } from 'src/app/utils';
 
@@ -18,6 +19,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.getTest();
   }
 
   /**
@@ -56,5 +58,21 @@ export class FormComponent implements OnInit {
 
   get description() {
     return this.quizForm.get('description')?.invalid && this.quizForm.get('description')?.touched;
+  }
+
+  getTest() {
+    this.quizSvc.reciveTest().subscribe(res => {
+
+      const temporalQuestions: QuestionInterface[] = res;
+
+      if(temporalQuestions.length < 2) {
+        console.log(this.quizForm);
+        return this.quizForm.setErrors({minQuestions: true})
+      } else {
+        console.log(this.quizForm);
+        return this.quizForm.setErrors(null)
+      }
+
+    })
   }
 }
