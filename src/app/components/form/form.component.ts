@@ -31,7 +31,7 @@ export class FormComponent implements OnInit {
       title         : ['', [Validators.required, Validators.minLength(5), SpacesValidator.containsSpace]],
       code          : [''],
       description   : ['', [Validators.required, Validators.minLength(10), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
-      questions     : this.fb.array([]),
+      questions     : this.fb.array([], Validators.required),
       participants  : this.fb.array([])
     })
   }
@@ -66,11 +66,10 @@ export class FormComponent implements OnInit {
       const temporalQuestions: QuestionInterface[] = res;
 
       if(temporalQuestions.length < 2) {
-        console.log(this.quizForm);
-        return this.quizForm.setErrors({minQuestions: true})
+        return this.quizForm.get('questions')?.setErrors({minQuestions: true});
       } else {
-        console.log(this.quizForm);
-        return this.quizForm.setErrors(null)
+        this.quizForm.get('questions')?.setErrors(null)
+        return this.quizForm.updateValueAndValidity()
       }
 
     })
