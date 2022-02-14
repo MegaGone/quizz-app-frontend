@@ -14,6 +14,8 @@ export class FormComponent implements OnInit {
 
   public disableSelect!: Boolean;
   public quizForm!: FormGroup;
+  public showError: Boolean = false;
+  public submitted: Boolean = false;
 
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router) { }
 
@@ -37,6 +39,8 @@ export class FormComponent implements OnInit {
   }
 
   createQuiz() {
+    this.submitted = true;
+    this.validateQuestions();
     if (this.quizForm.invalid) {
       return Object.values(this.quizForm.controls).forEach(control => {
         control.markAllAsTouched();
@@ -65,7 +69,7 @@ export class FormComponent implements OnInit {
 
       const temporalQuestions: QuestionInterface[] = res;
 
-      if(temporalQuestions.length < 2) {
+      if(temporalQuestions.length < 8) {
         return this.quizForm.get('questions')?.setErrors({minQuestions: true});
       } else {
         this.quizForm.get('questions')?.setErrors(null)
@@ -73,5 +77,15 @@ export class FormComponent implements OnInit {
       }
 
     })
+  }
+
+  validateQuestions() {
+    if(this.submitted && this.quizForm.get('questions')?.hasError('minQuestions')) {
+      this.showError = true;
+      
+      setTimeout(() => {
+        this.showError = false;
+      }, 3000)
+    }
   }
 }
