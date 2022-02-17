@@ -87,7 +87,8 @@
             <div
               *ngIf="pForm.title.errors?.minlength && !pForm.title.hasError('doubleSpace') && !pForm.title.hasError('space')">
               <small class="text-danger animate__animated animate__fadeIn">Question name's must be at least 5
-                characters.</small></div>
+                characters.</small>
+            </div>
             <div *ngIf="pForm.title.hasError('doubleSpace')"><small
                 class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
             <div *ngIf="pForm.title.hasError('space')"><small
@@ -95,12 +96,12 @@
           </div>
 
           <div *ngIf="answers?.touched && answers?.invalid" class="text-center mb-2">
-            <div *ngIf="answers?.hasError('minLengthArray')"><small
+            <div *ngIf="answers?.hasError('minLengthArray') && submitted"><small
                 class="text-danger animate__animated animate__fadeIn">Question must be at least 2 answers.</small></div>
-            <div *ngIf="answers?.hasError('answersFalse')"><small
+            <div *ngIf="answers?.hasError('answersFalse') && submitted && !answers?.hasError('minLengthArray')"><small
                 class="text-danger animate__animated animate__fadeIn">At least one answer must be correct.</small>
             </div>
-            <div *ngIf="answers?.hasError('answersTrue')"><small
+            <div *ngIf="answers?.hasError('answersTrue') && submitted && !answers?.hasError('minLengthArray')"><small
                 class="text-danger animate__animated animate__fadeIn">At least one answer must be incorrect.</small>
             </div>
           </div>
@@ -128,16 +129,17 @@
                   <input type="text" class="form-control form-control-alternative text-center" placeholder="Answer name"
                     formControlName="title">
 
-                  <div *ngIf="getKey(formChild,'title')?.errors?.required && !getKey(formChild,'title')?.touched"><small
+                  <div *ngIf="getKey(formChild,'title')?.errors?.required && submitted"><small
                       class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
 
                   <div *ngIf="answer.get('title')?.touched && answer.get('title')?.dirty">
-                    <div *ngIf="answer.get('title')?.errors?.required"><small
-                        class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
+                    <!-- <div *ngIf="answer.get('title')?.errors?.required"><small
+                        class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div> -->
                     <div
                       *ngIf="answer.get('title')?.errors?.minlength && !answer.get('title')?.hasError('doubleSpace') && !answer.get('title')?.hasError('space')">
                       <small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4
-                        characters.</small></div>
+                        characters.</small>
+                    </div>
                     <div *ngIf="answer.get('title')?.hasError('doubleSpace')"><small
                         class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
                     <div *ngIf="answer.get('title')?.hasError('space')"><small

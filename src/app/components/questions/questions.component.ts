@@ -30,6 +30,7 @@ export class QuestionsComponent implements OnInit {
  *  FORMS
  **/
   public formParent!: FormGroup;
+  public submitted!: Boolean;
 
   /**
    *  MODALS
@@ -77,6 +78,7 @@ export class QuestionsComponent implements OnInit {
 
   // INIT FORMPARENT (QUESTIONFORM)
   initFormParent(): void {
+    this.submitted = false;
     this.formParent = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
       answers: new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue]
@@ -118,6 +120,7 @@ export class QuestionsComponent implements OnInit {
 
   // CREATE AND PUSH QUESTION
   async createQuestion() {
+    this.submitted = true;
     if (this.formParent.invalid) {
       return Object.values(this.formParent.controls).forEach((control) => {
         control.markAsTouched();
