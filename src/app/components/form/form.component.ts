@@ -47,7 +47,9 @@ export class FormComponent implements OnInit {
       })
     }
 
-    console.log(this.quizForm.value);
+    this.quizSvc.createQuiz(this.quizForm.value).subscribe(res => {
+      console.log(res);
+    })
 
   }
 

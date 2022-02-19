@@ -40,6 +40,11 @@ export class QuizService {
     )
   }
 
+  /**
+   * 
+   * @param id: String - Need ID to get a specific quiz
+   * @returns Quiz
+   */
   getQuizById(id: string) {
 
     const token = this.getToken();
@@ -51,6 +56,18 @@ export class QuizService {
     }).pipe(
       map(this.transformToQuiz)
     )
+
+  }
+
+  createQuiz(quiz: QuizInterface) {
+
+    const token = this.getToken();
+
+    return this.http.post(`${base_url}/quiz`, quiz, {
+      headers: {
+        'x-token': token
+      }
+    })
 
   }
 
