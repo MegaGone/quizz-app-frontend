@@ -1,0 +1,90 @@
+<div class="containter text-center" *ngIf="Participants.length >= 1">
+    <h4>Participants</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Joined</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of members; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ member.name }}</td>
+                <td>{{ member.joinIn | date: 'longDate' }}</td>
+                <td>
+                    <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, member.userId, i)"><i class="far fa-ellipsis-v"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-12">
+            <div class="float-right">
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                        (pageChange)="refreshQuizzes()">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Participant Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">OPTIONS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row text-center">
+                <div class="col-12">
+                    <button type="button" class="btn btn-info" (click)="viewResults(tempId)">
+                        View Results
+                        <i class="fad fa-user-check"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row text-center mt-3">
+                <div class="col-12">
+                    <button type="button" class="btn btn-danger" (click)="removeParticipant(tempId)">
+                        Remove Participant
+                        <i class="fad fa-user-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="modal.close('Close click')">CANCEL</button>
+    </div>
+</ng-template>
+
+<div *ngIf="Participants.length === 0" class="m-2 animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-12 card p-3 bg-primary">
+            <i class="fad fa-frown fa-5x text-white"></i>
+
+            <h2 class="text-white">No one seems to have joined the Quiz.</h2>
+            <small class="text-white text-uppercase">Share the quiz code and invite to your friends to play!</small>
+
+            <div *ngIf="getCode.length >= 1" class="container form-inline justify-content-center mt-3">
+                <div class="form-group form-inline justify-content-center">
+                    <div class="input-group mb-4">
+                      <input id="code" class="my-input" placeholder="Birthday" [value]="getCode" type="text" [readonly]="true" #code>
+                      <div class="input-group-append">
+                        <button type="button" (click)="copyInputMessage(code)" class="btn btn-white"><i class="fad fa-clipboard"></i></button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
