@@ -145,8 +145,8 @@
                     <div *ngIf="answer.get('title')?.hasError('space')"><small
                         class="text-danger animate__animated animate__fadeIn">Spaces to start/end not allowed.</small>
                     </div>
-                    <div *ngIf="answer.get('title')?.errors?.unique.message"><small
-                        class="text-danger animate__animated animate__fadeIn">{{ answer.get('title')?.errors?.unique.message }}</small>
+                    <div *ngIf="answer.get('title')?.errors?.unique?.message">
+                      <small class="text-danger animate__animated animate__fadeIn">{{ answer.get('title')?.errors?.unique.message }}</small>
                     </div>
                   </div>
 

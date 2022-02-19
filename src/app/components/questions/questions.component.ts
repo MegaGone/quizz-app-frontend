@@ -137,6 +137,7 @@ export class QuestionsComponent implements OnInit {
 
   // ADD QUESTION
   async addQuestion(question: QuestionInterface) {
+    this.submitted = false;
     const questionRepeated = await this.validateQuestion(question);
 
     if (questionRepeated) {
