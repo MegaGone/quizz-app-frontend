@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { QuestionInterface } from 'src/app/interfaces';
 import { QuizService, ValidationMessageService } from 'src/app/services';
 import { AnswersValidations, SpacesValidator } from 'src/app/utils';
+import { AnswerInterface } from '../../interfaces/answer.interface';
 
 @Component({
   selector: 'app-questions',
@@ -195,9 +196,16 @@ export class QuestionsComponent implements OnInit {
     return (this.formParent.get('answers') as FormArray).controls;
   }
 
+  // GET ANSWERS VALUES
+  get Answers() {
+    return (this.formParent.get('answers') as FormArray).value;
+  }
+
   // DELETE ANSWERS
   deleteAnswer(i: number) {
-    this.getControls().splice(i, 1);
+    this.getControls().splice(i, 1); // Delete in UI
+    this.Answers.splice(i, i);
+    this.formParent.get('answers')?.updateValueAndValidity();
   }
 
   // LOAD ANSWER
