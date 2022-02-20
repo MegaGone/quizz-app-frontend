@@ -8,9 +8,6 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 // My components
 import { NavbarComponent } from './navbar/navbar.component';
-import { QuizFormComponent } from './quiz-form/quiz-form.component';
-import { QuizParticipantsComponent } from './quiz-participants/quiz-participants.component';
-import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
 import { QuizzlistComponent } from './quizzlist/quizzlist.component';
 
 // Pipes
@@ -24,9 +21,6 @@ import { ParticipantsComponent } from './participants/participants.component';
     NavbarComponent,
     QuizzlistComponent,
     QuizzesPipe,
-    QuizFormComponent,
-    QuizParticipantsComponent,
-    QuizQuestionsComponent,
     FormComponent,
     QuestionsComponent,
     ParticipantsComponent
@@ -43,9 +37,6 @@ import { ParticipantsComponent } from './participants/participants.component';
   exports: [
     NavbarComponent,
     QuizzlistComponent,
-    QuizFormComponent,
-    QuizParticipantsComponent,
-    QuizQuestionsComponent,
     FormComponent,
     QuestionsComponent,
     ParticipantsComponent

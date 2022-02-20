@@ -59,18 +59,16 @@
 
                 <div class="row text-center">
                     <div class="col-12">
-                        <!-- <app-quiz-questions [Questions]="questions"></app-quiz-questions> -->
                         <app-questions [Form]="quizForm"></app-questions>
                         <div *ngIf="f.questions.touched && f.questions.invalid">
-                            <div *ngIf="f.questions.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Questions required</small></div>
-                            <div *ngIf="showError"><small class="text-danger animate__animated animate__fadeIn">Questions must be at least 8.</small></div>
+                            <div *ngIf="f.questions.errors?.required" class="text-left"><small class="text-danger animate__animated animate__fadeIn">Questions required</small></div>
+                            <div *ngIf="showError" class="text-left"><small class="text-danger animate__animated animate__fadeIn text-left">Questions must be at least 8.</small></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row text-center">
                     <div class="col-12">
-                        <!-- <app-quiz-participants [Participants]="participants"></app-quiz-participants> -->
                         <app-participants [Form]="quizForm"></app-participants>
                     </div>
                 </div>

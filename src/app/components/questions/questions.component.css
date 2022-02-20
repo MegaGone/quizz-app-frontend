@@ -138,6 +138,12 @@ select::-ms-expand {
   box-shadow: 0 8px 8px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
 }
 
+.list {
+  min-height: 315px !important;
+  max-height: 315px !important;
+  height: 315px !important;
+}
+
 @media (max-width: 503px) {
   .option {
     min-width: 48%;
