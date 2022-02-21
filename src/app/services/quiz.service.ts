@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { GetQuizResponse, QuestionInterface, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
 import { Observable, Subject } from 'rxjs';
+import { GetQuizByCodeResponse, QuizDB } from '../interfaces/getquizbycode.response.interface';
 
 const base_url = environment.base_url;
 
@@ -59,6 +60,11 @@ export class QuizService {
 
   }
 
+  /**
+   * 
+   * @param quiz: QUizInterface - Quiz to create
+   * @returns
+   */
   createQuiz(quiz: QuizInterface) {
 
     const token = this.getToken();
@@ -68,6 +74,25 @@ export class QuizService {
         'x-token': token
       }
     })
+
+  }
+
+  /**
+   * 
+   * @param code: String - Code to find the quiz
+   * @returns Quiz
+   */
+  getQuizByCode(code: string) {
+
+    const token = this.getToken();
+
+    return this.http.get<GetQuizByCodeResponse>(`${base_url}/quiz/code/${code}`, {
+      headers: {
+        'x-token': token
+      }
+    }).pipe(
+      map(this.transformQuizByCode)
+    )
 
   }
 
@@ -103,6 +128,29 @@ export class QuizService {
     return temporalQuiz;
   }
 
+  /**
+   * 
+   * @param res: GetQuizByCodeResponse - To Convert of tipo QuizDB to QuizInterface
+   * @returns Quiz: QuizInterface
+   */
+  private transformQuizByCode(res: GetQuizByCodeResponse): QuizInterface {
+
+    const quiz: QuizDB = res.quizDB[0];
+
+    const temporalQuiz: QuizInterface = {
+      _id: quiz._id,
+      title: quiz.title,
+      description: quiz.description,
+      code: quiz.code,
+      author: quiz.author,
+      questions: quiz.questions,
+      participants: quiz.participants,
+    }
+    
+    return temporalQuiz;
+  }
+
+  // To Comunicate QuestionsComponent to FormComponent
   sendTest(participants: QuestionInterface[]) {
     this.subject.next(participants);
   }

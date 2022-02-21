@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionInterface } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 import { SpacesValidator } from 'src/app/utils';
+import { ValidationMessageService } from '../../services/validation.message.service';
+import { QuizInterface } from '../../interfaces/quiz.interface';
 
 @Component({
   selector: 'app-form',
@@ -17,9 +19,10 @@ export class FormComponent implements OnInit {
   public showError: Boolean = false;
   public submitted: Boolean = false;
 
-  constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router) { }
+  constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
+    this.validateQuizCode();
     this.initForm();
     this.getTest();
   }
@@ -89,5 +92,34 @@ export class FormComponent implements OnInit {
         this.showError = false;
       }, 3000)
     }
+  }
+
+  validateQuizCode() {
+    const quizCode: string = this.route.snapshot.paramMap.get('quizCode')!;
+
+    if(quizCode != "new") {
+      this.quizSvc.getQuizByCode(quizCode).subscribe(
+        res => {
+          this.loadQuiz(res)
+          // console.log(res);
+        },
+        err => {
+          this.msgSvc.showMessage('Error getting quiz', 'ERROR', false);
+          return this.router.navigate(['/home/quiz'])
+        }
+      )
+    }
+  }
+
+  loadQuiz(quiz: QuizInterface) {
+
+    this.quizForm.setValue({
+      title       : quiz.title,
+      code        : quiz.code,
+      description : quiz.description,
+      questions   : [],
+      participants: []
+    })
+
   }
 }
