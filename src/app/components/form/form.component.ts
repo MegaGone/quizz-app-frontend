@@ -50,9 +50,16 @@ export class FormComponent implements OnInit {
       })
     }
 
-    this.quizSvc.createQuiz(this.quizForm.value).subscribe(res => {
-      console.log(res);
-    })
+    this.quizSvc.createQuiz(this.quizForm.value).subscribe(
+      res => {
+        this.msgSvc.showMessage(`${res}`, 'CREATED', true)
+        return this.router.navigate(['/home/quiz'])
+      },
+      err => {
+        this.msgSvc.showMessage('Error creating quiz', 'ERROR', false)
+        return this.router.navigate(['/home/quiz'])
+      }
+    )
 
   }
 

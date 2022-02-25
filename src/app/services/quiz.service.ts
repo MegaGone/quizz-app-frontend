@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { GetQuizResponse, QuestionInterface, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { GetQuizByCodeResponse, QuizDB } from '../interfaces/getquizbycode.response.interface';
 
 const base_url = environment.base_url;
@@ -72,9 +72,9 @@ export class QuizService {
     return this.http.post(`${base_url}/quiz`, quiz, {
       headers: {
         'x-token': token
-      }
+      },
+      responseType: 'text'
     })
-
   }
 
   /**
