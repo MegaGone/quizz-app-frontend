@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionInterface } from 'src/app/interfaces';
 import { QuizService } from 'src/app/services';
 import { SpacesValidator } from 'src/app/utils';
 import { ValidationMessageService } from '../../services/validation.message.service';
 import { QuizInterface } from '../../interfaces/quiz.interface';
+import { AnswerInterface } from '../../interfaces/answer.interface';
 
 @Component({
   selector: 'app-form',
@@ -18,6 +19,7 @@ export class FormComponent implements OnInit {
   public quizForm!: FormGroup;
   public showError: Boolean = false;
   public submitted: Boolean = false;
+  public questions: QuestionInterface[] = [];
 
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { }
 
@@ -52,7 +54,7 @@ export class FormComponent implements OnInit {
 
     this.quizSvc.createQuiz(this.quizForm.value).subscribe(
       res => {
-        this.msgSvc.showMessage(`${res}`, 'CREATED', true)
+        this.msgSvc.showMessage(`${res}!`, 'CREATED', true)
         return this.router.navigate(['/home/quiz'])
       },
       err => {
@@ -129,4 +131,19 @@ export class FormComponent implements OnInit {
     })
 
   }
+
+  initQuestionForm(): FormGroup {
+    return this.fb.group({
+      title   : this.fb.control(''),
+      answers : this.fb.array([])
+    })
+  }
+
+  initAnswerForm(): FormGroup {
+    return this.fb.group({
+      title     : this.fb.control(''),
+      isCorrect : this.fb.control('')
+    })
+  }
+
 }
