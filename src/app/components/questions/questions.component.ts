@@ -18,6 +18,7 @@ export class QuestionsComponent implements OnInit {
   @Input() Form!: FormGroup;
 
   public Questions!: QuestionInterface[];
+  public loaded: boolean;
 
   /*
   **  PAGINATION
@@ -43,13 +44,22 @@ export class QuestionsComponent implements OnInit {
     private toastSvc: ToastrService,
     private messageSvc: ValidationMessageService,
     private quizSvc: QuizService
-  ) { }
+  ) { 
+    this.loaded = false;
+  }
 
   ngOnInit(): void {
+
+    setTimeout(() => {
+    this.loaded = true;
     // Set Questions Array from parent Component
     this.Questions = this.getQuestions;
     this.refreshQuestions();
     this.initFormParent();
+      
+    }, 500)
+
+
   }
 
   /**

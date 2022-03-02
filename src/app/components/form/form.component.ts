@@ -24,8 +24,8 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
-    this.validateQuizCode();
     this.initForm();
+    this.validateQuizCode();
     this.getTest();
   }
 
@@ -120,15 +120,19 @@ export class FormComponent implements OnInit {
     }
   }
 
-  loadQuiz(quiz: QuizInterface) {
+  async loadQuiz(quiz: QuizInterface) {
 
-    this.quizForm.setValue({
-      title       : quiz.title,
-      code        : quiz.code,
-      description : quiz.description,
-      questions   : [],
-      participants: []
+    this.quizForm.patchValue({
+      _id: quiz._id,
+      title:  quiz.title,
+      code    : quiz.code,
+      author  : quiz.author,
+      description: quiz.description
     })
+    await this.loadQuestions(quiz.questions);
+
+    // console.log(this.quizForm);
+    
 
   }
 
@@ -146,4 +150,20 @@ export class FormComponent implements OnInit {
     })
   }
 
+  loadQuestions(Questions: QuestionInterface[]) {
+
+    const questionRef = this.quizForm.get('questions') as FormArray;
+
+    Questions.forEach(q => {
+
+      questionRef.push(
+        this.fb.group({
+          title   : [q.title],
+          answers : [q.answers] 
+        })
+      )
+
+    })
+
+  }
 }
