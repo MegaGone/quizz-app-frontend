@@ -6,7 +6,6 @@ import { QuizService } from 'src/app/services';
 import { SpacesValidator } from 'src/app/utils';
 import { ValidationMessageService } from '../../services/validation.message.service';
 import { QuizInterface } from '../../interfaces/quiz.interface';
-import { AnswerInterface } from '../../interfaces/answer.interface';
 
 @Component({
   selector: 'app-form',
@@ -20,6 +19,7 @@ export class FormComponent implements OnInit {
   public showError: Boolean = false;
   public submitted: Boolean = false;
   public questions: QuestionInterface[] = [];
+  public buttonMessage!: string;
 
   constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { }
 
@@ -110,7 +110,7 @@ export class FormComponent implements OnInit {
       this.quizSvc.getQuizByCode(quizCode).subscribe(
         res => {
           this.loadQuiz(res)
-          // console.log(res);
+          this.buttonMessage = "UPDATE";
         },
         err => {
           this.msgSvc.showMessage('Error getting quiz', 'ERROR', false);
@@ -118,6 +118,8 @@ export class FormComponent implements OnInit {
         }
       )
     }
+
+    this.buttonMessage = "CREATE";
   }
 
   async loadQuiz(quiz: QuizInterface) {
@@ -130,9 +132,6 @@ export class FormComponent implements OnInit {
       description: quiz.description
     })
     await this.loadQuestions(quiz.questions);
-
-    // console.log(this.quizForm);
-    
 
   }
 
