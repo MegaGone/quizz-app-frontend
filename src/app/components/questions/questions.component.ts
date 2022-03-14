@@ -91,6 +91,7 @@ export class QuestionsComponent implements OnInit {
   initFormParent(): void {
     this.submitted = false;
     this.formParent = new FormGroup({
+      id  : new FormControl(''),
       title: new FormControl('', [Validators.required, Validators.minLength(5), SpacesValidator.doubleSpace, SpacesValidator.spaces]),
       answers: new FormArray([], [Validators.required, AnswersValidations.minLengthArray(2), AnswersValidations.allAnswersFalse, AnswersValidations.allAnswersTrue]
       ),
@@ -113,6 +114,8 @@ export class QuestionsComponent implements OnInit {
   // DELETE QUESTION
   deleteQuestion(index: number, id?: number | string) {
     this.Questions.splice(index, 1);
+    console.log(id);
+    
 
     this.sendTest(this.Questions)
     // TODO: Call the method to delete in the backend.
@@ -182,15 +185,7 @@ export class QuestionsComponent implements OnInit {
   // INIT FORM CHILDREN (ANSWER FORM)
   initFormAnswer(): FormGroup {
     return new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        SpacesValidator.doubleSpace,
-        SpacesValidator.spaces,
-        RxwebValidators.unique({
-          message: 'You must enter a unique answer title.',
-        }),
-      ]),
+      title: new FormControl('', [ Validators.required, Validators.minLength(4), SpacesValidator.doubleSpace, SpacesValidator.spaces, RxwebValidators.unique({ message: 'You must enter a unique answer title.', }),]),
       isCorrect: new FormControl(false, [Validators.required]),
     });
   }

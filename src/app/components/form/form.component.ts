@@ -153,10 +153,10 @@ export class FormComponent implements OnInit {
 
     const questionRef = this.quizForm.get('questions') as FormArray;
 
-    Questions.forEach(q => {
-
+    Questions.forEach((q: any) => {
       questionRef.push(
         this.fb.group({
+          id      : [q._id],
           title   : [q.title],
           answers : [q.answers] 
         })
