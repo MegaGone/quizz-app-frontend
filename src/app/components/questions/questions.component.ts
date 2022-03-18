@@ -112,16 +112,19 @@ export class QuestionsComponent implements OnInit {
   }
 
   // DELETE QUESTION
-  deleteQuestion(index: number, id?: number | string) {
+  deleteQuestion(index: number, id: any) {
+
+    if(id != undefined) {
+      const quizID = this.getQuizId()
+      
+      this.quizSvc.deleteQuestion(quizID, id).subscribe(res => {
+        console.log(res);
+      })
+      
+    }
     this.Questions.splice(index, 1);
-    console.log(id);
-    
-
-    this.sendTest(this.Questions)
-    // TODO: Call the method to delete in the backend.
-
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
-
+    this.sendTest(this.Questions);
     this.refreshQuestions();
   }
 
@@ -256,5 +259,9 @@ export class QuestionsComponent implements OnInit {
 
   sendTest(data: QuestionInterface[]) {
     return this.quizSvc.sendTest(data);
+  }
+
+  getQuizId(): string {
+    return this.Form.get('_id')?.value;
   }
 }

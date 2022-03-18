@@ -96,6 +96,24 @@ export class QuizService {
 
   }
 
+  /**
+   * 
+   * @param id: String - Quiz ID to delete
+   * @returns 
+   */
+  deleteQuestion(quizID: any, questionID: any) {
+
+    const token = this.getToken();
+
+    return this.http.delete(`${base_url}/quiz/question/${quizID}/${questionID}`, {
+      headers: {
+        'x-token': token
+      },
+      responseType: 'text'
+    })
+
+  }
+
   // Methods to transform
 
   private transformToQuizzesToList(res: QuizzResponseInterface): QuizToList[] {
