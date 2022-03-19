@@ -158,16 +158,28 @@ export class QuestionsComponent implements OnInit {
     const questionRepeated = await this.validateQuestion(question);
 
     if (questionRepeated) {
-      return this.messageSvc.showMessage(
-        'Question already exist',
-        'Error',
-        false
-      );
+      return this.messageSvc.showMessage('Question already exist', 'Error', false);
+    }
+
+    if(question.id != '') {
+      await this.updateQuestion(question);
+      this.messageSvc.showMessage('Quiz Updated', 'UPDATED', true);
+      return;
     }
 
     this.Questions.push(question);
-
     return this.messageSvc.showMessage('Question Added', 'Successfully', true);
+  }
+
+  /**
+   * 
+   * @param question: QuestionInterface - Question to Update
+   */
+  updateQuestion(question: QuestionInterface): void {
+    let questionOnArray = this.Questions.find(q => q.id === question.id);
+
+    questionOnArray!.answers = question.answers;
+    questionOnArray!.title = question.title;
   }
 
   // Validate if question exist
