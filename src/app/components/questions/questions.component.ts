@@ -157,17 +157,18 @@ export class QuestionsComponent implements OnInit {
     this.submitted = false;
     const questionRepeated = await this.validateQuestion(question);
 
+    // Muestro 
     if (questionRepeated) {
       return this.messageSvc.showMessage('Question already exist', 'Error', false);
     }
 
-    if(question.id != '') {
+    // Se actualiza la question
+    if(question.id != '' && !questionRepeated) {
       await this.updateQuestion(question);
-      this.messageSvc.showMessage('Quiz Updated', 'UPDATED', true);
-      return;
+      return this.messageSvc.showMessage('Quiz Updated', 'UPDATED', true);
     }
 
-    this.Questions.push(question);
+    await this.Questions.push(question);
     return this.messageSvc.showMessage('Question Added', 'Successfully', true);
   }
 
