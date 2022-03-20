@@ -152,6 +152,8 @@ export class QuestionsComponent implements OnInit {
     this.initFormParent();
   }
 
+  // TODO: VALIDAR PORQUE SI DEJA ACTUALIZAR CON EL MISMO TITLE
+
   // ADD QUESTION
   async addQuestion(question: QuestionInterface) {
     this.submitted = false;

@@ -47,23 +47,39 @@ export class FormComponent implements OnInit {
   createQuiz() {
     this.submitted = true;
     this.validateQuestions();
+    const quizToUpdate = this.quizForm.get('_id')?.value;
+
     if (this.quizForm.invalid) {
       return Object.values(this.quizForm.controls).forEach(control => {
         control.markAllAsTouched();
       })
     }
 
-    this.quizSvc.createQuiz(this.quizForm.value).subscribe(
-      res => {
-        this.msgSvc.showMessage(`${res}!`, 'CREATED', true)
-        return this.router.navigate(['/home/quiz'])
-      },
-      err => {
-        this.msgSvc.showMessage('Error creating quiz', 'ERROR', false)
-        return this.router.navigate(['/home/quiz'])
-      }
-    )
+    if ( quizToUpdate != '') {
+      this.quizSvc.updateQuiz(quizToUpdate,this.quizForm.value).subscribe(
+        res => {
+          this.msgSvc.showMessage('Quiz updated', `${res}`, true);
+          return this.router.navigate(['/home/quiz']);
+        },
+        err => {
+          this.msgSvc.showMessage('Error updating quiz', 'ERROR', false)
+          return this.router.navigate(['/home/quiz']) 
+        }
+      )
 
+    } else {
+      this.quizSvc.createQuiz(this.quizForm.value).subscribe(
+        res => {
+          this.msgSvc.showMessage(`${res}!`, 'CREATED', true)
+          return this.router.navigate(['/home/quiz'])
+        },
+        err => {
+          this.msgSvc.showMessage('Error creating quiz', 'ERROR', false)
+          return this.router.navigate(['/home/quiz'])
+        }
+      )
+    }
+    
   }
 
   // Validations

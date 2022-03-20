@@ -96,6 +96,18 @@ export class QuizService {
 
   }
 
+  updateQuiz(quizId: string, question: QuestionInterface) {
+   
+    const token = this.getToken();
+
+    return this.http.put(`${base_url}/quiz/${quizId}`, question, {
+      headers: {
+        'x-token': token
+      },
+      responseType: 'text'
+    })
+  }
+
   /**
    * 
    * @param id: String - Quiz ID to delete
