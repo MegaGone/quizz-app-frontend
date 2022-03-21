@@ -6,6 +6,7 @@ import { QuizService } from 'src/app/services';
 import { SpacesValidator } from 'src/app/utils';
 import { ValidationMessageService } from '../../services/validation.message.service';
 import { QuizInterface } from '../../interfaces/quiz.interface';
+import { ParticipantInterface } from '../../interfaces/participants.interface';
 
 @Component({
   selector: 'app-form',
@@ -40,7 +41,7 @@ export class FormComponent implements OnInit {
       code          : [''],
       description   : ['', [Validators.required, Validators.minLength(10), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       questions     : this.fb.array([], Validators.required),
-      participants  : this.fb.array([])
+      participants  : this.fb.array([], Validators.required)
     })
   }
 
@@ -140,30 +141,19 @@ export class FormComponent implements OnInit {
   }
 
   async loadQuiz(quiz: QuizInterface) {
+    // console.log(quiz);
+    
 
     this.quizForm.patchValue({
       _id: quiz._id,
       title:  quiz.title,
       code    : quiz.code,
       author  : quiz.author,
-      description: quiz.description
+      description: quiz.description,
+      participants: quiz.participants
     })
     await this.loadQuestions(quiz.questions);
-
-  }
-
-  initQuestionForm(): FormGroup {
-    return this.fb.group({
-      title   : this.fb.control(''),
-      answers : this.fb.array([])
-    })
-  }
-
-  initAnswerForm(): FormGroup {
-    return this.fb.group({
-      title     : this.fb.control(''),
-      isCorrect : this.fb.control('')
-    })
+    await this.loadParticipants(quiz.participants);
   }
 
   loadQuestions(Questions: QuestionInterface[]) {
@@ -179,6 +169,22 @@ export class FormComponent implements OnInit {
         })
       )
 
+    })
+  }
+
+  loadParticipants(Participants: ParticipantInterface[]) {
+
+    const participantRef = this.quizForm.get('participants') as FormArray;
+
+    Participants.forEach((q: ParticipantInterface) => {
+      participantRef.push(
+        this.fb.group({
+          userId: [q.userId],
+          name: [q.name],
+          joinIn: [q.joinIn],
+          correctAnswers: [q.correctAnswers]
+        })
+      )
     })
 
   }

@@ -36,9 +36,14 @@ export class ParticipantsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.Participants = this.getParticipants;
-    this.refreshQuizzes();
-    this.getCode;
+    
+    setTimeout(() => {      
+      this.Participants = this.getParticipants;
+      this.refreshQuizzes();
+      this.getCode;
+
+    }, 500)
+
   }
 
   get getParticipants() {
