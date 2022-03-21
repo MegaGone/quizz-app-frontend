@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   private lastPoppedUrl!: string | any;
   private yScrollStack: any[] = [];
 
-  constructor(public location: Location, private router: Router) { }
+  constructor(public location: Location, private router: Router, private authSvc: AuthService) { }
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
@@ -48,5 +49,9 @@ export class NavbarComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  logOut() {
+    this.authSvc.logOut();
   }
 }
