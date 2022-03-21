@@ -157,7 +157,7 @@ export class QuestionsComponent implements OnInit {
   // ADD QUESTION
   async addQuestion(question: QuestionInterface) {
     this.submitted = false;
-    const questionRepeated = await this.validateQuestion(question);
+    const questionRepeated = await this.validateQuestion(question);    
 
     // Muestro 
     if (questionRepeated) {
@@ -186,14 +186,11 @@ export class QuestionsComponent implements OnInit {
   }
 
   // Validate if question exist
-  validateQuestion(question: QuestionInterface): Boolean {
-    // Obtener los title de las questions
-    const questions = this.questions.map((question) => question.title);
+  async validateQuestion(question: QuestionInterface) {
 
-    // Obtener la question nueva
-    const questionTitle = question.title;
+    const existQuestion = await this.Questions.findIndex(q => q.title == question.title);
 
-    return questions.indexOf(questionTitle) > -1;
+    return (existQuestion >= 0) ? true : false;
   }
 
   /**
