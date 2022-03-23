@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { GetQuizResponse, QuestionInterface, QuizInterface, QuizToList, QuizzResponseInterface } from '../interfaces';
@@ -96,6 +96,12 @@ export class QuizService {
 
   }
 
+  /**
+   * 
+   * @param quizId: string - Quiz Id's
+   * @param question: QuestionInterface - Question to update
+   * @returns UPTADED message
+   */
   updateQuiz(quizId: string, question: QuestionInterface) {
    
     const token = this.getToken();
@@ -108,16 +114,11 @@ export class QuizService {
     })
   }
 
-  /**
-   * 
-   * @param id: String - Quiz ID to delete
-   * @returns 
-   */
-  deleteQuestion(quizID: any, questionID: any) {
+  removeParticipant(quizId: string, userId: string) {
 
     const token = this.getToken();
-
-    return this.http.delete(`${base_url}/quiz/question/${quizID}/${questionID}`, {
+    
+    return this.http.delete(`${base_url}/quiz/remove/${quizId}/${userId}`, {
       headers: {
         'x-token': token
       },
@@ -126,8 +127,8 @@ export class QuizService {
 
   }
 
-  // Methods to transform
 
+  // Methods to transform
   private transformToQuizzesToList(res: QuizzResponseInterface): QuizToList[] {
 
     const quizzesList: QuizToList[] = res.quizzes.map((quiz: QuizInterface, i: number) => {

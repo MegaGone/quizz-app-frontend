@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ValidationMessageService } from '../../services/validation.message.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormArray } from '@angular/forms';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-participants',
@@ -26,13 +27,14 @@ export class ParticipantsComponent implements OnInit {
    ** MODAL
    */
   public closeResult!: string;
-  public tempId!: string | number; // Participant Options
+  public tempId!: string; // Participant Options
   public tempIndex!: number;
 
   constructor(
     private modalSvc: NgbModal,
     private messagesSvc: ValidationMessageService,
-    private router: Router
+    private router: Router,
+    private quizSvc: QuizService
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class ParticipantsComponent implements OnInit {
  * @param id      : String | String = Id of the participant.
  * @param i       : Number = Index of the participant to remove.
  */
-  openVerticallyCentered(content: any, id: number | string, i: number) {
+  openVerticallyCentered(content: any, id: string, i: number) {
     this.modalSvc.open(content, { centered: true });
 
     // Save in a temporal variable to send to the options.
@@ -76,14 +78,23 @@ export class ParticipantsComponent implements OnInit {
     this.tempIndex = i;
   }
 
-  removeParticipant(id: number | string) {
+  removeParticipant(id: string) {
     // This to remove only in the Frontend
     this.Participants.splice(this.tempIndex, 1);
 
+    const quizId = this.getQuizId;
     // TODO: Call the method to remove participant in the backend.
-    this.refreshQuizzes();
-    this.modalSvc.dismissAll();
-    this.messagesSvc.showMessage('Participant removed', 'Successfully', true);
+    this.quizSvc.removeParticipant(quizId, id).subscribe(
+      res => {
+        this.modalSvc.dismissAll();
+        this.refreshQuizzes();
+        return this.messagesSvc.showMessage(`${res}`, 'Removed', true);
+      },
+      err => {
+        return this.messagesSvc.showMessage('Error removing participant', 'Error', false);
+      }
+    )
+
   }
 
   /**
@@ -108,5 +119,9 @@ export class ParticipantsComponent implements OnInit {
 
   get getCode() {
     return this.Form.get('code')?.value;
+  }
+
+  get getQuizId() {
+    return this.Form.get('_id')?.value;
   }
 }
