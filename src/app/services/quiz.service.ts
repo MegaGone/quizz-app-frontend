@@ -114,6 +114,10 @@ export class QuizService {
     })
   }
 
+  /**
+   * quizId: string - Id of the quiz
+   * userId: string - Id of the user to remove from the quiz
+   */
   removeParticipant(quizId: string, userId: string) {
 
     const token = this.getToken();

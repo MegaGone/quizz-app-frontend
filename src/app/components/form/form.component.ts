@@ -128,9 +128,11 @@ export class FormComponent implements OnInit {
       this.quizSvc.getQuizByCode(quizCode).subscribe(
         res => {
           this.loadQuiz(res)
+          console.log(res);
+          
           this.buttonMessage = "UPDATE";
         },
-        err => {
+        err => {         
           this.msgSvc.showMessage('Error getting quiz', 'ERROR', false);
           return this.router.navigate(['/home/quiz'])
         }
@@ -141,9 +143,6 @@ export class FormComponent implements OnInit {
   }
 
   async loadQuiz(quiz: QuizInterface) {
-    // console.log(quiz);
-    
-
     this.quizForm.patchValue({
       _id: quiz._id,
       title:  quiz.title,

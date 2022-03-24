@@ -113,15 +113,6 @@ export class QuestionsComponent implements OnInit {
 
   // DELETE QUESTION
   deleteQuestion(index: number, id: any) {
-
-    // if(id != undefined) {
-    //   const quizID = this.getQuizId()
-      
-    //   this.quizSvc.deleteQuestion(quizID, id).subscribe(res => {
-    //     console.log(res);
-    //   })
-      
-    // }
     this.Questions.splice(index, 1);
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
     this.sendTest(this.Questions);
