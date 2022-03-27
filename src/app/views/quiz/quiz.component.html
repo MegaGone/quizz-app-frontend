@@ -29,7 +29,10 @@
             </ul>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto ">
               <li class="nav-item dropdown">
-                <h1 class="text-white mr-5">QUIZ</h1>
+                <h1 class="text-white mr-1">{{ code }}</h1>
+              </li>
+              <li>
+                <span *ngIf="code != 'QUIZ'" class="text-white mr-1" (click)="copyCode(this.code)"><i class="fad fa-clipboard clip"></i></span>
               </li>
             </ul>
         </div>
@@ -41,7 +44,7 @@
   
         <div class="card card-profile shadow mt--300">
           <div class="row justify-content-center">
-            <app-form></app-form>
+            <app-form (QuizData)="reciveQuiz($event)"></app-form>
           </div>
         </div>
       </div>

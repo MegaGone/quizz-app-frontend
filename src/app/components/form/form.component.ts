@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionInterface } from 'src/app/interfaces';
@@ -14,6 +14,8 @@ import { ParticipantInterface } from '../../interfaces/participants.interface';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+
+  @Output() QuizData: EventEmitter<QuizInterface> = new EventEmitter();
 
   public disableSelect!: Boolean;
   public quizForm!: FormGroup;
@@ -128,8 +130,6 @@ export class FormComponent implements OnInit {
       this.quizSvc.getQuizByCode(quizCode).subscribe(
         res => {
           this.loadQuiz(res)
-          console.log(res);
-          
           this.buttonMessage = "UPDATE";
         },
         err => {         
@@ -153,6 +153,7 @@ export class FormComponent implements OnInit {
     })
     await this.loadQuestions(quiz.questions);
     await this.loadParticipants(quiz.participants);
+    this.QuizData?.emit(quiz)
   }
 
   loadQuestions(Questions: QuestionInterface[]) {

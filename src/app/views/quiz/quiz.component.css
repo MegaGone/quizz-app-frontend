@@ -1,0 +1,4 @@
+.clip:hover {
+    background-color: gray;;
+    transition: background 0.2s;
+}
