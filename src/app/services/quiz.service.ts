@@ -115,6 +115,22 @@ export class QuizService {
   }
 
   /**
+   * 
+   * @param id: string - Quiz's id
+   * @returns Delete the quiz
+   */
+  deleteQuiz(id: string) {
+    const token = this.getToken();
+
+    return this.http.delete(`${base_url}/quiz/${id}`, {
+      headers: {
+        'x-token': token
+      },
+      responseType: 'text'
+    })
+  }
+
+  /**
    * quizId: string - Id of the quiz
    * userId: string - Id of the user to remove from the quiz
    */

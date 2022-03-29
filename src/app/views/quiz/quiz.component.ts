@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizService, ValidationMessageService } from 'src/app/services';
 import { QuizInterface } from '../../interfaces/quiz.interface';
-import { ValidationMessageService } from '../../services/validation.message.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -11,19 +11,21 @@ export class QuizComponent implements OnInit {
 
   public code: string;
   public id?: string;
+  public tempId!: string;
 
-  constructor(private messageSvc: ValidationMessageService) { 
+  constructor(private messageSvc: ValidationMessageService, private quizSvc: QuizService, private router: Router) { 
     this.code = 'QUIZ'
   }
 
   ngOnInit(): void {
   }
 
-  reciveQuiz(quiz: QuizInterface) {
+  async reciveQuiz(quiz: QuizInterface) {
 
     this.code = quiz.code;
     this.id = this.id
 
+    this.tempId = await this.getQuiz(quiz);
   }
 
   copyCode(code: string) {
@@ -41,5 +43,30 @@ export class QuizComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  deleteQuestion() {
+    
+    
+
+    if(this.id != '' || this.id != undefined) {
+      this.quizSvc.deleteQuiz(this.tempId).subscribe(
+        res => {
+          
+          this.messageSvc.showMessage('Quiz deleted', 'DELETED', true);
+          return this.router.navigate(['/home'])
+        },
+        err => {
+          console.log(err);
+          
+          return this.messageSvc.showMessage('Error deleting quiz', 'ERROR', false);
+        }
+      )
+    }
+
+  }
+
+  getQuiz(quiz: QuizInterface): string {
+    return quiz._id;
   }
 }
