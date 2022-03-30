@@ -23,8 +23,11 @@ export class FormComponent implements OnInit {
   public submitted: Boolean = false;
   public questions: QuestionInterface[] = [];
   public buttonMessage!: string;
+  public lapses: number[];
 
-  constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { }
+  constructor(private fb: FormBuilder, private quizSvc: QuizService, private router: Router, private route: ActivatedRoute, private msgSvc: ValidationMessageService) { 
+    this.lapses = [10, 15, 20, 25, 30, 40, 50, 60]
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -39,7 +42,8 @@ export class FormComponent implements OnInit {
     this.disableSelect = true;
     this.quizForm = this.fb.group({
       _id           : [''],
-      title         : ['', [Validators.required, Validators.minLength(5), SpacesValidator.containsSpace]],
+      title         : ['', [Validators.required, Validators.minLength(5), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
+      lapse         : [10, Validators.required],
       code          : [''],
       description   : ['', [Validators.required, Validators.minLength(10), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       questions     : this.fb.array([], Validators.required),
@@ -48,6 +52,7 @@ export class FormComponent implements OnInit {
   }
 
   createQuiz() {
+    console.log(this.quizForm.value);
     this.submitted = true;
     this.validateQuestions();
     const quizToUpdate = this.quizForm.get('_id')?.value;

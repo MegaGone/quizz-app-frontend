@@ -23,16 +23,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="input-group input-group-alternative">
-                                <input 
-                                class="form-control" 
-                                placeholder="Code" 
-                                type="text"
-                                formControlName="code"
-                                [readOnly]="disableSelect">
-                            </div>
-                        </div>
+                        <div class="select">
+                            <select name="format" id="format" formControlName="lapse" class="text-center">
+                                <option [ngValue]="lapse" *ngFor="let lapse of lapses">{{ lapse }}</option>
+                            </select>
+                          </div>
                     </div>
                 </div>
     
