@@ -173,7 +173,8 @@ export class QuizService {
       author: res.author,
       code: res.code,
       participants: res.participants,
-      questions: res.questions
+      questions: res.questions,
+      lapse: res.lapse
     }
 
     return temporalQuiz;
@@ -196,6 +197,7 @@ export class QuizService {
       author: quiz.author,
       questions: quiz.questions,
       participants: quiz.participants,
+      lapse:      quiz.lapse
     }
     
     return temporalQuiz;

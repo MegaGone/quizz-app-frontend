@@ -19,6 +19,7 @@ export interface GetQuizResponse {
     code:         string;
     participants: Participant[];
     questions:    Question[];
+    lapse:        number;
 }
 
 export interface Participant {

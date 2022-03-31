@@ -47,15 +47,18 @@ export class FormComponent implements OnInit {
       code          : [''],
       description   : ['', [Validators.required, Validators.minLength(10), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       questions     : this.fb.array([], Validators.required),
-      participants  : this.fb.array([], Validators.required)
+      participants  : this.fb.array([])
     })
   }
 
   createQuiz() {
-    console.log(this.quizForm.value);
     this.submitted = true;
     this.validateQuestions();
     const quizToUpdate = this.quizForm.get('_id')?.value;
+
+    console.log(this.quizForm);
+    
+    
 
     if (this.quizForm.invalid) {
       return Object.values(this.quizForm.controls).forEach(control => {
@@ -66,10 +69,12 @@ export class FormComponent implements OnInit {
     if ( quizToUpdate != '') {
       this.quizSvc.updateQuiz(quizToUpdate,this.quizForm.value).subscribe(
         res => {
+          console.log(res);
           this.msgSvc.showMessage('Quiz updated', `${res}`, true);
           return this.router.navigate(['/home/quiz']);
         },
         err => {
+          console.log(err)
           this.msgSvc.showMessage('Error updating quiz', 'ERROR', false)
           return this.router.navigate(['/home/quiz']) 
         }
@@ -148,13 +153,16 @@ export class FormComponent implements OnInit {
   }
 
   async loadQuiz(quiz: QuizInterface) {
+    console.log(quiz);
+    
     this.quizForm.patchValue({
-      _id: quiz._id,
-      title:  quiz.title,
-      code    : quiz.code,
-      author  : quiz.author,
-      description: quiz.description,
-      participants: quiz.participants
+      _id:          quiz._id,
+      title:        quiz.title,
+      code    :     quiz.code,
+      author  :     quiz.author,
+      description:  quiz.description,
+      participants: quiz.participants,
+      lapse:        quiz.lapse
     })
     await this.loadQuestions(quiz.questions);
     await this.loadParticipants(quiz.participants);

@@ -13,4 +13,5 @@ export interface QuizDB {
     author:         string;
     code:           string;
     participants?:  Participant[];
+    lapse:          number;
 }
