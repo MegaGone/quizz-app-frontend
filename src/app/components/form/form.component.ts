@@ -56,10 +56,6 @@ export class FormComponent implements OnInit {
     this.validateQuestions();
     const quizToUpdate = this.quizForm.get('_id')?.value;
 
-    console.log(this.quizForm);
-    
-    
-
     if (this.quizForm.invalid) {
       return Object.values(this.quizForm.controls).forEach(control => {
         control.markAllAsTouched();
@@ -69,12 +65,10 @@ export class FormComponent implements OnInit {
     if ( quizToUpdate != '') {
       this.quizSvc.updateQuiz(quizToUpdate,this.quizForm.value).subscribe(
         res => {
-          console.log(res);
           this.msgSvc.showMessage('Quiz updated', `${res}`, true);
           return this.router.navigate(['/home/quiz']);
         },
         err => {
-          console.log(err)
           this.msgSvc.showMessage('Error updating quiz', 'ERROR', false)
           return this.router.navigate(['/home/quiz']) 
         }
@@ -152,9 +146,7 @@ export class FormComponent implements OnInit {
     this.buttonMessage = "CREATE";
   }
 
-  async loadQuiz(quiz: QuizInterface) {
-    console.log(quiz);
-    
+  async loadQuiz(quiz: QuizInterface) {    
     this.quizForm.patchValue({
       _id:          quiz._id,
       title:        quiz.title,

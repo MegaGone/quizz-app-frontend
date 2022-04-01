@@ -15,6 +15,7 @@ export class ParticipantsComponent implements OnInit {
 
   @Input() Form!: FormGroup;
   public Participants: ParticipantInterface[] = [];
+  public isNew!: Boolean;
 
   /*
   ** PAGINATION
@@ -41,6 +42,7 @@ export class ParticipantsComponent implements OnInit {
     
     setTimeout(() => {      
       this.Participants = this.getParticipants;
+      this.validateQuizId();
       this.refreshQuizzes();
       this.getCode;
 
@@ -123,5 +125,15 @@ export class ParticipantsComponent implements OnInit {
 
   get getQuizId() {
     return this.Form.get('_id')?.value;
+  }
+
+  validateQuizId() {
+    const id = this.Form.get('_id')?.value;
+
+    if(id != '') {
+      this.isNew = false;
+    } else {
+      this.isNew = true;
+    }
   }
 }
