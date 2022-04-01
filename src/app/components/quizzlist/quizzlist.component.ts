@@ -52,23 +52,14 @@ export class QuizzlistComponent implements OnInit {
   navigateToQuiz(quiz: string) {
 
     if (quiz) {
-      this.quizSvc.getQuizById(quiz).subscribe(res => {
-        
-        if(res) {
-          this.quizSvc.tempQuiz = res;
-          return this.router.navigate(['/home/quiz'], {state: {isNew: false}})
-        }
-        
-        return this.msgSvc.showMessage('Error to get quiz', 'Error', false);
-
-      })
+      this.router.navigate([`/home/quiz/${quiz}`])
     }
 
     return;
   }
 
   createQuiz() {
-    this.router.navigate(['/home/quiz'], {state: {isNew: true}});
+    this.router.navigate(['/home/quiz/new']);
   }
 
   searchQuiz(term: string) {

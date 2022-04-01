@@ -18,7 +18,7 @@
             <td>{{ quiz.code }}</td>
             <td>{{ quiz.participants.length }}</td>
             <td>
-              <a href="javascript:void(0)" (click)="navigateToQuiz(quiz._id)"><i class="fad fa-chevron-right"></i></a>
+              <a href="javascript:void(0)" (click)="navigateToQuiz(quiz.code)"><i class="fad fa-chevron-right"></i></a>
             </td>
           </tr>
         </tbody>
@@ -33,11 +33,11 @@
           (click)="nxtPage()"><i class="fas fa-chevron-double-right"></i></button>
       </div>
     </div>
-
-    <div class="col-7"></div>
-
-    <div class="col-3 text-right">
+    <div class="col-5 text-right">
       <input type="text" class="form-control" #txtSearch (keyup)="searchQuiz(txtSearch.value)">
+    </div>
+    <div class="col-5 text-right">
+      <button class="btn btn-primary" (click)="createQuiz()">New Quiz</button>
     </div>
   </div>
 </ng-container>

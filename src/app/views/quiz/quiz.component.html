@@ -18,7 +18,7 @@
         </svg>
       </div>
       
-      <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+      <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top">
         <div class="container">
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <li class="nav-item dropdown">
@@ -28,8 +28,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto ">
+              <li *ngIf="code != 'QUIZ'" class="nav-item dropdown">
+                <button type="button" class="btn btn-danger" (click)="deleteQuestion()">DELETE QUESTION</button>
+              </li>
               <li class="nav-item dropdown">
-                <h1 class="text-white mr-5">QUIZ</h1>
+                <h1 class="text-white mr-1">{{ code }}</h1>
+              </li>
+              <li>
+                <span *ngIf="code != 'QUIZ'" class="text-white mr-1" (click)="copyCode(this.code)"><i class="fad fa-clipboard clip"></i></span>
               </li>
             </ul>
         </div>
@@ -40,8 +46,8 @@
       <div class="container">
   
         <div class="card card-profile shadow mt--300">
-          <div class="row justify-content-center ">
-            <app-form></app-form>
+          <div class="row justify-content-center">
+            <app-form (QuizData)="reciveQuiz($event)"></app-form>
           </div>
         </div>
       </div>

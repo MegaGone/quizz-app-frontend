@@ -2,6 +2,7 @@
     <div>
         <div class="card-body p-lg-5">
             <form autocomplete="off" [formGroup]="quizForm" (ngSubmit)="createQuiz()">
+    
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -10,49 +11,68 @@
                                 class="form-control" 
                                 placeholder="Name"
                                 type="text" 
-                                formControlName="title"
-                                [ngClass]="{'focused':focus===true}">
+                                formControlName="title">
                             </div>
+
+                            <div *ngIf="f.title.touched && f.title.invalid">
+                                <div *ngIf="f.title.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Title required</small></div>
+                                <div *ngIf="f.title.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Title must be at least 5 characters</small></div>
+                                <div *ngIf="f.title.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Title cannot contains space at start/end</small></div>
+                                <div *ngIf="f.title.hasError('doubleSpace') && !f.title.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Title cannot contains double space</small></div>   
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="input-group input-group-alternative">
-                                <input 
-                                class="form-control" 
-                                placeholder="Code" 
-                                type="text"
-                                [ngClass]="{'focused':focus2===true}"
-                                formControlName="code">
-                            </div>
-                        </div>
+                        <div class="select">
+                            <select name="format" id="format" formControlName="lapse" class="text-center">
+                                <option [ngValue]="lapse" *ngFor="let lapse of lapses">{{ lapse }}</option>
+                            </select>
+                          </div>
                     </div>
                 </div>
-
+    
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group mb-4">
-                            <textarea class="form-control form-control-alternative" name="name" rows="4" cols="80"
-                                placeholder="Description" formControlName="description"></textarea>
+                            <textarea 
+                            class="form-control form-control-alternative" 
+                            name="name" 
+                            rows="4" 
+                            cols="80"
+                            placeholder="Description" 
+                            formControlName="description"></textarea>
+                        </div>
+
+                        <div *ngIf="f.description.touched && f.description.invalid">
+                            <div *ngIf="f.description.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Description required</small></div>
+                            <div *ngIf="f.description.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Description must be at least 10 characters</small></div>
+                            <div *ngIf="f.description.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Description cannot contains space at start/end</small></div>
+                            <div *ngIf="f.description.hasError('doubleSpace') && !f.description.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Description cannot contains double space</small></div>   
                         </div>
                     </div>
                 </div>
 
                 <div class="row text-center">
                     <div class="col-12">
-                        <app-question [Questions]="quiz.questions"></app-question>
+                        <app-questions [Form]="quizForm"></app-questions>
+                        <div *ngIf="f.questions.touched && f.questions.invalid">
+                            <div *ngIf="f.questions.errors?.required" class="text-left"><small class="text-danger animate__animated animate__fadeIn">Questions required</small></div>
+                            <div *ngIf="showError" class="text-left"><small class="text-danger animate__animated animate__fadeIn text-left">Questions must be at least 8.</small></div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row text-center">
                     <div class="col-12">
-                        <app-participants [Participants]="quiz.participants"></app-participants>
+                        <app-participants [Form]="quizForm"></app-participants>
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="btn btn-primary btn-round btn-block">Create</button>
+                    <button type="submit" class="btn btn-primary btn-round btn-block">{{buttonMessage}}</button>
                 </div>
+
             </form>
         </div>
     </div>

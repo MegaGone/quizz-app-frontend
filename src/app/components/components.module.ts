@@ -8,22 +8,22 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 // My components
 import { NavbarComponent } from './navbar/navbar.component';
-import { FormComponent } from './form/form.component';
-import { QuestionComponent } from './question/question.component';
-import { ParticipantsComponent } from './participants/participants.component';
 import { QuizzlistComponent } from './quizzlist/quizzlist.component';
 
 // Pipes
 import { QuizzesPipe } from '../pipes/quizzes.pipe';
+import { FormComponent } from './form/form.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { ParticipantsComponent } from './participants/participants.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    FormComponent,
-    ParticipantsComponent,
-    QuestionComponent,
     QuizzlistComponent,
-    QuizzesPipe
+    QuizzesPipe,
+    FormComponent,
+    QuestionsComponent,
+    ParticipantsComponent
   ],
   imports: [
     CommonModule,
@@ -36,9 +36,10 @@ import { QuizzesPipe } from '../pipes/quizzes.pipe';
   ],
   exports: [
     NavbarComponent,
+    QuizzlistComponent,
     FormComponent,
-    QuestionComponent,
-    QuizzlistComponent
+    QuestionsComponent,
+    ParticipantsComponent
   ]
 })
 export class ComponentsModule { }

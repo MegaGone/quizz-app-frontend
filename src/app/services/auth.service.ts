@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { RegisterUser } from '../interfaces/register-user.interface';
 import { Login } from '../interfaces/login.interface';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
 
@@ -14,7 +15,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   validateToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
@@ -68,5 +69,11 @@ export class AuthService {
             localStorage.setItem('token', res.token)
           })
         )
+  }
+
+  // TODO: Ver porque no redirecciona de forma correcta
+  logOut() {
+    localStorage.removeItem('token')
+    return this.router.navigate(['/auth/login'])
   }
 }

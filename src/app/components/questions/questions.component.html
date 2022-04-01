@@ -1,0 +1,195 @@
+<div *ngIf="loaded && Questions.length >= 1">
+  <h4 class="text-center">Questions</h4>
+
+  <div class="row list">
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answers</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let question of questions; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ question.title }}</td>
+            <td>
+              <button class="rounded-button-edit" type="button" (click)="openVerticallyCentered(content, question)"><i
+                  class="fad fa-edit"></i></button>
+            </td>
+            <td>
+              <button class="rounded-button-elipsis" type="button" (click)="deleteQuestion(i, question.id)"><i
+                  class="fad fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-1" *ngIf="Questions.length < 12">
+      <div class="float-left">
+        <button type="button" class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i
+            class="fad fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="col-11">
+      <div class="float-right">
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refreshQuestions()">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IF QUESTIONS DONT EXIST -->
+<div *ngIf="Questions?.length === 0" class="m-2 animate__animated animate__fadeIn">
+  <div class="row">
+    <div class="col-12 card p-3 bg-primary">
+      <i class="fad fa-exclamation fa-5x text-white"></i>
+
+      <h2 class="text-white">You dont have questions added.</h2>
+      <button class="btn btn-dark" type="button" (click)="openVerticallyCentered(content)">Create Question</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Question Modal -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Create Question</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <!-- FORM PARENT -->
+    <form [formGroup]="formParent">
+      <div class="row">
+        <div class="col-12">
+
+          <!-- Question Name -->
+          <div class="form-group"
+            [ngClass]="{'has-danger': questionTitleValidation, 'animate__animated animate__fadeIn': questionTitleValidation}">
+            <div class="input-group input-group-alternative mb-4">
+              <input class="form-control" placeholder="Question name" type="text" formControlName="title">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+              </div>
+            </div>
+          </div>
+          <!-- /Question Name -->
+          <div *ngIf="pForm.title.touched && pForm.title.invalid" class="text-center mb-2">
+            <div *ngIf="pForm.title.errors?.required"><small
+                class="text-danger animate__animated animate__fadeIn">Question name's required.</small></div>
+            <div
+              *ngIf="pForm.title.errors?.minlength && !pForm.title.hasError('doubleSpace') && !pForm.title.hasError('space')">
+              <small class="text-danger animate__animated animate__fadeIn">Question name's must be at least 5
+                characters.</small>
+            </div>
+            <div *ngIf="pForm.title.hasError('doubleSpace')"><small
+                class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
+            <div *ngIf="pForm.title.hasError('space')"><small
+                class="text-danger animate__animated animate__fadeIn">Spaces to start/end not allowed.</small></div>
+          </div>
+
+          <div *ngIf="answers?.touched && answers?.invalid" class="text-center mb-2">
+            <div *ngIf="answers?.hasError('minLengthArray') && submitted"><small
+                class="text-danger animate__animated animate__fadeIn">Question must be at least 2 answers.</small></div>
+            <div *ngIf="answers?.hasError('answersFalse') && submitted && !answers?.hasError('minLengthArray')"><small
+                class="text-danger animate__animated animate__fadeIn">At least one answer must be correct.</small>
+            </div>
+            <div *ngIf="answers?.hasError('answersTrue') && submitted && !answers?.hasError('minLengthArray')"><small
+                class="text-danger animate__animated animate__fadeIn">At least one answer must be incorrect.</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row text-center" *ngIf="getControls().length < 4">
+        <div class="col-12">
+          <button type="button" class="btn btn-default" (click)="addAnswer()">Add Answer</button>
+        </div>
+      </div>
+
+      <!-- Answers -->
+      <div class="row mt-3 justify-content-around" formArrayName="answers">
+        <div class="card option col-xs-5 mt-3 text-danger animate__animated animate__fadeIn card-shadow"
+          *ngFor="let answer of getControls(); index as formChild;">
+          <!-- FORMCHILD -->
+          <div class="card p-2" [formGroupName]="formChild">
+            <div class="row">
+              <div class="col-12 text-center">
+
+                <!-- Answer Name -->
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-alternative text-center" placeholder="Answer name"
+                    formControlName="title">
+
+                  <div *ngIf="getKey(formChild,'title')?.errors?.required && submitted"><small
+                      class="text-danger animate__animated animate__fadeIn">Answer name's required.</small></div>
+
+                  <div *ngIf="answer.get('title')?.touched && answer.get('title')?.dirty">
+                    <div
+                      *ngIf="answer.get('title')?.errors?.minlength && !answer.get('title')?.hasError('doubleSpace') && !answer.get('title')?.hasError('space')">
+                      <small class="text-danger animate__animated animate__fadeIn">Answer name's must be at least 4
+                        characters.</small>
+                    </div>
+                    <div *ngIf="answer.get('title')?.hasError('doubleSpace')"><small
+                        class="text-danger animate__animated animate__fadeIn">Double space not allowed.</small></div>
+                    <div *ngIf="answer.get('title')?.hasError('space')"><small
+                        class="text-danger animate__animated animate__fadeIn">Spaces to start/end not allowed.</small>
+                    </div>
+                    <div *ngIf="answer.get('title')?.errors?.unique?.message">
+                      <small
+                        class="text-danger animate__animated animate__fadeIn">{{ answer.get('title')?.errors?.unique.message }}</small>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+
+                <!-- Answer Status -->
+                <div class="select">
+                  <select name="format" id="format" formControlName="isCorrect" class="text-center">
+                    <option selected disabled>Answer value</option>
+                    <option [ngValue]="false">False</option>
+                    <option [ngValue]="true">True</option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+            <div class="row text-center mt-2">
+              <div class="col-12">
+                <button class="myButton" type="button" (click)="deleteAnswer(formChild)"><i
+                    class="fad fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- /FORMCHILD -->
+
+        </div>
+      </div>
+    </form>
+    <!-- FORM PARENT -->
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="createQuestion()">Save</button>
+  </div>
+</ng-template>
