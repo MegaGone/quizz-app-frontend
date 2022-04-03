@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     }
     
     this.authSvc.login( this.form.value ).subscribe( res => {
-      console.log(res);
+      
       
       if(this.form.get('remember')?.value ){
         localStorage.setItem('email', this.form.get('email')?.value )
