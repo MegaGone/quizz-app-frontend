@@ -69,7 +69,7 @@
 <div *ngIf="Participants.length === 0" class="m-2 animate__animated animate__fadeIn">
     <div class="row">
         <div *ngIf="getCode.length >= 1" class="col-12 card p-3 bg-primary animate__animated animate__fadeIn">
-            <i class="fal fa-smile-beam fa-5x text-white"></i>
+            <i class="fa-solid fa-face-smile-beam fa-5x text-white"></i>
 
             <h2 class="text-white">No one seems to have joined the Quiz.</h2>
             <small class="text-white text-uppercase">Share the quiz code and invite to your friends to play!</small>
@@ -79,7 +79,7 @@
                     <div class="input-group mb-4">
                       <input id="code" class="my-input" placeholder="Birthday" [value]="getCode" type="text" [readonly]="true" #code>
                       <div class="input-group-append">
-                        <button type="button" (click)="copyInputMessage(code)" class="btn btn-white"><i class="fad fa-clipboard"></i></button>
+                        <button type="button" (click)="copyInputMessage(code)" class="btn btn-white"><i class="fa-regular fa-copy"></i></button>
                       </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
 
     <div class="row">
         <div *ngIf="getCode.length <= 0" class="col-12 card p-3 bg-primary animate__animated animate__fadeIn">
-            <i class="fal fa-smile-plus fa-5x text-white"></i>
+            <i class="fa-regular fa-face-grin-wide text-white fa-5x"></i>
             
             <h2 class="text-white">Invite your friends</h2>
             <small class="text-white text-uppercase">Create your quiz and share your code to play with your friends!</small>
