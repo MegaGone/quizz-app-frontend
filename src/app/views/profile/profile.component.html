@@ -37,17 +37,19 @@
             <!-- Delete -->
             <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
               <div class="card-profile-actions mt-5">
-                <button type="button" class="btn btn-outline-danger">DELETE PROFILE</button>
+                <button type="button" class="btn btn-outline-danger" (click)="openModal(content)">DELETE
+                  PROFILE</button>
               </div>
             </div>
 
             <!-- Update -->
             <div class="col-lg-4 order-lg-1">
               <div class="card-profile-stats mt-5 d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary">UPDATE PROFILE</button>
+                <button type="button" class="btn btn-outline-primary" (click)="openModal(update)">UPDATE
+                  PROFILE</button>
               </div>
             </div>
-          
+
           </div>
           <div class="text-center mt-5">
             <h3>{{ User?.name }}</h3>
@@ -82,3 +84,96 @@
     </div>
   </section>
 </main>
+
+<!-- DELETE USER | MODAL -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <h2 class="text-center display-1">ATENTION!</h2>
+    <h3 class="text-center text-danger">Are you sure to delete your user?</h3>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-6 border-right">
+        <button type="button" class="btn btn-danger" (click)="deleteProfile()">DELETE</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-primary">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- UPDATE USER | MODAL -->
+<ng-template #update let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="card-profile-image">
+          <a href="javascript:void(0)">
+            <img src="./assets/img/theme/team-4-800x800.jpg" class="rounded-circle" height="150px" width="150px">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <form autocomplete="off" class="mt-3">
+
+      <!-- NAME -->
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <input type="text" placeholder="Regular" class="form-control" disabled />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <input type="text" placeholder="Regular" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input type="text" placeholder="Regular" class="form-control" disabled />
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-6 border-right">
+        <button type="button" class="btn btn-danger">UPDATE</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-primary">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
