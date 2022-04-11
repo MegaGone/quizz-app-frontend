@@ -2,9 +2,20 @@
     width: 500px;
 }
 
-
 .center-block {
     display: block;
     margin-left: auto;
     margin-right: auto;
- }
+}
+
+.name-control {
+    border: none;
+    border-bottom: 1px solid #1A73E8;
+    color: black;
+    outline: none;
+    text-align: center;
+    transition: all 300ms;
+    font-size: 1.3em;
+    padding: .5em;
+    width: 330px;
+}

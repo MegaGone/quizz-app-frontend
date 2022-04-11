@@ -45,7 +45,7 @@
             <!-- Update -->
             <div class="col-lg-4 order-lg-1">
               <div class="card-profile-stats mt-5 d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary" (click)="openModal(update)">UPDATE
+                <button type="button" class="btn btn-outline-primary" (click)="openModal(update)">EDIT
                   PROFILE</button>
               </div>
             </div>
@@ -134,18 +134,22 @@
 
       <!-- NAME -->
       <div class="row">
-        <div class="col-12">
-          <div class="form-group">
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <div class="col-12 text-center">
+          <div class="d-inline-flex" *ngIf="!editName">
+            <h5 class="mr-2">Javier</h5>
+            <a (click)="editName = true"><i class="fa-solid fa-pen-to-square"></i></a>
+          </div>
+          <div *ngIf="editName">
+            <input type="text" class="name-control animate__animated animate__fadeIn" value="Javier">
           </div>
         </div>
       </div>
 
       <!-- EMAIL -->
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
-            <input type="text" placeholder="Regular" class="form-control" disabled />
+            <input type="text" class="form-control" placeholder="admin@test.com" disabled />
           </div>
         </div>
       </div>
@@ -169,10 +173,10 @@
   <div class="modal-footer">
     <div class="row">
       <div class="col-6 border-right">
-        <button type="button" class="btn btn-danger">UPDATE</button>
+        <button type="button" class="btn btn-danger">CANCEL</button>
       </div>
       <div class="col-6">
-        <button type="button" class="btn btn-primary">CANCEL</button>
+        <button type="button" class="btn btn-primary">UPDATE</button>
       </div>
     </div>
   </div>

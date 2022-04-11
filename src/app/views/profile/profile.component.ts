@@ -13,8 +13,11 @@ export class ProfileComponent implements OnInit {
 
   public User!: IUser;
   public modalClose!: NgbModalRef;
+  public editName: boolean;
 
-  constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal) { }
+  constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal) { 
+    this.editName = false;
+  }
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -45,7 +48,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openModal(content: any) {
-
+    this.editName = false;
     this.modalClose =  this.modalSvc.open(content, { centered: true});
 
   }
