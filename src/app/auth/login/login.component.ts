@@ -9,8 +9,7 @@ declare const gapi: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class LoginComponent implements OnInit {
 
