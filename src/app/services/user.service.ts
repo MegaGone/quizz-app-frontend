@@ -5,16 +5,13 @@ import { environment } from 'src/environments/environment';
 const base_url = environment.base_url;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   /**
-   * 
+   *
    * @returns JWT
    */
   getToken(): string {
@@ -22,7 +19,7 @@ export class UserService {
   }
 
   /**
-   * 
+   *
    * @param id: String - UID
    * @returns Delete an user
    */
@@ -31,8 +28,30 @@ export class UserService {
 
     return this.http.delete(`${base_url}/users/${id}`, {
       headers: {
+        'x-token': token,
+      },
+    });
+  }
+
+  /**
+   * 
+   * @param currentPassword: string - Currently password
+   * @param newPassword: string - New Password
+   */
+  changePassword(currentPassword: string, newPassword: string) {
+
+    const token: string = this.getToken();
+
+    const body = {
+      currentPassword,
+      newPassword
+    }
+
+    return this.http.post(`${base_url}/auth/password`, body, {
+      headers: {
         'x-token': token
       }
     })
+
   }
 }

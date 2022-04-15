@@ -52,15 +52,11 @@ export class ProfileComponent implements OnInit {
    * 
    * @param content : any - Content to show in modal
    */
-  openModal(content: any, flag: 'delete' | 'update' | 'password') {
+  openModal(content: any, flag: 'delete' | 'update') {
 
     if(flag == 'update') {
       this.editName = false;
       this.loadUserData(this.User)
-    }
-
-    if(flag == 'password') {
-      
     }
 
     this.modalClose =  this.modalSvc.open(content, { centered: true});
