@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   private yScrollStack  : any[] = [];
   public modalClose     !: NgbModalRef;
   public passwordForm   !: FormGroup;
+  public submitted      !: boolean;
 
   constructor(
     public location : Location,
@@ -77,7 +78,6 @@ export class NavbarComponent implements OnInit {
     this.initPasswordForm();
   }
 
-  // TODO: Validate confirm password
   /**
    * @returns Initialize the form
    */
@@ -86,6 +86,9 @@ export class NavbarComponent implements OnInit {
       'currentPassword':  [ '', Validators.required],
       'newPassword'    :  [ '', Validators.required],
       'confirmPassword':  [ '', Validators.required]
+    },
+    {
+      validators: [this.MustMatch('newPassword', 'confirmPassword')]  
     })
   }
 
@@ -93,6 +96,7 @@ export class NavbarComponent implements OnInit {
    * @returns Change Password Message
    */
   changePassword() {
+    this.submitted = true;
 
     if(this.passwordForm.invalid) {
       return Object.values(this.passwordForm.controls).forEach(control => {
@@ -106,6 +110,50 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
+   * 
+   * @param controlName - First control to match
+   * @param matchingControlName - Control to compare first control
+   * @returns NUll if its OK, but it's worst returns MustMatch = true
+   */
+  MustMatch(controlName: string, matchingControlName: string) {
+    
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.MustMatch) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ MustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    }
+  }
+
+  /**
    * GETTERS FORMCONTROLS TO VALIDATIONS
    */
+  
+  // Get the form reference
+  get f() {
+    return this.passwordForm.controls;
+  }
+
+  // Current Password reference
+  get currentPass() {
+    return this.passwordForm.get('currentPassword')?.invalid && this.passwordForm.get('currentPassword')?.touched;
+  }
+
+  // New Password reference
+  get newPass() {
+    return this.passwordForm.get('newPassword')?.invalid && this.passwordForm.get('newPassword')?.touched;
+  }
+
+  // Confirm Password reference
+  get confirmPass() {
+    return this.passwordForm.get('confirmPassword')?.invalid && this.passwordForm.get('confirmPassword')?.touched;
+  }
+
 }

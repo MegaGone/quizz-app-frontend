@@ -107,3 +107,16 @@
 .form__input:focus {
     border: 1.5px solid #1A73E8;
 }
+
+.invalid {
+    border: 1.5px solid red;
+}
+
+.invalid-text {
+    top: -.5rem;
+    left: .8rem;
+    color: red;
+    font-size: .75rem;
+    font-weight: 500;
+    z-index: 10;
+}

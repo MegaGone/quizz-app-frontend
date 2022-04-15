@@ -113,31 +113,48 @@
         <form autocomplete="off" class="mt-3" [formGroup]="passwordForm">
 
           <div class="form__div">
-            <input 
+            <input
+            [ngClass]="{'invalid': currentPass}"
             type="password" 
             class="form__input" 
             placeholder=" "
             formControlName="currentPassword">
-            <label for="" class="form__label">Current Password</label>
+            <label for="" class="form__label" [ngClass]="{'invalid-text': currentPass}">* Current Password</label>
+          </div>
+
+          <div class="f.currentPassword.touched && f.currentPassword.invalid"  class="mb-3">
+            <div *ngIf="f.currentPassword.errors?.required && submitted"><small class="text-danger animate__animated animate__fadeIn">Current Password Required</small></div>
           </div>
 
           <div class="form__div">
             <input 
+            [ngClass]="{'invalid': newPass}"
             type="password" 
             class="form__input" 
             placeholder=" "
             formControlName="newPassword">
-            <label for="" class="form__label">New Password</label>
+            <label for="" class="form__label" [ngClass]="{'invalid-text': newPass}">* New Password</label>
+          </div>
+
+          <div *ngIf="f.newPassword.touched && f.newPassword.invalid" class="mb-3">
+            <div *ngIf="f.newPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">New Password Required</small></div>
           </div>
 
           <div class="form__div">
             <input 
+            [ngClass]="{'invalid': confirmPass}"
             type="password" 
             class="form__input" 
             placeholder=" "
             formControlName="confirmPassword">
-            <label for="" class="form__label">Confirm New Password</label>
+            <label for="" class="form__label" [ngClass]="{'invalid-text': confirmPass}">* Re-type New Password</label>
           </div>
+
+          <div *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid">
+            <div *ngIf="f.confirmPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Re-type New Password Required</small></div>
+            <div *ngIf="f.confirmPassword.errors?.MustMatch"><small class="text-danger animate__animated animate__fadeIn">Don't match</small></div>
+          </div>
+
         </form>
       </div>
     </div>
