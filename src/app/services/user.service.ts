@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { IUpdateUser } from '../interfaces/IUpdateUser';
 
 const base_url = environment.base_url;
 
@@ -32,6 +33,24 @@ export class UserService {
       },
     });
   }
+
+  /**
+   * 
+   * @param user: IUpdateUser - User to update
+   * @returns Update the user
+   */
+  updateUser(user: IUpdateUser) {
+
+    const token: string = this.getToken();
+
+    return this.http.put(`${base_url}/users/${user.uid}`, user, {
+      headers: {
+        'x-token': token
+      }
+    })
+
+  }
+
 
   /**
    * 

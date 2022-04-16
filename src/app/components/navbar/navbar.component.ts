@@ -79,6 +79,7 @@ export class NavbarComponent implements OnInit {
    * @returns Open the modal
    */
   openModal(content: any) {
+    this.submitted = false;
     this.modalClose = this.modalSvc.open(content, { centered: true });
     this.initPasswordForm();
   }

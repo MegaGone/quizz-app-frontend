@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interfaces';
-import { AuthService, UserService } from 'src/app/services';
+import { AuthService, UserService, ValidationMessageService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -11,13 +11,15 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
+  // TODO: CHANGE IN REAL TIME THE NAME AND IMAGE
+
   public User!: IUser;
   public modalClose!: NgbModalRef;
   public editName: boolean;
   public userForm!: FormGroup;
   public passwordForm!: FormGroup;
 
-  constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder) { 
+  constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
   }
 
@@ -99,6 +101,15 @@ export class ProfileComponent implements OnInit {
       })
     }
 
-    console.log(this.userForm);
+    this.userSvc.updateUser(this.userForm.value).subscribe(
+      res => {
+        this.modalClose.close();
+        return this.msgSvc.showMessage('SETTINGS CHANGED', 'UPDATED', true);
+      },
+      err => {
+        console.log(err);
+        return this.msgSvc.showMessage('ERROR TO UPDATE', 'ERROR', false);
+      }
+    )
   }
 }

@@ -8,3 +8,4 @@ export * from './quizzresponse.interface';
 export * from './getquizbycode.response.interface';
 export * from './IUser';
 export * from './ILoginResponse';
+export * from './IUpdateUser';
