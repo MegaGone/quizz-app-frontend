@@ -50,7 +50,8 @@ export class UserService {
     return this.http.post(`${base_url}/auth/password`, body, {
       headers: {
         'x-token': token
-      }
+      },
+      responseType: 'text'
     })
 
   }

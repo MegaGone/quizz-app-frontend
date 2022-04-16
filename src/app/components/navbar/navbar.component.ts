@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
+import { UserService, AuthService, ValidationMessageService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
@@ -23,7 +23,9 @@ export class NavbarComponent implements OnInit {
     private router  : Router,
     private authSvc : AuthService,
     private modalSvc: NgbModal,
-    private fb      : FormBuilder
+    private fb      : FormBuilder,
+    private userSvc : UserService,
+    private msgSvc  : ValidationMessageService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +66,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * @returns LogOut
+   */
   logOut() {
     this.authSvc.logOut();
   }
@@ -104,8 +109,23 @@ export class NavbarComponent implements OnInit {
       })
     }
 
-    console.log(this.passwordForm.value);
-    
+    const { currentPassword, confirmPassword: newPassword } = this.passwordForm.value;
+
+    this.userSvc.changePassword(currentPassword, newPassword).subscribe(
+      res => {
+        this.modalClose.close();
+        return this.msgSvc.showMessage(`${res}`, 'UPDATED', true);
+      },
+      err => {
+        
+        if(err.status === 400) {
+          const splited = err.error.split(':');
+          return this.msgSvc.showMessage(`${splited[0]}`, `${splited[1]}`, false);
+        }
+
+        return this.msgSvc.showMessage('ERROR', 'To change password', false);        
+      }
+    )
 
   }
 
