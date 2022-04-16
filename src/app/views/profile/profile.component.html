@@ -137,7 +137,7 @@
       <div class="row">
         <div class="col-12 text-center">
           <div class="d-inline-flex" *ngIf="!editName">
-            <h5 class="mr-2">Javier</h5>
+            <h5 class="mr-2">{{ User?.name }}</h5>
             <a (click)="editName = true"><i class="fa-solid fa-pen-to-square"></i></a>
           </div>
           <div *ngIf="editName">

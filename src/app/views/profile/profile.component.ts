@@ -10,9 +10,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  // TODO: CHANGE IN REAL TIME THE NAME AND IMAGE
-
   public User!: IUser;
   public modalClose!: NgbModalRef;
   public editName: boolean;
@@ -103,7 +100,9 @@ export class ProfileComponent implements OnInit {
 
     this.userSvc.updateUser(this.userForm.value).subscribe(
       res => {
+        const { name } = this.userForm.value;
         this.modalClose.close();
+        this.User.name = name;
         return this.msgSvc.showMessage('SETTINGS CHANGED', 'UPDATED', true);
       },
       err => {
