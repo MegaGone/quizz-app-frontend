@@ -182,3 +182,9 @@
   input[type=file]::-webkit-file-upload-button{
       cursor: pointer;
   }
+
+  .profile-img {
+    width: 110px;
+    height: 130px;
+    object-fit: cover;
+  }

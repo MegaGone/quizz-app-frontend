@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit {
     this.authSvc.getSession().subscribe(res => {
       if(res != undefined) {
         this.User = res;
+        console.log(this.User);
+        
       }
     })
   }

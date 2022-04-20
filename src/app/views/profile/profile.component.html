@@ -29,7 +29,7 @@
             <div class="col-lg-3 order-lg-2">
               <div class="card-profile-image">
                 <a href="javascript:void(0)">
-                  <img src="./assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                  <img [src]="User?.img" class="rounded-circle profile-img" width="110px">
                 </a>
               </div>
             </div>
@@ -120,16 +120,12 @@
 
     <div class="row">
       <div class="col-12 text-center">
-        <!-- <div class="card-profile-image">
-          <a href="javascript:void(0)">
-            <img src="./assets/img/theme/team-4-800x800.jpg" class="rounded-circle" height="150px" width="150px">
-          </a>
-        </div> -->
+
         <div class="upload">
           <img src="assets/img/noprofile.jpg" width = 100 height = 100 alt="">
           <div class="round">
             <input type="file">
-            <i class = "fa fa-camera" style = "color: #fff;"></i>
+            <i class="fa fa-camera" style="color: #fff;"></i>
           </div>
         </div>
       </div>
