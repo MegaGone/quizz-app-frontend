@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   public editName: boolean;
   public userForm!: FormGroup;
   public passwordForm!: FormGroup;
+  public fileUploaded!: File;
 
   constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
@@ -113,4 +114,20 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
+  changeFile($event: any) {
+
+    const file: File = $event.target.files[0];
+
+    if(file != undefined) {
+      this.fileUploaded = file;
+
+      this.userSvc.changeImage(this.userForm.value, this.fileUploaded).subscribe(res => {
+        console.log(res);
+      })
+    }
+
+
+  }
+
 }

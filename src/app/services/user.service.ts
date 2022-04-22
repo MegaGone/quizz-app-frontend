@@ -74,4 +74,16 @@ export class UserService {
     })
 
   }
+
+  changeImage(user: IUpdateUser, file: File) {
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    return this.http.put(`${base_url}/uploads/${user.uid}`, formData, {
+      headers: {
+        'x-token': this.getToken()
+      }
+    })
+  }
 }
