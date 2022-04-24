@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   public extentionsAllowed!: string[];
   public validFile: boolean;
   public submitted!: boolean;
+  public imgTemp!: any;
 
   constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
@@ -39,7 +40,6 @@ export class ProfileComponent implements OnInit {
       if(res != undefined) {
         this.User = res;
         console.log(this.User);
-        
       }
     })
   }
@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit {
   openModal(content: any, flag: 'delete' | 'update') {
 
     if(flag == 'update') {
+      this.imgTemp = null;
       this.editName = false;
       this.submitted = false;
       this.loadUserData(this.User)
@@ -128,14 +129,10 @@ export class ProfileComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  get imageRef() {
-    return this.userForm.get('image');
-  }
-
   changeFile($event: any) {
 
     const file: File = $event.target.files[0];
-    
+
     if (file != undefined || file) {
       
       const { name } = file;
@@ -149,6 +146,14 @@ export class ProfileComponent implements OnInit {
         this.validFile = true;
         this.userForm.updateValueAndValidity();
         this.fileUploaded = file;
+
+        // Show temporal image
+        const reader = new FileReader();
+        reader.readAsDataURL( file );
+        
+        reader.onloadend = () => {
+          this.imgTemp = reader.result;
+        }
       }
     }
 
