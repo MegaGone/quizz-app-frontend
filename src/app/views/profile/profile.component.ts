@@ -16,9 +16,13 @@ export class ProfileComponent implements OnInit {
   public userForm!: FormGroup;
   public passwordForm!: FormGroup;
   public fileUploaded!: File;
+  public extentionsAllowed!: string[];
+  public validFile: boolean;
 
   constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
+    this.extentionsAllowed = ['png', 'jpg', 'jpeg', 'gif'];
+    this.validFile = false;
   }
 
   ngOnInit(): void {
@@ -72,7 +76,8 @@ export class ProfileComponent implements OnInit {
       'uid'     : [ '' , Validators.required],
       'email'   : [ '' , Validators.required],
       'name'    : [ '' , Validators.required],
-      'google'  : [ '' , Validators.required]
+      'google'  : [ '' , Validators.required],
+      'image'   : [ '' ]
     })
   }
 
@@ -86,7 +91,8 @@ export class ProfileComponent implements OnInit {
       'uid'     : user.uid,
       'email'   : user.email,
       'name'    : user.name,
-      'google'  : user.google
+      'google'  : user.google,
+      'image'   : ''
     })
   }
 
@@ -101,32 +107,53 @@ export class ProfileComponent implements OnInit {
       })
     }
 
-    this.userSvc.updateUser(this.userForm.value).subscribe(
-      res => {
-        const { name } = this.userForm.value;
-        this.modalClose.close();
-        this.User.name = name;
-        return this.msgSvc.showMessage('SETTINGS CHANGED', 'UPDATED', true);
-      },
-      err => {
-        console.log(err);
-        return this.msgSvc.showMessage('ERROR TO UPDATE', 'ERROR', false);
-      }
-    )
+    const { uid, name } = this.userForm.value;
+    this.userSvc.updateUserv2(this.fileUploaded, uid, name).subscribe(res => {
+      console.log(res);
+    })
+
+    // this.userSvc.updateUser(this.userForm.value).subscribe(
+    //   res => {
+    //     const { name } = this.userForm.value;
+    //     this.modalClose.close();
+    //     this.User.name = name;
+    //     return this.msgSvc.showMessage('SETTINGS CHANGED', 'UPDATED', true);
+    //   },
+    //   err => {
+    //     console.log(err);
+    //     return this.msgSvc.showMessage('ERROR TO UPDATE', 'ERROR', false);
+    //   }
+    // )
+  }
+
+  get f() {
+    return this.userForm.controls;
+  }
+
+  get imageRef() {
+    return this.userForm.get('image');
   }
 
   changeFile($event: any) {
 
     const file: File = $event.target.files[0];
-
-    if(file != undefined) {
-      this.fileUploaded = file;
-
-      this.userSvc.changeImage(this.userForm.value, this.fileUploaded).subscribe(res => {
-        console.log(res);
-      })
+    
+    if (file != undefined || file) {
+      
+      const { name } = file;
+      const splited : string[] = name.split('.');
+      const ext     : string   = splited[splited.length - 1];
+      
+      if (!this.extentionsAllowed.includes(ext)) {
+        this.validFile = false;
+        return this.userForm.get('image')?.setErrors({ invalidFile: true });
+      } else {
+        this.validFile = true;
+        this.userForm.updateValueAndValidity();
+        this.fileUploaded = file;
+        console.log(this.fileUploaded);
+      }
     }
-
 
   }
 

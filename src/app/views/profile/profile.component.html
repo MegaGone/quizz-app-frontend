@@ -194,6 +194,10 @@
         </div>
       </div>
 
+      <div *ngIf="f.image.touched || f.image.invalid">
+        <div *ngIf="f.image.hasError('invalidFile') && !validFile"><small class="text-danger animate__animated animate__fadeIn">File not supported</small></div>
+      </div>
+
     </form>
   </div>
 

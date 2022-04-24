@@ -86,4 +86,18 @@ export class UserService {
       }
     })
   }
+
+  updateUserv2(file: File, id: string, name: string) {
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name)
+
+    return this.http.put(`${base_url}/users/${id}`, formData, {
+      headers: {
+        'x-token': this.getToken()
+      }
+    })
+
+  }
 }
