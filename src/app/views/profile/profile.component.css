@@ -88,7 +88,8 @@
     padding: 0 .25rem;
     background-color: #fff;
     color: #9AA7B7;
-    font-size: 1rem;;
+    font-size: 1rem;
+    ;
     transition: .3s;
 }
 
@@ -100,7 +101,8 @@
     border: none;
     background-color: #1A73E8;
     color: #fff;
-    font-size: 1rem;;
+    font-size: 1rem;
+    ;
     border-radius: .5rem;
     cursor: pointer;
     transition: .3s;
@@ -147,20 +149,20 @@
     z-index: 10;
 }
 
-/* INPUT FILE */
+/*===== INPUT FILE =====*/
 
-.upload{
+.upload {
     width: 100px;
     position: relative;
     margin: auto;
-  }
-  
-  .upload img{
+}
+
+.upload img {
     border-radius: 50%;
     border: 6px solid #eaeaea;
-  }
-  
-  .upload .round{
+}
+
+.upload .round {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -171,20 +173,29 @@
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
-  }
-  
-  .upload .round input[type = "file"]{
+}
+
+.upload .round input[type="file"] {
     position: absolute;
     transform: scale(2);
     opacity: 0;
-  }
-  
-  input[type=file]::-webkit-file-upload-button{
-      cursor: pointer;
-  }
+}
 
-  .profile-img {
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+
+/*===== INPUT FILE =====*/
+
+.profile-image{
     width: 110px;
-    height: 130px;
+    position: relative;
+    margin: auto;
+}
+
+.profile-image img {
+    border-radius: 50%;
+    /* border: 1px solid #eaeaea; */
     object-fit: cover;
-  }
+}

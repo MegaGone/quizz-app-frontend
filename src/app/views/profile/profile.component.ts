@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   public fileUploaded!: File;
   public extentionsAllowed!: string[];
   public validFile: boolean;
+  public submitted!: boolean;
 
   constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit {
 
     if(flag == 'update') {
       this.editName = false;
+      this.submitted = false;
       this.loadUserData(this.User)
     }
 
@@ -107,6 +109,7 @@ export class ProfileComponent implements OnInit {
       })
     }
 
+    this.submitted = true;
     this.userSvc.updateUserv2(this.fileUploaded, this.userForm.value).subscribe(
       res => {
         this.User.name = res.name;
@@ -146,7 +149,6 @@ export class ProfileComponent implements OnInit {
         this.validFile = true;
         this.userForm.updateValueAndValidity();
         this.fileUploaded = file;
-        console.log(this.fileUploaded);
       }
     }
 

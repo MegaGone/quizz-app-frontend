@@ -28,9 +28,9 @@
             <!-- Image -->
             <div class="col-lg-3 order-lg-2">
               <div class="card-profile-image">
-                <a href="javascript:void(0)">
-                  <img [src]="User?.img" class="rounded-circle profile-img" width="110px">
-                </a>
+                <div class="profile-image">
+                  <img [src]="User?.img" width=100 height=100 [alt]="User?.email">
+                </div>
               </div>
             </div>
 
@@ -122,7 +122,7 @@
       <div class="col-12 text-center">
 
         <div class="upload">
-          <img src="assets/img/noprofile.jpg" width = 100 height = 100 alt="">
+          <img [src]="User.img" width=100 height=100 [alt]="User.email">
           <div class="round">
             <input type="file" (change)="changeFile($event)">
             <i class="fa fa-camera" style="color: #fff;"></i>
@@ -207,7 +207,7 @@
         <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">CANCEL</button>
       </div>
       <div class="col-6">
-        <button type="button" class="btn btn-primary" (click)="updateUser()">UPDATE</button>
+        <button [disabled]="submitted" type="button" class="btn btn-primary" (click)="updateUser()">UPDATE</button>
       </div>
     </div>
   </div>
