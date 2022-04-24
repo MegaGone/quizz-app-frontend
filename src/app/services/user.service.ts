@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IUpdateUser } from '../interfaces/IUpdateUser';
+import { Observable } from 'rxjs';
+import { IUser } from '../interfaces';
 
 const base_url = environment.base_url;
 
@@ -87,17 +89,22 @@ export class UserService {
     })
   }
 
-  updateUserv2(file: File, id: string, name: string) {
+  /**
+   * 
+   * @param file: File - File to upload
+   * @param user: IUpdateUser - User data
+   * @returns Name and image
+   */
+  updateUserv2(file: File, user: IUpdateUser): Observable<IUser> {
 
     const formData: FormData = new FormData();
     formData.append('file', file);
-    formData.append('name', name)
+    formData.append('name', user.name)
 
-    return this.http.put(`${base_url}/users/${id}`, formData, {
+    return this.http.put<IUser>(`${base_url}/users/${user.uid}`, formData, {
       headers: {
         'x-token': this.getToken()
       }
     })
-
   }
 }

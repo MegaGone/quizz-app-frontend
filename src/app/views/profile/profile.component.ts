@@ -107,23 +107,18 @@ export class ProfileComponent implements OnInit {
       })
     }
 
-    const { uid, name } = this.userForm.value;
-    this.userSvc.updateUserv2(this.fileUploaded, uid, name).subscribe(res => {
-      console.log(res);
-    })
-
-    // this.userSvc.updateUser(this.userForm.value).subscribe(
-    //   res => {
-    //     const { name } = this.userForm.value;
-    //     this.modalClose.close();
-    //     this.User.name = name;
-    //     return this.msgSvc.showMessage('SETTINGS CHANGED', 'UPDATED', true);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //     return this.msgSvc.showMessage('ERROR TO UPDATE', 'ERROR', false);
-    //   }
-    // )
+    this.userSvc.updateUserv2(this.fileUploaded, this.userForm.value).subscribe(
+      res => {
+        this.User.name = res.name;
+        this.User.img = res.img
+        this.modalClose.close();
+        return this.msgSvc.showMessage('Details updated', 'UPDATED', true);
+      },
+      err => {
+        console.log(err);
+        return this.msgSvc.showMessage('Error to update', 'ERROR', false);
+      }
+    )
   }
 
   get f() {
