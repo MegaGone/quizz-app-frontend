@@ -1,4 +1,4 @@
-<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top">
   <div class="container">
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home/myquizzes']">
       <img src="./assets/img/brand/argon-white.png">
@@ -30,44 +30,70 @@
             <span class="nav-link-inner--text">Home</span>
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button" [routerLink]="['/home/invited']">
-            <span class="nav-link-inner--text">Invited</span>
-          </a>
-        </li>
       </ul>
+
+      <!-- PROFILE SETTINGS -->
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto ">
         <li class="nav-item dropdown">
+
+          <!-- USER ICON -->
           <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-            <i class="ni ni-ui-04 d-lg-none"></i>
-            <i class="fad fa-user-circle fa-2x"></i>
+            <i class="fa-regular fa-circle-user fa-2x"></i>
           </a>
+
+          <!-- SETTINGS CONTAINER -->
           <div class="dropdown-menu-xl dropdown-menu" >
             <div class="dropdown-menu-inner">
-              <a routerLinkActive="active" [routerLink]="['documentation/tutorial']" class="media d-flex align-items-center">
-                <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                  <i class="ni ni-spaceship"></i>
+
+              <!-- PROFILE PREVIEW -->
+              <div class="mt-1 py-1 border-bottom text-center">
+                <div class="row justify-content-center">
+                  <div class="col-lg-12">
+                    <div class="card-profile-stats d-flex justify-content-center info">
+                      <div class="col-12 d-flex flex-column text-center">
+                        <div class="card-profile-image">
+                          <div class="profile-image">
+                            <img [src]="User?.img" width=70 height=70 [alt]="User?.email">
+                          </div>
+                        </div>
+                        <h4 class="text-uppercase mb-md-1">{{ User?.name }}</h4>
+                        <h6 class="mb-md-1 email">{{ User?.email }}</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CHANGE PASSWORD -->
+              <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
+                <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
+                  <i class="ni ni-key-25"></i>
                 </div>
                 <div class="media-body ml-3">
-                  <h6 class="heading text-primary mb-md-1">Javier Martinez</h6>
+                  <h6 class="heading mb-md-1 link">CHANGE PASSWORD</h6>
                 </div>
               </a>
+
+              <!-- EDIT USER -->
               <a routerLinkActive="active" [routerLink]="['/home/profile']" class="media d-flex align-items-center">
                 <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
-                  <i class="ni ni-palette"></i>
+                  <i class="ni ni-single-02"></i>
                 </div>
                 <div class="media-body ml-3">
-                  <h6 class="heading text-primary mb-md-1">Profile</h6>
+                  <h6 class="heading mb-md-1 link">Profile</h6>
                 </div>
               </a>
-              <a routerLinkActive="active" [routerLink]="['documentation/alerts']" class="media d-flex align-items-center">
-                <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
+
+              <!-- lOG OUT -->
+              <a routerLinkActive="active" class="media d-flex align-items-center">
+                <div class="icon icon-shape bg-gradient-danger rounded-circle text-white">
                   <i class="ni ni-ui-04"></i>
                 </div>
                 <div class="media-body ml-3" (click)="logOut()">
-                  <h5 class="heading text-warning mb-md-1">Log Out</h5>
+                  <h5 class="heading mb-md-1 link">Log Out</h5>
                 </div>
               </a>
+
             </div>
           </div>
         </li>
@@ -75,3 +101,76 @@
     </div>
   </div>
 </nav>
+
+<ng-template #content let-modal>
+  
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-12">
+        <form autocomplete="off" class="mt-3" [formGroup]="passwordForm">
+
+          <div class="form__div">
+            <input
+            [ngClass]="{'invalid': currentPass}"
+            type="password" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="currentPassword">
+            <label for="" class="form__label" [ngClass]="{'invalid-text': currentPass}">* Current Password</label>
+          </div>
+
+          <div class="f.currentPassword.touched && f.currentPassword.invalid"  class="mb-3">
+            <div *ngIf="f.currentPassword.errors?.required && submitted || f.currentPassword.touched"><small class="text-danger animate__animated animate__fadeIn">Current Password Required</small></div>
+          </div>
+
+          <div class="form__div">
+            <input 
+            [ngClass]="{'invalid': newPass}"
+            type="password" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="newPassword">
+            <label for="" class="form__label" [ngClass]="{'invalid-text': newPass}">* New Password</label>
+          </div>
+
+          <div *ngIf="f.newPassword.touched && f.newPassword.invalid" class="mb-3">
+            <div *ngIf="f.newPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">New Password Required</small></div>
+          </div>
+
+          <div class="form__div">
+            <input 
+            [ngClass]="{'invalid': confirmPass}"
+            type="password" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="confirmPassword">
+            <label for="" class="form__label" [ngClass]="{'invalid-text': confirmPass}">* Re-type New Password</label>
+          </div>
+
+          <div *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid">
+            <div *ngIf="f.confirmPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Re-type New Password Required</small></div>
+            <div *ngIf="f.confirmPassword.errors?.MustMatch"><small class="text-danger animate__animated animate__fadeIn">Don't match</small></div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary" (click)="changePassword()">CHANGE PASSWORD</button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

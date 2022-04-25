@@ -1,77 +1,238 @@
 <main class="profile-page animate__animated animate__fadeIn">
-    <section class="section-home-cover section-shaped my-0">
-      <!-- Circles background -->
-      <div class="shape shape-style-1 shape-primary alpha-4">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <!-- SVG separator -->
-      <div class="separator separator-bottom separator-skew">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
-      <app-navbar></app-navbar>
-    </section>
-    <section class="section mt-3">
-      <div class="container">
-        <div class="card card-profile shadow mt--300">
-          <div class="px-4">
+  <section class="section-home-cover section-shaped my-0">
+    <!-- Circles background -->
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <!-- SVG separator -->
+    <div class="separator separator-bottom separator-skew">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+    <app-navbar></app-navbar>
+  </section>
+  <section class="section mt-3">
+    <div class="container">
+      <div class="card card-profile shadow mt--300">
+        <div class="px-4">
+          <div class="row justify-content-center">
+
+            <!-- Image -->
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <div class="profile-image">
+                  <img [src]="User?.img" width=100 height=100 [alt]="User?.email">
+                </div>
+              </div>
+            </div>
+
+            <!-- Delete -->
+            <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
+              <div class="card-profile-actions mt-5">
+                <button type="button" class="btn btn-outline-danger" (click)="openModal(content, 'delete')">DELETE PROFILE</button>
+              </div>
+            </div>
+
+            <!-- Update -->
+            <div class="col-lg-4 order-lg-1">
+              <div class="card-profile-stats mt-5 d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" (click)="openModal(update, 'update')">EDIT PROFILE</button>
+              </div>
+            </div>
+
+          </div>
+          <div class="text-center mt-5">
+            <h3>{{ User?.name }}</h3>
+            <div class="h6 font-weight-300">{{ User?.email }}</div>
+            <div class="row card-profile-stats d-flex justify-content-center">
+              <div class="card-profile-stats d-flex justify-content-center info">
+                <div class="col-6 d-flex flex-column">
+                  <img src="./assets/img/icons/trophy.png" class="center-block" width="50px" height="50px" alt="trophy">
+                  <span class="description mt-2">Quizzes Played</span>
+                  <span class="heading">22</span>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                  <img src="./assets/img/icons/medal.png" class="center-block" width="50px" height="50px" alt="medal">
+                  <span class="description mt-2">Perfect Quizzes</span>
+                  <span class="heading">10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 py-5 border-top text-center">
             <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="javascript:void(0)">
-                    <img src="./assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
-                <div class="card-profile-actions py-4 mt-lg-0">
-                  <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
-                  <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
-                </div>
-              </div>
-              <div class="col-lg-4 order-lg-1">
-                <div class="card-profile-stats d-flex justify-content-center">
-                  <div>
-                    <span class="heading">22</span>
-                    <span class="description">Friends</span>
-                  </div>
-                  <div>
-                    <span class="heading">10</span>
-                    <span class="description">Photos</span>
-                  </div>
-                  <div>
-                    <span class="heading">89</span>
-                    <span class="description">Comments</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="text-center mt-5">
-              <h3>Jessica Jones
-                <span class="font-weight-light">, 27</span>
-              </h3>
-              <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Bucharest, Romania</div>
-              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-              <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
-            </div>
-            <div class="mt-5 py-5 border-top text-center">
-              <div class="row justify-content-center">
-                <div class="col-lg-9">
-                  <p>An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
-                  <a href="javascript:void(0)">Show more</a>
-                </div>
+              <div class="col-lg-9">
+
+
+                <table class="table">
+                  <thead>
+                      <tr>
+                          <th class="text-center">#</th>
+                          <th>Quiz</th>
+                          <th>Date</th>
+                          <th>Points</th>
+                          <th>Details</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let stat of [1, 2, 3]; let i = index;">
+                          <td class="text-center">{{ i + 1 }}</td>
+                          <td>Quiz Test</td>
+                          <td>4/24/2022</td>
+                          <td>10</td>
+                          <td class="td-actions">
+                            <button type="button" rel="tooltip" class="btn btn-primary btn-icon btn-sm " data-original-title="" title="">
+                              <i class="fa-regular fa-eye"></i>
+                            </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-  
+    </div>
+  </section>
+</main>
+
+<!-- DELETE USER | MODAL -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <h2 class="text-center display-1">ATENTION!</h2>
+    <h3 class="text-center text-danger">Are you sure to delete your user?</h3>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-6 border-right">
+        <button type="button" class="btn btn-danger" (click)="deleteProfile()">DELETE</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- UPDATE USER | MODAL -->
+<ng-template #update let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-12 text-center">
+
+        <div class="upload">
+          <img *ngIf="!imgTemp" [src]="User.img" width=100 height=100 [alt]="User.email">
+          <img *ngIf="imgTemp" [src]="imgTemp" width=100 height=100 [alt]="User.email">
+          <div class="round">
+            <input type="file" (change)="changeFile($event)">
+            <i class="fa fa-camera" style="color: #fff;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form autocomplete="off" class="mt-3" [formGroup]="userForm">
+      <!-- NAME -->
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="d-inline-flex" *ngIf="!editName">
+            <h5 class="mr-2">{{ User?.name }}</h5>
+            <a (click)="editName = true"><i class="fa-solid fa-pen-to-square"></i></a>
+          </div>
+          <div *ngIf="editName">
+            <input 
+            type="text" 
+            class="name-control animate__animated animate__fadeIn" 
+            value="Javier"
+            formControlName="name">
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form__div">
+            <input
+            type="email" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="email"
+            readonly>
+            <label for="" class="form__label">Email</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <!-- GOOGLE -->
+        <div class="col-4">
+          <div class="form__div">
+            <input
+            type="text" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="google"
+            readonly/>
+            <label for="" class="form__label">Google</label>
+          </div>
+        </div>
+
+        <!-- UID -->
+        <div class="col-8">
+
+          <div class="form__div">
+            <input
+            type="text" 
+            class="form__input" 
+            placeholder=" "
+            formControlName="uid"
+            readonly/>
+            <label for="" class="form__label">UID</label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="f.image.touched || f.image.invalid">
+        <div *ngIf="f.image.hasError('invalidFile') && !validFile"><small class="text-danger animate__animated animate__fadeIn">File not supported</small></div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-6 border-right">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">CANCEL</button>
+      </div>
+      <div class="col-6">
+        <button [disabled]="submitted" type="button" class="btn btn-primary" (click)="updateUser()">UPDATE</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -6,8 +6,9 @@ import { environment } from 'src/environments/environment';
 
 import { RegisterUser } from '../interfaces/register-user.interface';
 import { Login } from '../interfaces/login.interface';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { ILoginResponse, IUser } from '../interfaces';
 
 const base_url = environment.base_url;
 
@@ -15,6 +16,9 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class AuthService {
+
+  public currentUserBehavor: BehaviorSubject<IUser | undefined> = new BehaviorSubject<IUser | undefined>(undefined);
+
   constructor(private http: HttpClient, private router: Router) {}
 
   validateToken(): Observable<boolean> {
@@ -53,9 +57,11 @@ export class AuthService {
   }
 
   login( formData: Login ) {
-    return this.http.post(`${base_url}/auth/login`, formData)
+    return this.http.post<ILoginResponse>(`${base_url}/auth/login`, formData)
       .pipe(
-        tap( (res: any) => {
+        tap( (res: ILoginResponse) => {
+
+          this.currentUserBehavor.next(res.user);
           localStorage.setItem('token', res.token)
         })
       )
@@ -75,5 +81,24 @@ export class AuthService {
   logOut() {
     localStorage.removeItem('token')
     return this.router.navigate(['/auth/login'])
+  }
+
+  /**
+   * 
+   * @returns Observable<IUser>
+   */
+  getSession(): Observable<IUser | undefined> {
+    const token = localStorage.getItem('token') || '';
+
+    if(this.currentUserBehavor.value == undefined) {
+      return this.http.get<IUser>(`${base_url}/auth/session`, {
+        headers: {
+          'x-token': token
+        }
+      })
+    } 
+
+    return this.currentUserBehavor.asObservable()
+
   }
 }

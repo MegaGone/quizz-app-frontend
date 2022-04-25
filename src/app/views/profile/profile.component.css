@@ -1,3 +1,28 @@
+.info {
+    width: 500px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.name-control {
+    border: none;
+    border-bottom: 1px solid #1A73E8;
+    color: black;
+    outline: none;
+    text-align: center;
+    transition: all 300ms;
+    font-size: 1.3em;
+    padding: .5em;
+    width: 330px;
+}
+
+
+/* INPUTS STYLES */
+
 /*===== GOOGLE FONTS =====*/
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
@@ -53,6 +78,7 @@
     padding: 1rem;
     background: none;
     z-index: 1;
+    color: gray;
 }
 
 .form__label {
@@ -61,8 +87,9 @@
     top: 1rem;
     padding: 0 .25rem;
     background-color: #fff;
-    color: #80868B;
-    font-size: 1rem;;
+    color: #9AA7B7;
+    font-size: 1rem;
+    ;
     transition: .3s;
 }
 
@@ -74,7 +101,8 @@
     border: none;
     background-color: #1A73E8;
     color: #fff;
-    font-size: 1rem;;
+    font-size: 1rem;
+    ;
     border-radius: .5rem;
     cursor: pointer;
     transition: .3s;
@@ -121,10 +149,53 @@
     z-index: 10;
 }
 
-.link {
+/*===== INPUT FILE =====*/
+
+.upload {
+    width: 100px;
+    position: relative;
+    margin: auto;
+}
+
+.upload img {
+    border-radius: 50%;
+    border: 6px solid #eaeaea;
+}
+
+.upload .round {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #00B4FF;
+    width: 32px;
+    height: 32px;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.upload .round input[type="file"] {
+    position: absolute;
+    transform: scale(2);
+    opacity: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
     cursor: pointer;
 }
 
-.email {
-    color: gray;
+
+/*===== INPUT FILE =====*/
+
+.profile-image{
+    width: 110px;
+    position: relative;
+    margin: auto;
+}
+
+.profile-image img {
+    border-radius: 50%;
+    /* border: 1px solid #eaeaea; */
+    object-fit: cover;
 }

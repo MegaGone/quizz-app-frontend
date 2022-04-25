@@ -23,7 +23,7 @@
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link no-caret ml-3 text-white" data-toggle="dropdown" role="button" [routerLink]="['/home/myquizzes']">
-                        <i class="fad fa-long-arrow-left fa-2x"></i>
+                      <i class="fa-solid fa-angle-left fa-2x"></i>
                     </a>
                 </li>
             </ul>
@@ -35,7 +35,7 @@
                 <h1 class="text-white mr-1">{{ code }}</h1>
               </li>
               <li>
-                <span *ngIf="code != 'QUIZ'" class="text-white mr-1" (click)="copyCode(this.code)"><i class="fad fa-clipboard clip"></i></span>
+                <span *ngIf="code != 'QUIZ'" class="text-white mr-1" (click)="copyCode(this.code)"><i class="fa-regular fa-copy"></i></span>
               </li>
             </ul>
         </div>

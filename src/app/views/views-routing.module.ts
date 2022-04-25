@@ -6,7 +6,6 @@ import { AuthGuard } from '../guards/auth.guard';
 
 // My Components
 import { HomeComponent } from './home/home.component';
-import { InvitedComponent } from './invited/invited.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
 
@@ -18,7 +17,6 @@ const routes: Routes = [
       { path: 'myquizzes',      component: HomeComponent    },
       { path: 'profile',        component: ProfileComponent },
       { path: 'quiz/:quizCode', component: QuizComponent    },
-      { path: 'invited',        component: InvitedComponent },
       { path: '**', redirectTo: 'myquizzes' },
     ],
   },
