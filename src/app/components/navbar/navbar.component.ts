@@ -4,6 +4,7 @@ import { Location, PopStateEvent } from '@angular/common';
 import { UserService, AuthService, ValidationMessageService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IUser } from 'src/app/interfaces';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -17,6 +18,7 @@ export class NavbarComponent implements OnInit {
   public modalClose     !: NgbModalRef;
   public passwordForm   !: FormGroup;
   public submitted      !: boolean;
+  public User           !: IUser;
 
   constructor(
     public location : Location,
@@ -29,6 +31,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUserDetails();
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
       if (event instanceof NavigationStart) {
@@ -128,6 +131,17 @@ export class NavbarComponent implements OnInit {
       }
     )
 
+  }
+
+  /**
+  * @returns - User Details
+  */
+  getUserDetails() {
+    this.authSvc.getSession().subscribe(res => {
+      if(res != undefined) {
+        this.User = res;
+      }
+    })
   }
 
   /**

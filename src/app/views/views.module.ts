@@ -9,7 +9,6 @@ import { ComponentsModule } from '../components/components.module';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { InvitedComponent } from './invited/invited.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     ProfileComponent,
     QuizComponent,
-    InvitedComponent,
   ],
   imports: [
     CommonModule,

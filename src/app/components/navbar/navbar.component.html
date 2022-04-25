@@ -1,4 +1,4 @@
-<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top">
   <div class="container">
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home/myquizzes']">
       <img src="./assets/img/brand/argon-white.png">
@@ -30,11 +30,6 @@
             <span class="nav-link-inner--text">Home</span>
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button" [routerLink]="['/home/invited']">
-            <span class="nav-link-inner--text">Invited</span>
-          </a>
-        </li>
       </ul>
 
       <!-- PROFILE SETTINGS -->
@@ -51,22 +46,31 @@
             <div class="dropdown-menu-inner">
 
               <!-- PROFILE PREVIEW -->
-              <a routerLinkActive="active" class="media d-flex align-items-center">
-                <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                  <i class="ni ni-spaceship"></i>
+              <div class="mt-1 py-1 border-bottom text-center">
+                <div class="row justify-content-center">
+                  <div class="col-lg-12">
+                    <div class="card-profile-stats d-flex justify-content-center info">
+                      <div class="col-12 d-flex flex-column text-center">
+                        <div class="card-profile-image">
+                          <div class="profile-image">
+                            <img [src]="User?.img" width=70 height=70 [alt]="User?.email">
+                          </div>
+                        </div>
+                        <h4 class="text-uppercase mb-md-1">{{ User?.name }}</h4>
+                        <h6 class="mb-md-1 email">{{ User?.email }}</h6>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="media-body ml-3">
-                  <h6 class="heading mb-md-1">Javier Martinez</h6>
-                </div>
-              </a>
+              </div>
 
               <!-- CHANGE PASSWORD -->
-              <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center">
+              <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
                 <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
                   <i class="ni ni-key-25"></i>
                 </div>
                 <div class="media-body ml-3">
-                  <h6 class="heading mb-md-1">CHANGE PASSWORD</h6>
+                  <h6 class="heading mb-md-1 link">CHANGE PASSWORD</h6>
                 </div>
               </a>
 
@@ -76,7 +80,7 @@
                   <i class="ni ni-single-02"></i>
                 </div>
                 <div class="media-body ml-3">
-                  <h6 class="heading mb-md-1">Profile</h6>
+                  <h6 class="heading mb-md-1 link">Profile</h6>
                 </div>
               </a>
 
@@ -86,7 +90,7 @@
                   <i class="ni ni-ui-04"></i>
                 </div>
                 <div class="media-body ml-3" (click)="logOut()">
-                  <h5 class="heading mb-md-1">Log Out</h5>
+                  <h5 class="heading mb-md-1 link">Log Out</h5>
                 </div>
               </a>
 
