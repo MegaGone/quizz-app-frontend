@@ -89,7 +89,7 @@
                           <td>4/24/2022</td>
                           <td>10</td>
                           <td class="td-actions">
-                            <button type="button" rel="tooltip" class="btn btn-primary btn-icon btn-sm " data-original-title="" title="">
+                            <button type="button" rel="tooltip" class="btn btn-primary btn-icon btn-sm">
                               <i class="fa-regular fa-eye"></i>
                             </button>
                           </td>
@@ -148,7 +148,7 @@
           <img *ngIf="!imgTemp" [src]="User.img" width=100 height=100 [alt]="User.email">
           <img *ngIf="imgTemp" [src]="imgTemp" width=100 height=100 [alt]="User.email">
           <div class="round">
-            <input type="file" (change)="changeFile($event)">
+            <input type="file" (change)="changeFile($event)" accept="image/png, image/gif, image/jpeg, image/jpg">
             <i class="fa fa-camera" style="color: #fff;"></i>
           </div>
         </div>
