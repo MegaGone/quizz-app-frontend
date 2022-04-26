@@ -3,6 +3,7 @@
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home/myquizzes']">
       <img src="./assets/img/brand/argon-white.png">
     </a>
+    
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
       <span class="navbar-toggler-icon"></span>
@@ -24,6 +25,8 @@
           </div>
         </div>
       </div>
+
+      
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
         <li class="nav-item dropdown">
           <a class="nav-link no-caret" data-toggle="dropdown" role="button" [routerLink]="['/home/myquizzes']">
