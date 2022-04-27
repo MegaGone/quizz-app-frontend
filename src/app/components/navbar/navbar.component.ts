@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Location, PopStateEvent } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { UserService, AuthService, ValidationMessageService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   public submitted      !: boolean;
   public User           !: IUser;
   public toggle         !: boolean;
+  public innerWidth     : any;
 
   constructor(
     public location : Location,
@@ -30,6 +31,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.innerWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    if(this.innerWidth == 991) {
+      this.toggle = true;
+    }
   }
 
   /**
