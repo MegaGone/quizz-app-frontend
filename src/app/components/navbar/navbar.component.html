@@ -45,7 +45,7 @@
           </a>
 
           <!-- SETTINGS CONTAINER -->
-          <div class="dropdown-menu-xl dropdown-menu" >
+          <div class="dropdown-menu-xl dropdown-menu">
             <div class="dropdown-menu-inner">
 
               <!-- PROFILE PREVIEW -->
@@ -67,35 +67,49 @@
                 </div>
               </div>
 
-              <!-- CHANGE PASSWORD -->
-              <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
-                <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
-                  <i class="ni ni-key-25"></i>
-                </div>
-                <div class="media-body ml-3">
-                  <h6 class="heading mb-md-1 link">CHANGE PASSWORD</h6>
-                </div>
-              </a>
-
-              <!-- EDIT USER -->
-              <a routerLinkActive="active" [routerLink]="['/home/profile']" class="media d-flex align-items-center">
-                <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
-                  <i class="ni ni-single-02"></i>
-                </div>
-                <div class="media-body ml-3">
-                  <h6 class="heading mb-md-1 link">Profile</h6>
-                </div>
-              </a>
-
-              <!-- lOG OUT -->
-              <a routerLinkActive="active" class="media d-flex align-items-center">
-                <div class="icon icon-shape bg-gradient-danger rounded-circle text-white">
-                  <i class="ni ni-ui-04"></i>
-                </div>
-                <div class="media-body ml-3" (click)="logOut()">
-                  <h5 class="heading mb-md-1 link">Log Out</h5>
-                </div>
-              </a>
+              <div class="myLinks">
+                
+                <!-- HOME -->
+                <a routerLinkActive="active" [routerLink]="['/home']" class="media d-flex align-items-center mt-3">
+                  <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
+                    <i class="ni ni-shop"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h6 class="heading mb-md-1 link">HOME</h6>
+                  </div>
+                </a>
+                
+                
+                <!-- CHANGE PASSWORD -->
+                <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
+                  <div class="icon icon-shape bg-gradient-info rounded-circle text-white">
+                    <i class="ni ni-key-25"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h6 class="heading mb-md-1 link">CHANGE PASSWORD</h6>
+                  </div>
+                </a>
+  
+                <!-- EDIT USER -->
+                <a routerLinkActive="active" [routerLink]="['/home/profile']" class="media d-flex align-items-center">
+                  <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
+                    <i class="fa-regular fa-user"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h6 class="heading mb-md-1 link">Profile</h6>
+                  </div>
+                </a>
+  
+                <!-- lOG OUT -->
+                <a routerLinkActive="active" class="media d-flex align-items-center">
+                  <div class="icon icon-shape bg-gradient-danger rounded-circle text-white">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  </div>
+                  <div class="media-body ml-3" (click)="logOut()">
+                    <h5 class="heading mb-md-1 link">Log Out</h5>
+                  </div>
+                </a>
+              </div>
 
             </div>
           </div>

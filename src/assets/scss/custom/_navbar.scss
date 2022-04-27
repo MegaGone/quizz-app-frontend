@@ -220,19 +220,28 @@
 @include media-breakpoint-down(md) {
     .navbar-nav {
         .nav-link {
+            display: none;
             padding: .625rem 0;
             color: theme-color("default") !important;
         }
 
         .dropdown-menu {
+
+            .myLinks {
+                padding-bottom: 20px;
+            }
+
             box-shadow: none;
             min-width: auto;
-
-            .media {
-                svg {
-                    width: 30px;
-                }
-            }
+            background: $dropdown-bg;
+            box-shadow: none;
+            content: '';
+            display: block;
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            padding-bottom: 20px;
+            z-index: -5;
         }
     }
 
