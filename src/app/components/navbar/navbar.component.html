@@ -81,7 +81,7 @@
                 
                 
                 <!-- CHANGE PASSWORD -->
-                <a routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
+                <a *ngIf="!User?.google" routerLinkActive="active" (click)="openModal(content)" class="media d-flex align-items-center mt-3">
                   <div class="icon icon-shape bg-gradient-info rounded-circle text-white">
                     <i class="ni ni-key-25"></i>
                   </div>
