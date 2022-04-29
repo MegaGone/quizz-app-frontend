@@ -21,6 +21,10 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  /**
+   * 
+   * @returns Boolean
+   */
   validateToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
 
@@ -38,6 +42,11 @@ export class AuthService {
 
   }
 
+  /**
+   * 
+   * @param user: RegisterUser - User data to create the user
+   * @returns token
+   */
   createUser(user: RegisterUser) {
 
     const { fName, lName, password, email } = user;
@@ -56,6 +65,11 @@ export class AuthService {
       )
   }
 
+  /**
+   * 
+   * @param formData: Login - Credenctials
+   * @returns Token and ILoginResponse
+   */
   login( formData: Login ) {
     return this.http.post<ILoginResponse>(`${base_url}/auth/login`, formData)
       .pipe(
@@ -67,11 +81,17 @@ export class AuthService {
       )
   }
 
+  /**
+   * 
+   * @param token: string - Token to send to the backend
+   * @returns Token and ILoginResponse
+   */
   googleSignIn( token: string ) {
-    // return console.log(token);
-    return this.http.post(`${base_url}/auth/google`, { token })
+    return this.http.post<ILoginResponse>(`${base_url}/auth/google`, { token })
         .pipe(
-          tap( (res: any) => {
+          tap( (res: ILoginResponse) => {
+            
+            this.currentUserBehavor.next(res.user);
             localStorage.setItem('token', res.token)
           })
         )
