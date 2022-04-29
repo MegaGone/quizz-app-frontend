@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from "rxjs/operators";
 
@@ -12,14 +12,35 @@ import { ILoginResponse, IUser } from '../interfaces';
 
 const base_url = environment.base_url;
 
+declare const gapi: any;
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
   public currentUserBehavor: BehaviorSubject<IUser | undefined> = new BehaviorSubject<IUser | undefined>(undefined);
+  public auth2: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
+    this.googleInit();
+  }
+
+  /**
+   * @returns Initialize google init
+   */
+  googleInit() {
+    return new Promise<void>(resolve => {
+      gapi.load('auth2', () => {
+        this.auth2 = gapi.auth2.init({
+          client_id: '967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin',
+        });
+
+        resolve();
+      });
+    });
+  }
 
   /**
    * 
@@ -100,7 +121,12 @@ export class AuthService {
   // TODO: Ver porque no redirecciona de forma correcta
   logOut() {
     localStorage.removeItem('token')
-    return this.router.navigate(['/auth/login'])
+    
+    this.auth2.signOut().then(() => {
+      this.ngZone.run(() => {
+        this.router.navigate(['/auth/login'])
+      });
+    });
   }
 
   /**
