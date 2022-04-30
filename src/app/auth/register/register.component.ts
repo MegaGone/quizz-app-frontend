@@ -12,15 +12,18 @@ import { SpacesValidator } from 'src/app/utils';
 })
 export class RegisterComponent implements OnInit {
 
-  public focus  !: boolean;
-  public focus2 !: boolean;
-  public focus3 !: boolean;
-  public focus4 !: boolean;
-  public focus5 !: boolean;
-  public form   !: FormGroup;
-  public submitted = false;
+  public focus    !: boolean;
+  public focus2   !: boolean;
+  public focus3   !: boolean;
+  public focus4   !: boolean;
+  public focus5   !: boolean;
+  public form     !: FormGroup;
+  public submitted : boolean = false;
+  public passRegex!: RegExp;
 
-  constructor(private fb: FormBuilder, private authSvc: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authSvc: AuthService, private router: Router) { 
+    this.passRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -31,7 +34,7 @@ export class RegisterComponent implements OnInit {
     this.form = this.fb.group({
       fName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       lName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
-      password:   ['', [Validators.required, Validators.minLength(6)]],
+      password:   ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passRegex)]],
       password2:  ['', [Validators.required]],
       email:      ['', [Validators.required, Validators.email]],
       terms:      [false, Validators.requiredTrue]

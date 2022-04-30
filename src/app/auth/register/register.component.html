@@ -49,6 +49,9 @@
 
                   <div *ngIf="f.fName.touched && f.fName.invalid">
                     <div *ngIf="f.fName.errors?.required"><small class="text-danger animate__animated animate__fadeIn">First name is required.</small></div>
+                    <div *ngIf="f.fName.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">First name is not valid.</small></div>
+                    <div *ngIf="f.fName.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">First name cannot contains space start/end.</small></div>
+                    <div *ngIf="f.fName.hasError('doubleSpace') && !f.fName.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">First name cannot contains double space.</small></div>
                   </div>
                 </div>
 
@@ -68,6 +71,9 @@
                   </div>
                   <div *ngIf="f.lName.touched && f.lName.invalid">
                     <div *ngIf="f.lName.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Last name is required.</small></div>
+                    <div *ngIf="f.lName.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Last name is not valid.</small></div>
+                    <div *ngIf="f.lName.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Last name cannot contains space start/end.</small></div>
+                    <div *ngIf="f.lName.hasError('doubleSpace') && !f.lName.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Last name cannot contains double space.</small></div>
                   </div>
                 </div>
 
@@ -108,6 +114,7 @@
                   <div *ngIf="f.password.touched && f.password.invalid">
                     <div *ngIf="f.password.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Password is required.</small></div>
                     <div *ngIf="f.password.errors?.minlength && !f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Password must be at least 6 characters.</small></div>
+                    <div *ngIf="f.password.errors?.pattern && !f.password.errors?.minlength"><small class="text-danger animate__animated animate__fadeIn">Password is not secure.</small></div>
                   </div>
                 </div>
 
