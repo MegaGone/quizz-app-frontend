@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2'
+import { SpacesValidator } from 'src/app/utils';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,12 +12,12 @@ import Swal from 'sweetalert2'
 })
 export class RegisterComponent implements OnInit {
 
-  public focus!: boolean;
-  public focus2!: boolean;
-  public focus3!: boolean;
-  public focus4!: boolean;
-  public focus5!: boolean;
-  public form!: FormGroup;
+  public focus  !: boolean;
+  public focus2 !: boolean;
+  public focus3 !: boolean;
+  public focus4 !: boolean;
+  public focus5 !: boolean;
+  public form   !: FormGroup;
   public submitted = false;
 
   constructor(private fb: FormBuilder, private authSvc: AuthService, private router: Router) { }
@@ -26,9 +27,10 @@ export class RegisterComponent implements OnInit {
   }
 
   initForm() {
+    // Validators.pattern("^[a-zA-Z0-9_]*$"),
     this.form = this.fb.group({
-      fName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
-      lName:      ['', [Validators.required, Validators.minLength(5), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      fName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
+      lName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       password:   ['', [Validators.required, Validators.minLength(6)]],
       password2:  ['', [Validators.required]],
       email:      ['', [Validators.required, Validators.email]],

@@ -4,7 +4,7 @@ export class SpacesValidator {
     /**
      * 
      * @param control: Control to assign the validator
-     * @returns Validator to validate double space in the start of the input
+     * @returns Validator to validate double space
      */
     static doubleSpace(control: AbstractControl): { [key: string]: boolean } | null {
         const value = control.value;
