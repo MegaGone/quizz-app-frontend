@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { SpacesValidator } from 'src/app/utils';
 
 declare const gapi: any;
 
@@ -16,10 +17,12 @@ export class LoginComponent implements OnInit {
   public focus!: boolean;
   public focus1!: boolean;
   public form!: FormGroup;
+  public passRegex!: RegExp;
 
   public auth2: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private authSvc: AuthService, private ngZone: NgZone ) { 
+  constructor(private fb: FormBuilder, private router: Router, private authSvc: AuthService, private ngZone: NgZone ) {
+    this.passRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
   }
 
   ngOnInit(): void {
@@ -29,8 +32,8 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      email     : [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
-      password  : ['', [Validators.required, Validators.minLength(6), Validators.pattern("^[a-zA-Z0-9_]*$")]],
+      email     : [ localStorage.getItem('email') || '', [Validators.required, Validators.email, SpacesValidator.containsSpace]],
+      password  : ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passRegex)]],
       remember  : [ localStorage.getItem('remember') || false ]
     })
   }

@@ -48,6 +48,7 @@
                   <div *ngIf="f.email.touched && f.email.invalid">
                     <div *ngIf="f.email.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Email is required.</small></div>
                     <div *ngIf="f.email.errors?.email"><small class="text-danger animate__animated animate__fadeIn">Please, enter valid email address.</small></div>
+                    <div *ngIf="f.email.hasError('containSpace')"><small class="text-danger animate__animated animate__fadeIn">Email cannot contains spaces.</small></div>
                   </div>
         
                 </div>
@@ -69,8 +70,6 @@
 
                   <div *ngIf="f.password.touched && f.password.invalid">
                     <div *ngIf="f.password.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Password is required.</small></div>
-                    <div *ngIf="f.password.errors?.minlength && !f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Password must be at least 6 characters.</small></div>
-                    <div *ngIf="f.password.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Only characters accepted</small></div>
                   </div>
 
                 </div>

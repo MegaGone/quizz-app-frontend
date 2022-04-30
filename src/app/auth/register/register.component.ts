@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
   }
 
   initForm() {
-    // Validators.pattern("^[a-zA-Z0-9_]*$"),
     this.form = this.fb.group({
       fName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
       lName:      ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), SpacesValidator.spaces, SpacesValidator.doubleSpace]],
