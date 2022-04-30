@@ -78,7 +78,7 @@ export class AuthService {
       password
     }
 
-    return this.http.post(`${base_url}/users`, tempData)
+    return this.http.post(`${base_url}/users`, tempData, { headers: {}, responseType: 'text' })
       .pipe(
         tap( (res: any) => {
           localStorage.setItem('token', res.token)

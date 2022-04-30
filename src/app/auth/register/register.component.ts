@@ -69,16 +69,15 @@ export class RegisterComponent implements OnInit {
 
     this.authSvc.createUser(this.form.value).subscribe( res => {
       
-      this.router.navigate(['/home/myquizzes'])
+      Swal.fire('Created', 'User created', 'success');
+      return this.router.navigate(['/auth/login']);
 
-    }, (err) => {
-      
-      if(err.error.errors[0].msg === undefined){
-        Swal.fire('Error', 'Error to create user', 'error')
-      } 
-      
-      Swal.fire('Error', err.error.errors[0].msg, 'error')
+    }, (err) => {         
+      if(err.status == '400' && err.error == 'Email is already exist') {
+        return Swal.fire('Error', err.error, 'error');
+      }
 
+      return Swal.fire('Error', 'Error to create user', 'error');
     })
   }
 
