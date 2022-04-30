@@ -18,16 +18,18 @@ export class NavbarComponent implements OnInit {
   public User           !: IUser;
   public toggle         !: boolean;
   public innerWidth     : any;
+  public passRegex      !: RegExp;
 
   constructor(
     public location : Location,
-    private router  : Router,
     private authSvc : AuthService,
     private modalSvc: NgbModal,
     private fb      : FormBuilder,
     private userSvc : UserService,
     private msgSvc  : ValidationMessageService
-  ) { }
+  ) { 
+    this.passRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+  }
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -64,16 +66,14 @@ export class NavbarComponent implements OnInit {
    * @returns Initialize the form
    */
   initPasswordForm() {
-    this.passwordForm = this.fb.group(
-      {
-        currentPassword: ['', Validators.required],
-        newPassword: ['', Validators.required],
-        confirmPassword: ['', Validators.required],
+    this.passwordForm = this.fb.group({
+        currentPassword:  ['', [Validators.required, Validators.pattern(this.passRegex)]],
+        newPassword:      ['', [Validators.required, Validators.pattern(this.passRegex)]],
+        confirmPassword:  ['', Validators.required],
       },
       {
         validators: [this.MustMatch('newPassword', 'confirmPassword')],
-      }
-    );
+      });
   }
 
   /**
@@ -155,25 +155,16 @@ export class NavbarComponent implements OnInit {
 
   // Current Password reference
   get currentPass() {
-    return (
-      this.passwordForm.get('currentPassword')?.invalid &&
-      this.passwordForm.get('currentPassword')?.touched
-    );
+    return this.passwordForm.get('currentPassword')?.invalid && this.passwordForm.get('currentPassword')?.touched;
   }
 
   // New Password reference
   get newPass() {
-    return (
-      this.passwordForm.get('newPassword')?.invalid &&
-      this.passwordForm.get('newPassword')?.touched
-    );
+    return this.passwordForm.get('newPassword')?.invalid && this.passwordForm.get('newPassword')?.touched
   }
 
   // Confirm Password reference
   get confirmPass() {
-    return (
-      this.passwordForm.get('confirmPassword')?.invalid &&
-      this.passwordForm.get('confirmPassword')?.touched
-    );
+    return this.passwordForm.get('confirmPassword')?.invalid && this.passwordForm.get('confirmPassword')?.touched;
   }
 }

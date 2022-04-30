@@ -144,7 +144,9 @@
           </div>
 
           <div class="f.currentPassword.touched && f.currentPassword.invalid"  class="mb-3">
-            <div *ngIf="f.currentPassword.errors?.required && submitted || f.currentPassword.touched"><small class="text-danger animate__animated animate__fadeIn">Current Password Required</small></div>
+            <div *ngIf="f.currentPassword.errors?.required && submitted"><small class="text-danger animate__animated animate__fadeIn">Current Password Required</small></div>
+            <div *ngIf="f.currentPassword.errors?.touched"><small class="text-danger animate__animated animate__fadeIn">Current Password Required</small></div>
+            <div *ngIf="f.currentPassword.errors?.pattern && !f.currentPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Weak password</small></div>
           </div>
 
           <div class="form__div">
@@ -159,6 +161,7 @@
 
           <div *ngIf="f.newPassword.touched && f.newPassword.invalid" class="mb-3">
             <div *ngIf="f.newPassword.errors?.required"><small class="text-danger animate__animated animate__fadeIn">New Password Required</small></div>
+            <div *ngIf="f.newPassword.errors?.pattern"><small class="text-danger animate__animated animate__fadeIn">Weak password</small></div>
           </div>
 
           <div class="form__div">
