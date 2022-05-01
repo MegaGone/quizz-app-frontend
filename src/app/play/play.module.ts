@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PlayRoutingModule } from './play-routing.module';
 import { ResultsComponent } from './results/results.component';
@@ -17,7 +18,9 @@ import { AnswersComponent } from './answers/answers.component';
   ],
   imports: [
     CommonModule,
-    PlayRoutingModule
+    PlayRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PlayModule { }
