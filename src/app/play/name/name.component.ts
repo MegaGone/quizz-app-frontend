@@ -31,7 +31,5 @@ export class NameComponent implements OnInit {
       return Object.values(this.quizForm.controls).forEach(c => c.markAllAsTouched)
     }
 
-
-
   }
 }
