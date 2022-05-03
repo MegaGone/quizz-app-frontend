@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IGetQuizByCodeResponse } from 'src/app/interfaces';
+import { ValidationMessageService, PlayService } from 'src/app/services';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-name',
   templateUrl: './name.component.html',
@@ -10,7 +13,7 @@ export class NameComponent implements OnInit {
 
   public quizForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private playSvc: PlayService, private msgSvc: ValidationMessageService, private router: Router) { }
 
   ngOnInit(): void {
     this.initQuizForm();
@@ -30,6 +33,25 @@ export class NameComponent implements OnInit {
     if (this.quizForm.invalid) {
       return Object.values(this.quizForm.controls).forEach(c => c.markAllAsTouched)
     }
+
+    this.playSvc.getQuizByCodeGuest(this.quizForm.value).subscribe(
+      (res: IGetQuizByCodeResponse) => {
+        
+        if (res.Ok && res.quizDB) {
+          this.playSvc.currentQuizBehavor.next(res.quizDB);
+          return this.router.navigate(['/play/start']); // TODO: Redirect to other component
+        }
+  
+        return;
+      },
+      err => {
+        if(!err.error.Ok) {
+          return this.msgSvc.showMessage(`${err.error.message}`, 'ERROR', false) 
+        }
+
+        return this.msgSvc.showMessage('Error getting quiz', 'ERROR', false);
+      }
+    )    
 
   }
 }

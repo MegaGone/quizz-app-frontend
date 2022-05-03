@@ -9,3 +9,4 @@ export * from './getquizbycode.response.interface';
 export * from './IUser';
 export * from './ILoginResponse';
 export * from './IUpdateUser';
+export * from './IGetQuizCode';

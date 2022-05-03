@@ -11,7 +11,7 @@ import { ResultsComponent } from './results/results.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [ AuthGuard ],
+    // canActivate: [ AuthGuard ],
     children: [
       { path: '',         component: NameComponent    },
       { path: 'answer',   component: AnswersComponent },
