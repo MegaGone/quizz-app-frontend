@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IGetQuizByCodeResponse } from 'src/app/interfaces';
 import { ValidationMessageService, PlayService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { SpacesValidator } from 'src/app/utils';
 @Component({
   selector: 'app-name',
   templateUrl: './name.component.html',
@@ -24,7 +25,7 @@ export class NameComponent implements OnInit {
    */
   initQuizForm() {
     this.quizForm = this.fb.group({
-      code: ['', [Validators.required, Validators.minLength(7)]]
+      code: ['', [Validators.required, Validators.minLength(7), SpacesValidator.containsSpace]]
     })
   };
 
@@ -51,7 +52,15 @@ export class NameComponent implements OnInit {
 
         return this.msgSvc.showMessage('Error getting quiz', 'ERROR', false);
       }
-    )    
+    )  
+  }
 
+  /* ######### INPUT VALIDATION ######### */
+  get f() {
+    return this.quizForm.controls;
+  }
+
+  get invalidCode() {
+    return this.quizForm.get('code')?.invalid && this.quizForm.get('code')?.touched;
   }
 }

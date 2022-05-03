@@ -27,7 +27,7 @@
                             <form [formGroup]="joinForm" autocomplete="off" (ngSubmit)="joinToQuiz()">
 
                                 <!-- NAME -->
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3" [ngClass]="{'has-danger': invalidName, 'animate__animated animate__fadeIn': invalidName}">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
@@ -39,19 +39,34 @@
                                         type="text"
                                         formControlName="name">
                                     </div>
+
+                                    <div *ngIf="f.name.touched && f.name.invalid">
+                                        <div *ngIf="f.name.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Name required.</small></div>
+                                        <div *ngIf="f.name.hasError('space')"><small class="text-danger animate__animated animate__fadeIn">Name cannot contains spaces at start/start.</small></div>
+                                        <div *ngIf="f.name.hasError('doubleSpace')"><small class="text-danger animate__animated animate__fadeIn">Name cannot contains double space.</small></div>
+                                    </div>
+
                                 </div>
 
                                 <!-- EMAIL -->
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+                                <div class="form-group mb-3" [ngClass]="{'has-danger': invalidEmail, 'animate__animated animate__fadeIn': invalidEmail}">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+                                        </div>
+    
+                                        <input 
+                                        class="form-control" 
+                                        placeholder="Email" 
+                                        type="email"
+                                        formControlName="email">
                                     </div>
 
-                                    <input 
-                                    class="form-control" 
-                                    placeholder="Email" 
-                                    type="email"
-                                    formControlName="email">
+                                    <div *ngIf="f.email.touched && f.email.invalid">
+                                        <div *ngIf="f.email.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Email required.</small></div>
+                                        <div *ngIf="f.email.errors?.invalid"><small class="text-danger animate__animated animate__fadeIn">Email not valid.</small></div>
+                                        <div *ngIf="f.email.hasError('containSpace') && !f.email.errors?.required"><small class="text-danger animate__animated animate__fadeIn">Email cannot contains spaces.</small></div>
+                                    </div>
                                 </div>
 
                                 <div class="text-right">

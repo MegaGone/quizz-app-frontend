@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlayService, ValidationMessageService } from 'src/app/services';
-import { QuizInterface } from 'src/app/interfaces';
-import { IGetQuizByCodeResponse } from '../../interfaces/IGetQuizCode';
+import { QuizInterface, IGetQuizByCodeResponse } from 'src/app/interfaces';
+import { SpacesValidator } from 'src/app/utils';
 
 @Component({
   selector: 'app-guest',
@@ -27,8 +27,8 @@ export class GuestComponent implements OnInit {
    */
   initForm(): void {
     this.joinForm = this.fb.group({
-      name  : ['', [Validators.required]],
-      email : ['', [Validators.required, Validators.email]]
+      name  : ['', [Validators.required, SpacesValidator.spaces, SpacesValidator.doubleSpace]],
+      email : ['', [Validators.required, Validators.email, SpacesValidator.containsSpace]]
     })
   }
 
@@ -74,6 +74,19 @@ export class GuestComponent implements OnInit {
         return this.msgSvc.showMessage('Error to join to the quiz', 'ERROR', false)
       }
     )
-
   }
+
+  /* ########## INPUT VALIDATIONS ########## */
+  get f() {
+    return this.joinForm.controls;
+  }
+
+  get invalidName() {
+    return this.joinForm.get('name')?.invalid && this.joinForm.get('name')?.touched;
+  }
+
+  get invalidEmail() {
+    return this.joinForm.get('email')?.invalid && this.joinForm.get('email')?.touched;
+  }
+
 }
