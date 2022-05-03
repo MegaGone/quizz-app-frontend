@@ -7,6 +7,7 @@ import { AnswersComponent } from './answers/answers.component';
 import { CounterComponent } from './counter/counter.component';
 import { NameComponent } from './name/name.component';
 import { ResultsComponent } from './results/results.component';
+import { GuestComponent } from './guest/guest.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'answer',   component: AnswersComponent },
       { path: 'results',  component: ResultsComponent },
       { path: 'start',    component: CounterComponent },
+      { path: 'guest',    component: GuestComponent   },
       { path: '**',       redirectTo: ''              }
     ]
   }

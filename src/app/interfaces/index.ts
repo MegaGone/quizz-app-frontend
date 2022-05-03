@@ -10,3 +10,4 @@ export * from './IUser';
 export * from './ILoginResponse';
 export * from './IUpdateUser';
 export * from './IGetQuizCode';
+export * from './IJoinQuizGuest';

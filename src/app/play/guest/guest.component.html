@@ -1,0 +1,69 @@
+<main>
+    <section class="section section-shaped section-lg page">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="container pt-lg-md">
+            <div class="row justify-content-center animate__animated animate__backInLeft">
+                <div class="col-lg-5">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-header bg-white">
+                            <div class="text-muted text-center">
+                                <h2>SIGN UP</h2>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center text-muted mb-4">
+                                <small>SIGN UP BEFORE TO PLAY</small>
+                            </div>
+
+                            <form [formGroup]="joinForm" autocomplete="off" (ngSubmit)="joinToQuiz()">
+
+                                <!-- NAME -->
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                                        </div>
+
+                                        <input 
+                                        class="form-control" 
+                                        placeholder="Name" 
+                                        type="text"
+                                        formControlName="name">
+                                    </div>
+                                </div>
+
+                                <!-- EMAIL -->
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+                                    </div>
+
+                                    <input 
+                                    class="form-control" 
+                                    placeholder="Email" 
+                                    type="email"
+                                    formControlName="email">
+                                </div>
+
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary my-4">PLAY</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

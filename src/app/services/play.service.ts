@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IGetQuizByCodeResponse, QuizInterface } from '../interfaces';
+import { IGetQuizByCodeResponse, IJoinToQuizGuest, QuizInterface } from '../interfaces';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -30,13 +30,21 @@ export class PlayService {
    * 
    * @returns Observable<IGetQuizByCodeResponse>
    */
-  getCurrentQuiz() {
+  getCurrentQuiz(): Observable<IGetQuizByCodeResponse> | any {
 
     if (this.currentQuizBehavor.value == undefined) {
       return this.router.navigate(['/play']);
     }
 
+    this.router.navigate(['/play/guest'])
     return this.currentQuizBehavor.asObservable();
+
+  }
+
+
+  joinToQuizGuest(data: IJoinToQuizGuest): Observable<IGetQuizByCodeResponse> {
+
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join/guest`, data)
 
   }
 }

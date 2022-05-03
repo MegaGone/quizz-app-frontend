@@ -1,0 +1,79 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PlayService, ValidationMessageService } from 'src/app/services';
+import { QuizInterface } from 'src/app/interfaces';
+import { IGetQuizByCodeResponse } from '../../interfaces/IGetQuizCode';
+
+@Component({
+  selector: 'app-guest',
+  templateUrl: './guest.component.html',
+  styleUrls: ['./guest.component.css']
+})
+export class GuestComponent implements OnInit {
+
+  public joinForm!: FormGroup;
+  public quiz!: QuizInterface;
+
+  constructor(private http: HttpClient, private fb: FormBuilder, private playSvc: PlayService, private msgSvc: ValidationMessageService) { }
+
+  ngOnInit(): void {
+    this.getCurrentQuiz();
+    this.initForm();
+  }
+
+  /**
+   * @returns Initialize the form
+   */
+  initForm(): void {
+    this.joinForm = this.fb.group({
+      name  : ['', [Validators.required]],
+      email : ['', [Validators.required, Validators.email]]
+    })
+  }
+
+  getCurrentQuiz() {
+    this.playSvc.getCurrentQuiz().subscribe(
+      (res: QuizInterface) => {
+        this.quiz = res;
+      },
+      (err: any) => {
+        console.log(err);
+        
+      }
+    )
+  }
+
+  joinToQuiz() {
+    
+    if (this.joinForm.invalid) {
+      return Object.values(this.joinForm.controls).forEach(c => c.markAsTouched);
+    }
+
+    const { code } = this.quiz
+
+    const tempData = {
+      ...this.joinForm.value,
+      code
+    }    
+
+    this.playSvc.joinToQuizGuest(tempData).subscribe(
+      (res: IGetQuizByCodeResponse) => {
+        
+        if( res.Ok && res.message == 'Joined') {
+          return this.msgSvc.showMessage('Joined to quiz', `${res.message.toUpperCase()}`, true)
+        }
+
+        return;
+      },
+      err => {
+        if (!err.error.Ok && err.error.message == "You have already participate in the quiz") {
+          return this.msgSvc.showMessage(`${err.error.message}`, 'ERROR', false)
+        }
+        
+        return this.msgSvc.showMessage('Error to join to the quiz', 'ERROR', false)
+      }
+    )
+
+  }
+}

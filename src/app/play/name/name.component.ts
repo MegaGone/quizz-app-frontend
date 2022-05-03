@@ -39,7 +39,7 @@ export class NameComponent implements OnInit {
         
         if (res.Ok && res.quizDB) {
           this.playSvc.currentQuizBehavor.next(res.quizDB);
-          return this.router.navigate(['/play/start']); // TODO: Redirect to other component
+          return this.router.navigate(['/play/guest']);
         }
   
         return;
