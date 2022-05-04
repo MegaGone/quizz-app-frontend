@@ -47,7 +47,7 @@ export class GuestComponent implements OnInit {
   joinToQuiz() {
     
     if (this.joinForm.invalid) {
-      return Object.values(this.joinForm.controls).forEach(c => c.markAsTouched);
+      return Object.values(this.joinForm.controls).forEach(c => c.markAsTouched());
     }
 
     const { code } = this.quiz

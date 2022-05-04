@@ -32,7 +32,7 @@ export class NameComponent implements OnInit {
   joinToQuiz() {
 
     if (this.quizForm.invalid) {
-      return Object.values(this.quizForm.controls).forEach(c => c.markAllAsTouched)
+      return Object.values(this.quizForm.controls).forEach(c => c.markAsTouched())
     }
 
     this.playSvc.getQuizByCodeGuest(this.quizForm.value).subscribe(
