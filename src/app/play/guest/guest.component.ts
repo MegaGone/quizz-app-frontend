@@ -13,12 +13,12 @@ import { SpacesValidator } from 'src/app/utils';
 export class GuestComponent implements OnInit {
 
   public joinForm!: FormGroup;
-  public quiz!: QuizInterface;
+  public code!: string;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private playSvc: PlayService, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
-    this.getCurrentQuiz();
+    this.getCurrentCode();
     this.initForm();
   }
 
@@ -32,16 +32,10 @@ export class GuestComponent implements OnInit {
     })
   }
 
-  getCurrentQuiz() {
-    this.playSvc.getCurrentQuiz().subscribe(
-      (res: QuizInterface) => {
-        this.quiz = res;
-      },
-      (err: any) => {
-        console.log(err);
-        
-      }
-    )
+  getCurrentCode() {
+    this.playSvc.getCurrentCode().subscribe((res: string) => {
+      this.code = res;  
+    })
   }
 
   joinToQuiz() {
@@ -50,7 +44,7 @@ export class GuestComponent implements OnInit {
       return Object.values(this.joinForm.controls).forEach(c => c.markAsTouched());
     }
 
-    const { code } = this.quiz
+    const code = this.code;
 
     const tempData = {
       ...this.joinForm.value,

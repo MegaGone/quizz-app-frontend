@@ -38,8 +38,7 @@ export class NameComponent implements OnInit {
     this.playSvc.getQuizByCodeGuest(this.quizForm.value).subscribe(
       (res: IGetQuizByCodeResponse) => {
         
-        if (res.Ok && res.quizDB) {
-          this.playSvc.currentQuizBehavor.next(res.quizDB);
+        if (res.Ok && res.message == 'Exist' && res.code) {
           return this.router.navigate(['/play/guest']);
         }
   
