@@ -62,7 +62,8 @@ export class GuestComponent implements OnInit {
       (res: IGetQuizByCodeResponse) => {
         
         if( res.Ok && res.message == 'Joined' && res.quizDB) {
-          this.router.navigate(['/play/questions'])
+          this.playSvc.currentQuizBehavor.next(res.quizDB);
+          this.router.navigate(['/play/questions']);
           return this.msgSvc.showMessage('Joined to quiz', `${res.message.toUpperCase()}`, true)
         }
 

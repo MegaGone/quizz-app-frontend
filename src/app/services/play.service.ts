@@ -42,15 +42,14 @@ export class PlayService {
    * Data: IJOinToQuizGuest - Necesary to join to the quiz
    */
   joinToQuizGuest(data: IJoinToQuizGuest): Observable<IGetQuizByCodeResponse> {
-
-    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join/guest`, data);
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join/guest`, data)
   };
 
   /**
    * 
-   * @returns Observable<IGetQuizByCodeResponse>
+   * @returns Observable<QuizInterface>
    */
-  getCurrentQuiz(): Observable<IGetQuizByCodeResponse> | any {
+  getCurrentQuiz(): Observable<QuizInterface | undefined> | Promise<boolean> {
 
     if (this.currentQuizBehavor.value == undefined) {
       return this.router.navigate(['/play']);
