@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlayService, ValidationMessageService } from 'src/app/services';
-import { QuizInterface, IGetQuizByCodeResponse } from 'src/app/interfaces';
+import { IGetQuizByCodeResponse } from 'src/app/interfaces';
 import { SpacesValidator } from 'src/app/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-guest',
@@ -15,7 +15,7 @@ export class GuestComponent implements OnInit {
   public joinForm!: FormGroup;
   public code!: string;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private playSvc: PlayService, private msgSvc: ValidationMessageService) { }
+  constructor(private router: Router, private fb: FormBuilder, private playSvc: PlayService, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
     this.getCurrentCode();
@@ -32,10 +32,17 @@ export class GuestComponent implements OnInit {
     })
   }
 
-  getCurrentCode() {
-    this.playSvc.getCurrentCode().subscribe((res: string) => {
-      this.code = res;  
-    })
+  getCurrentCode(): any {
+    try {
+
+      this.playSvc.getCurrentCode().subscribe((res: string) => {
+        return this.code = res;  
+      })
+
+    } catch (error) {
+      return this.msgSvc.showMessage('Oops, something was wrong', 'ERROR', false);
+    }
+
   }
 
   joinToQuiz() {
@@ -54,7 +61,8 @@ export class GuestComponent implements OnInit {
     this.playSvc.joinToQuizGuest(tempData).subscribe(
       (res: IGetQuizByCodeResponse) => {
         
-        if( res.Ok && res.message == 'Joined') {
+        if( res.Ok && res.message == 'Joined' && res.quizDB) {
+          this.router.navigate(['/play/questions'])
           return this.msgSvc.showMessage('Joined to quiz', `${res.message.toUpperCase()}`, true)
         }
 

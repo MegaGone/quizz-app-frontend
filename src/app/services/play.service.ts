@@ -29,21 +29,6 @@ export class PlayService {
     )
   }
 
-  /**
-   * 
-   * @returns Observable<IGetQuizByCodeResponse>
-   */
-  getCurrentQuiz(): Observable<IGetQuizByCodeResponse> | any {
-
-    if (this.currentQuizBehavor.value == undefined) {
-      return this.router.navigate(['/play']);
-    }
-
-    this.router.navigate(['/play/guest'])
-    return this.currentQuizBehavor.asObservable();
-
-  }
-
   getCurrentCode(): Observable<string> | any {
 
     if ( this.currentCodeBehavor.value != '') {
@@ -53,9 +38,25 @@ export class PlayService {
     return this.router.navigate(['/play']);
   }
 
+  /**
+   * Data: IJOinToQuizGuest - Necesary to join to the quiz
+   */
   joinToQuizGuest(data: IJoinToQuizGuest): Observable<IGetQuizByCodeResponse> {
 
-    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join/guest`, data)
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join/guest`, data);
+  };
 
+  /**
+   * 
+   * @returns Observable<IGetQuizByCodeResponse>
+   */
+  getCurrentQuiz(): Observable<IGetQuizByCodeResponse> | any {
+
+    if (this.currentQuizBehavor.value == undefined) {
+      return this.router.navigate(['/play']);
+    }
+  
+    this.router.navigate(['/play/guest'])
+    return this.currentQuizBehavor.asObservable();
   }
 }

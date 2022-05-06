@@ -15,7 +15,7 @@ export class AnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentQuiz();
-    console.log(this.currentQuiz);
+    // console.log(this.currentQuiz);
   }
 
   /**
@@ -25,6 +25,7 @@ export class AnswersComponent implements OnInit {
     this.playSvc.getCurrentQuiz().subscribe((res: IGetQuizByCodeResponse) => {
       if(res.quizDB) {
         this.currentQuiz = res.quizDB;
+        console.log(this.currentQuiz)
       }
     })
   }
