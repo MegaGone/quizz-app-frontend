@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IGetQuizByCodeResponse, IJoinToQuizGuest, QuizInterface } from '../interfaces';
+import { IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, QuizInterface } from '../interfaces';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class PlayService {
 
   public currentQuizBehavor: BehaviorSubject<QuizInterface | undefined> = new BehaviorSubject<QuizInterface | undefined>(undefined);
   public currentCodeBehavor: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public currentGuestPlayerBehavor: BehaviorSubject<IPlayer | undefined > = new BehaviorSubject<IPlayer | undefined>(undefined);
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -29,6 +30,10 @@ export class PlayService {
     )
   }
 
+  /**
+   * 
+   * @returns CurrentCode
+   */
   getCurrentCode(): Observable<string> | any {
 
     if ( this.currentCodeBehavor.value != '') {
@@ -58,4 +63,14 @@ export class PlayService {
     this.router.navigate(['/play/guest'])
     return this.currentQuizBehavor.asObservable();
   }
+
+  getCurrentPlayer(): Observable<IPlayer | undefined> | Promise<boolean> {
+
+    if (this.currentGuestPlayerBehavor.value == undefined) {
+      return this.router.navigate(['/play']);
+    }
+
+    return this.currentGuestPlayerBehavor.asObservable();
+  }
+
 }

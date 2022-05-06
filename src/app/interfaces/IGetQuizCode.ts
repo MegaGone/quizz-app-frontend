@@ -1,3 +1,4 @@
+import { IPlayer } from './IPlayer';
 import { QuizInterface } from './quiz.interface';
 
 export interface IGetQuizByCodeResponse {
@@ -6,5 +7,6 @@ export interface IGetQuizByCodeResponse {
     quizDB? : QuizInterface;
     message?: string;
     code?   : string;
+    player? : IPlayer
 
 };

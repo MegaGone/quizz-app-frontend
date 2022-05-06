@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionInterface, QuizInterface } from 'src/app/interfaces';
+import { IPlayer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
 
@@ -11,18 +11,21 @@ import { Router } from '@angular/router';
 export class AnswersComponent implements OnInit {
 
   public currentQuiz!: QuizInterface;
-
+  public currentPlayer!: IPlayer;
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
     this.getCurrentQuiz();
-    console.log(this.getQuestions);
+    this.getCurrentPlayer();
+    console.log(this.currentPlayer);
   }
+
+  /* ####################### CURRENT QUIZ & CURRENT PLAYER ####################### */
 
   /**
    * @returns CurrentQuiz
    */
-  getCurrentQuiz() {
+  getCurrentQuiz(): void {
     this.playSvc.currentQuizBehavor.asObservable().subscribe(
       res => {
         if(res == undefined) {
@@ -38,10 +41,29 @@ export class AnswersComponent implements OnInit {
   }
 
   /**
+   * @returns CurrentPlayer
+   */
+  getCurrentPlayer(): void {
+    this.playSvc.currentGuestPlayerBehavor.asObservable().subscribe(
+      (res: IPlayer | undefined) => {
+        if(res == undefined) {
+          return this.router.navigate(['/play']);
+        }
+        return this.currentPlayer = res;
+      },
+      err => {
+        this.router.navigate(['/play']);
+        return this.msgSvc.showMessage('Ooops, session expired', 'ERROR', false);
+      }
+    )
+  }
+
+  /* ####################### GETTERS ####################### */
+
+  /**
    * @returns QuestionInterface[]
    */
   get getQuestions(): QuestionInterface[] {
     return this.currentQuiz.questions;
   }
-
 }
