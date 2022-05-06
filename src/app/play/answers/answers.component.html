@@ -16,19 +16,16 @@
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-header bg-white">
                             <div class="text-muted text-center">
-                                <h2>Pregunta 1</h2>
+                                <h2>{{ getTitle }}</h2>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="text-center text-muted mb-4">
-                                <h3>10S</h3>
+                                <h3>{{ getSeconds }}S</h3>
                             </div>
                             
                         <ul class="list-group mt-3">
-                            <li class="list-group-item selectedtAnswer">Respuesta 1</li>
-                            <li class="list-group-item">Respuesta 2</li>
-                            <li class="list-group-item">Respuesta 3</li>
-                            <li class="list-group-item">Respuesta 4</li>
+                            <li class="list-group-item" *ngFor="let answer of getQuestions[questionIndex].answers">{{ answer.title }}</li>
                         </ul>
 
                         <div class="text-right">

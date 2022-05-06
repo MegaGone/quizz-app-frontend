@@ -12,12 +12,19 @@ export class AnswersComponent implements OnInit {
 
   public currentQuiz!: QuizInterface;
   public currentPlayer!: IPlayer;
-  constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
+  public questionIndex: number;
+  public seconds: number;
+  public setInterval!: ReturnType<typeof setTimeout>;
+
+  constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
+    this.questionIndex = 0;
+    this.seconds = 0;
+  }
 
   ngOnInit(): void {
     this.getCurrentQuiz();
     this.getCurrentPlayer();
-    console.log(this.currentPlayer);
+    this.initCounter();
   }
 
   /* ####################### CURRENT QUIZ & CURRENT PLAYER ####################### */
@@ -58,6 +65,28 @@ export class AnswersComponent implements OnInit {
     )
   }
 
+  /* ####################### METHODS ####################### */
+
+  /**
+   * Init the counter
+   */
+  initCounter() {
+
+    this.seconds = this.currentQuiz.lapse;
+
+    this.setInterval = setInterval(() => {
+
+      if (this.seconds === 0) {
+        this.questionIndex++; // Increment the question
+        clearInterval(this.setInterval);
+        this.initCounter();
+      }
+
+      this.seconds -= 1;
+    }, 1000)
+  }
+
+
   /* ####################### GETTERS ####################### */
 
   /**
@@ -65,5 +94,19 @@ export class AnswersComponent implements OnInit {
    */
   get getQuestions(): QuestionInterface[] {
     return this.currentQuiz.questions;
+  }
+
+  /**
+   * @returns Lapse
+   */
+  get getSeconds(): number {
+    return this.seconds;
+  }
+
+  /**
+   * @returns Title of each question
+   */
+  get getTitle(): string {
+    return this.getQuestions[this.questionIndex].title;
   }
 }
