@@ -33,8 +33,8 @@
                             >{{ answer.title }}</li>
                         </ul>
 
-                        <div (click)="nextQuestion()" class="text-right">
-                            <button [disabled]="!optionSelected" type="submit" class="btn btn-primary my-4">NEXT</button>
+                        <div class="text-right">
+                            <button (click)="nextQuestion()" [disabled]="!optionSelected" type="submit" class="btn btn-primary my-4">NEXT</button>
                         </div>
 
                         </div>

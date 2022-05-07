@@ -16,8 +16,8 @@ export class AnswersComponent implements OnInit {
   public seconds: number;
   public setInterval!: ReturnType<typeof setTimeout>;
 
-  public optionSelected: any;
-  public indexSelected: any;
+  public optionSelected!: Answer | false;
+  public indexSelected!: number;
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
@@ -118,7 +118,7 @@ export class AnswersComponent implements OnInit {
    * Add the answer
    */
   addAnswer(): void | Promise<boolean> {
-
+    this.optionSelected = false;
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
       //TODO: Save the answers
       return this.router.navigate(['/play/results'])
