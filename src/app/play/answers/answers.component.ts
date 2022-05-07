@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Answer, IPlayer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
+import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
 
@@ -10,18 +10,26 @@ import { Router } from '@angular/router';
 })
 export class AnswersComponent implements OnInit {
 
-  public currentQuiz!: QuizInterface;
-  public currentPlayer!: IPlayer;
-  public questionIndex: number;
-  public seconds: number;
+  public currentQuiz!     : QuizInterface;
+  public currentPlayer!   : IPlayer;
+  public questionIndex    : number;
+  public seconds          : number;
   public setInterval!: ReturnType<typeof setTimeout>;
 
-  public optionSelected!: Answer | false;
-  public indexSelected!: number;
+  // public optionSelected!  : Answer | false;
+  
+  public optionSelected!  : any;
+  public indexSelected!   : number | undefined;
+  
+  public correctAnswers   : number;
+  public incorrectAnswers : number;
+  public userAnswers!     : IUserAnswer[]; // TODO: Create Interface for the answers and the userResponse
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
     this.seconds = 0;
+    this.correctAnswers = 0;
+    this.incorrectAnswers = 0;
   }
 
   ngOnInit(): void {
@@ -118,14 +126,43 @@ export class AnswersComponent implements OnInit {
    * Add the answer
    */
   addAnswer(): void | Promise<boolean> {
+    this.verifyAnswer(); // Verify if the answer is correct
+
+    const answerResponse: IUserAnswer = {
+      title: this.getQuestions[this.questionIndex].title,
+      answers: this.getQuestions[this.questionIndex].answers,
+      seconds: this.getAnswerLapse,
+      answerSelected: this.getIndexSelectedAnswer
+    }
+
+    console.log(answerResponse);
+    
+
+    this.userAnswers.push(answerResponse);
+
     this.optionSelected = false;
+    this.indexSelected  = undefined;
+
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
       //TODO: Save the answers
+      // console.log(this.userAnswers)
       return this.router.navigate(['/play/results'])
     }
 
     this.questionIndex++; // Increment the question
     this.seconds = this.currentQuiz.lapse;
+  }
+
+  verifyAnswer() {
+
+    if ( this.optionSelected === undefined) {
+      return this.incorrectAnswers++;
+
+    } else if (!this.optionSelected.isCorrect) {
+      return this.incorrectAnswers++;
+    }
+
+    return this.correctAnswers++;
   }
 
   /* ####################### GETTERS ####################### */
@@ -149,5 +186,30 @@ export class AnswersComponent implements OnInit {
    */
   get getTitle(): string {
     return this.getQuestions[this.questionIndex].title;
+  }
+
+  /**
+   * @returns Lapse of answer's responses 
+   */
+  get getAnswerLapse(): string {
+    if (this.optionSelected === undefined) {
+      return "NO RESPONSE"
+    }
+
+    const lapse: number = this.currentQuiz.lapse;
+    const lapseResponse = lapse - this.seconds;
+
+    return lapseResponse.toString();
+  }
+
+  /**
+   * @returns Index of the answer selected by user
+   */
+  get getIndexSelectedAnswer(): any {
+    if (this.optionSelected === undefined) {
+      return '';
+    }
+
+    return this.indexSelected;
   }
 }

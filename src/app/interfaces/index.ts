@@ -12,3 +12,4 @@ export * from './IUpdateUser';
 export * from './IGetQuizCode';
 export * from './IJoinQuizGuest';
 export * from './IPlayer';
+export * from './IUserAnswer';
