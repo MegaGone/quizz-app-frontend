@@ -79,9 +79,7 @@ export class AnswersComponent implements OnInit {
     this.setInterval = setInterval(() => {
 
       if (this.seconds === 0) {
-        this.questionIndex++; // Increment the question
-        clearInterval(this.setInterval);
-        this.initCounter();
+        this.addAnswer();
       }
 
       this.seconds -= 1;
@@ -107,6 +105,28 @@ export class AnswersComponent implements OnInit {
     return (answer === this.optionSelected) ? "selectedtAnswer" : '';
   }
 
+  /**
+   * Reditect to the next question
+   */
+  nextQuestion(): void {
+    clearInterval(this.setInterval);
+    this.addAnswer();
+    this.initCounter();
+  }
+
+  /**
+   * Add the answer
+   */
+  addAnswer(): void | Promise<boolean> {
+
+    if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
+      //TODO: Save the answers
+      return this.router.navigate(['/play/results'])
+    }
+
+    this.questionIndex++; // Increment the question
+    this.seconds = this.currentQuiz.lapse;
+  }
 
   /* ####################### GETTERS ####################### */
 
