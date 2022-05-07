@@ -25,11 +25,16 @@
                             </div>
                             
                         <ul class="list-group mt-3">
-                            <li class="list-group-item" *ngFor="let answer of getQuestions[questionIndex].answers">{{ answer.title }}</li>
+                            <li 
+                            class="list-group-item" 
+                            *ngFor="let answer of getQuestions[questionIndex].answers; let i = index;" 
+                            (click)="selectedQuestion(answer, i)"
+                            [ngClass]="paintSelectedAnswer(answer)"
+                            >{{ answer.title }}</li>
                         </ul>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary my-4">NEXT</button>
+                            <button [disabled]="!optionSelected" type="submit" class="btn btn-primary my-4">NEXT</button>
                         </div>
 
                         </div>

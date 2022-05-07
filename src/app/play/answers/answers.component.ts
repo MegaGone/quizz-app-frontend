@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IPlayer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
+import { Answer, IPlayer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,9 @@ export class AnswersComponent implements OnInit {
   public questionIndex: number;
   public seconds: number;
   public setInterval!: ReturnType<typeof setTimeout>;
+
+  public optionSelected: any;
+  public indexSelected: any;
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
@@ -71,7 +74,6 @@ export class AnswersComponent implements OnInit {
    * Init the counter
    */
   initCounter() {
-
     this.seconds = this.currentQuiz.lapse;
 
     this.setInterval = setInterval(() => {
@@ -84,6 +86,25 @@ export class AnswersComponent implements OnInit {
 
       this.seconds -= 1;
     }, 1000)
+  }
+
+  /**
+   * 
+   * @param answer: Answer - Get the selected answer
+   * @param i: number - Index of the Answer obtained.
+   */
+  selectedQuestion(answer: Answer, i: number) {
+    this.optionSelected = answer;
+    this.indexSelected = i;
+  }
+
+  /**
+   * 
+   * @param answer: Answer - Answer selected
+   * @returns Class selectedAnswer (Paint the selected answer)
+   */
+  paintSelectedAnswer(answer: Answer): string {
+    return (answer === this.optionSelected) ? "selectedtAnswer" : '';
   }
 
 
