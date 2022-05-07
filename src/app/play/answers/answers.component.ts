@@ -23,7 +23,7 @@ export class AnswersComponent implements OnInit {
   
   public correctAnswers   : number;
   public incorrectAnswers : number;
-  public userAnswers!     : IUserAnswer[]; // TODO: Create Interface for the answers and the userResponse
+  public userAnswers      : IUserAnswer[] = []; // TODO: Create Interface userResponse
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
@@ -135,9 +135,6 @@ export class AnswersComponent implements OnInit {
       answerSelected: this.getIndexSelectedAnswer
     }
 
-    console.log(answerResponse);
-    
-
     this.userAnswers.push(answerResponse);
 
     this.optionSelected = false;
@@ -145,7 +142,7 @@ export class AnswersComponent implements OnInit {
 
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
       //TODO: Save the answers
-      // console.log(this.userAnswers)
+      console.log(this.userAnswers)
       return this.router.navigate(['/play/results'])
     }
 
