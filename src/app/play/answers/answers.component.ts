@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface } from 'src/app/interfaces';
+import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface, IStats } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
 
@@ -140,8 +140,19 @@ export class AnswersComponent implements OnInit {
     this.indexSelected  = undefined;
 
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
-      //TODO: Save the answers
-      console.log(this.userAnswers)
+
+      const stats : IStats = {
+        quizId          : this.currentQuiz._id,
+        playerId        : this.currentPlayer.userId,
+        playerName      : this.currentPlayer.name,
+        incorrectAnswers: this.incorrectAnswers,
+        correctAnswers  : this.correctAnswers,
+        joinIn          : this.currentPlayer.joinIn,
+        questions       : this.userAnswers
+      }
+
+      console.log(stats)
+
       return this.router.navigate(['/play/results'])
     }
 
