@@ -34,8 +34,6 @@ export class AnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentQuiz();
-    console.log(this.getQuestions)
-
     this.getCurrentPlayer();
     this.initCounter();
   }
