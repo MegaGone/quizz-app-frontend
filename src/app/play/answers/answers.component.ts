@@ -34,6 +34,8 @@ export class AnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentQuiz();
+    console.log(this.getQuestions)
+
     this.getCurrentPlayer();
     this.initCounter();
   }
@@ -128,11 +130,14 @@ export class AnswersComponent implements OnInit {
   addAnswer(): void | Promise<boolean> {
     this.verifyAnswer(); // Verify if the answer is correct
 
+    console.log(this.getQuestions[this.questionIndex])
+
     const answerResponse: IUserAnswer = {
       title: this.getQuestions[this.questionIndex].title,
       answers: this.getQuestions[this.questionIndex].answers,
       seconds: this.getAnswerLapse,
-      answerSelected: this.getIndexSelectedAnswer
+      answerSelected: this.getIndexSelectedAnswer,
+      id: this.getQuestions[this.questionIndex]._id
     }
 
     this.userAnswers.push(answerResponse);
