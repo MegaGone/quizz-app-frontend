@@ -2,6 +2,6 @@ import { AnswerInterface } from "./answer.interface";
 
 export interface IUserAnswer {
     selectedIndex   : number;
-    id              : string;
+    questionId      : string;
     time            : number;
 }

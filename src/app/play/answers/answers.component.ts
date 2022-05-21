@@ -131,7 +131,7 @@ export class AnswersComponent implements OnInit {
     const answerResponse: IUserAnswer = {
       time: parseInt(this.getAnswerLapse),
       selectedIndex: this.getIndexSelectedAnswer,
-      id: this.getQuestions[this.questionIndex]._id
+      questionId: this.getQuestions[this.questionIndex]._id
     }
 
     this.userAnswers.push(answerResponse);

@@ -13,5 +13,5 @@ export * from './IGetQuizCode';
 export * from './IJoinQuizGuest';
 export * from './IPlayer';
 export * from './IUserAnswer';
-export * from './ICreateStast';
+export * from './ICreateStats';
 export * from './ICreateStatsResponse';
