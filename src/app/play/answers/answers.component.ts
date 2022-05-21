@@ -154,16 +154,18 @@ export class AnswersComponent implements OnInit, OnDestroy {
       this.playSvc.createStats(stats).subscribe(
         res => {
           if (res.Ok && res.playerStats) {
+            localStorage.setItem('QuizId', res.playerStats.quizId);
             console.log(res.playerStats)
+            return this.router.navigate(['/play/results'])
           }
+          return;
         },
         err => {
           console.log(err)
           return this.msgSvc.showMessage('ERROR', 'Error to save your stats', false);
         }
       )
-
-      return this.router.navigate(['/play/results'])
+      return;
     }
 
     this.questionIndex++; // Increment the question
