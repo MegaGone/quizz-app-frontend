@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, QuizInterface } from '../interfaces';
+import { IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlayerStats, IStats, QuizInterface } from '../interfaces';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -55,17 +55,18 @@ export class PlayService {
    * @returns Observable<QuizInterface>
    */
   getCurrentQuiz(): Observable<QuizInterface | undefined> | Promise<boolean> {
-
     if (this.currentQuizBehavor.value == undefined) {
       return this.router.navigate(['/play']);
     }
-  
+
     this.router.navigate(['/play/guest'])
     return this.currentQuizBehavor.asObservable();
   }
 
+  /**
+   * @returns Observable<IPlayer>
+   */
   getCurrentPlayer(): Observable<IPlayer | undefined> | Promise<boolean> {
-
     if (this.currentGuestPlayerBehavor.value == undefined) {
       return this.router.navigate(['/play']);
     }
@@ -73,4 +74,12 @@ export class PlayService {
     return this.currentGuestPlayerBehavor.asObservable();
   }
 
+  /**
+   * 
+   * @param stats: IStats - Stats to save
+   * @returns Observable<IPlayerStats>
+   */
+  createStats(stats: IStats): Observable<IPlayerStats> {
+    return this.http.post<IPlayerStats>(`${base_url}/stats`, stats);
+  }
 }

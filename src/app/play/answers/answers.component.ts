@@ -151,7 +151,17 @@ export class AnswersComponent implements OnInit {
         questions       : this.userAnswers
       }
 
-      console.log(stats)
+      this.playSvc.createStats(stats).subscribe(
+        res => {
+          if (res.Ok && res.playerStats) {
+            console.log(res.playerStats)
+          }
+        },
+        err => {
+          console.log(err)
+          return this.msgSvc.showMessage('ERROR', 'Error to save your stats', false);
+        }
+      )
 
       return this.router.navigate(['/play/results'])
     }
@@ -160,6 +170,10 @@ export class AnswersComponent implements OnInit {
     this.seconds = this.currentQuiz.lapse;
   }
 
+  /**
+   * 
+   * @returns If answer is selected or valid, increments the correcAnswers to one
+   */
   verifyAnswer() {
 
     if ( this.optionSelected === undefined) {
