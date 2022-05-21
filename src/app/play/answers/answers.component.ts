@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface, IStats } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './answers.component.html',
   styleUrls: ['./answers.component.css']
 })
-export class AnswersComponent implements OnInit {
+export class AnswersComponent implements OnInit, OnDestroy {
 
   public currentQuiz!     : QuizInterface;
   public currentPlayer!   : IPlayer;
@@ -23,7 +23,7 @@ export class AnswersComponent implements OnInit {
   
   public correctAnswers   : number;
   public incorrectAnswers : number;
-  public userAnswers      : IUserAnswer[] = []; // TODO: Create Interface userResponse
+  public userAnswers      : IUserAnswer[] = [];
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
@@ -232,5 +232,9 @@ export class AnswersComponent implements OnInit {
     }
 
     return this.indexSelected;
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.setInterval);
   }
 }
