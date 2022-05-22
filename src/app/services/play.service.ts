@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlayerStats, IStats, QuizInterface } from '../interfaces';
+import { ICreateStats, IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlayerStats, IStats, QuizInterface } from '../interfaces';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -15,7 +15,8 @@ export class PlayService {
 
   public currentQuizBehavor: BehaviorSubject<QuizInterface | undefined> = new BehaviorSubject<QuizInterface | undefined>(undefined);
   public currentCodeBehavor: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  public currentGuestPlayerBehavor: BehaviorSubject<IPlayer | undefined > = new BehaviorSubject<IPlayer | undefined>(undefined);
+  public currentGuestPlayerBehavor: BehaviorSubject<IPlayer | undefined> = new BehaviorSubject<IPlayer | undefined>(undefined);
+  public quizPlayedBehavor: BehaviorSubject<ICreateStats | undefined> = new BehaviorSubject<ICreateStats | undefined>(undefined);
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -36,7 +37,7 @@ export class PlayService {
    */
   getCurrentCode(): Observable<string> | any {
 
-    if ( this.currentCodeBehavor.value != '') {
+    if (this.currentCodeBehavor.value != '') {
       return this.currentCodeBehavor.asObservable();
     }
 
@@ -52,8 +53,49 @@ export class PlayService {
 
   /**
    * 
-   * @returns Observable<QuizInterface>
+   * @param stats: IStats - Stats to save
+   * @returns Observable<IPlayerStats>
    */
+  createStats(stats: IStats): Observable<IPlayerStats> {
+    return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
+      tap((res: IPlayerStats) => {
+        if (res.playerStats) {
+          localStorage.setItem('QuizId', res.playerStats.quizId);
+          localStorage.setItem('PlayerId', res.playerStats.playerId);
+          this.quizPlayedBehavor.next(res.playerStats);
+        }
+      })
+    )
+  }
+
+  /**
+ * 
+ * @param quizId: string - Quiz id
+ * @param userId: string - Player Id
+ * @returns Observable<ICreateStats>
+ */
+  getUserStats(quizId: string, userId: string): Observable<ICreateStats> {
+    return this.http.get<ICreateStats>(`${base_url}/stats/player/${quizId}/${userId}`);
+  }
+
+  /** 
+   * @returns Observable<ICreateStats>
+   */
+  getQuizPlayed(): Observable<ICreateStats> {
+    if (this.quizPlayedBehavor.getValue() == undefined || !this.quizPlayedBehavor.getValue()) {
+      const quizId   = localStorage.getItem('QuizId');
+      const playerId = localStorage.getItem('PlayerId');
+
+      return this.getUserStats(quizId!, playerId!);
+    }
+
+    return this.quizPlayedBehavor.asObservable() as Observable<ICreateStats>;
+  }
+
+  /**
+ * 
+ * @returns Observable<QuizInterface>
+ */
   getCurrentQuiz(): Observable<QuizInterface | undefined> | Promise<boolean> {
     if (this.currentQuizBehavor.value == undefined) {
       return this.router.navigate(['/play']);
@@ -72,14 +114,5 @@ export class PlayService {
     }
 
     return this.currentGuestPlayerBehavor.asObservable();
-  }
-
-  /**
-   * 
-   * @param stats: IStats - Stats to save
-   * @returns Observable<IPlayerStats>
-   */
-  createStats(stats: IStats): Observable<IPlayerStats> {
-    return this.http.post<IPlayerStats>(`${base_url}/stats`, stats);
   }
 }

@@ -154,8 +154,6 @@ export class AnswersComponent implements OnInit, OnDestroy {
       this.playSvc.createStats(stats).subscribe(
         res => {
           if (res.Ok && res.playerStats) {
-            localStorage.setItem('QuizId', res.playerStats.quizId);
-            console.log(res.playerStats)
             return this.router.navigate(['/play/results'])
           }
           return;
