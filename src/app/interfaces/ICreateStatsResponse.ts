@@ -17,7 +17,7 @@ export interface ICreateStats {
     playerId        : string;
     playerName      : string;
     joinIn          : string | Date;
-    anwers          : [IAnswerStat]
+    answers         : [IAnswerStat]
 }
 
 export interface IPlayerStats {

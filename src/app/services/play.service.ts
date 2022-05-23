@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ICreateStats, IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlayerStats, IStats, QuizInterface } from '../interfaces';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 const base_url = environment.base_url;
 
@@ -81,7 +82,7 @@ export class PlayService {
   /** 
    * @returns Observable<ICreateStats>
    */
-  getQuizPlayed(): Observable<ICreateStats> {
+  getQuizPlayed(): Observable<ICreateStats> | any {
     if (this.quizPlayedBehavor.getValue() == undefined || !this.quizPlayedBehavor.getValue()) {
       const quizId   = localStorage.getItem('QuizId');
       const playerId = localStorage.getItem('PlayerId');
@@ -89,7 +90,9 @@ export class PlayService {
       return this.getUserStats(quizId!, playerId!);
     }
 
-    return this.quizPlayedBehavor.asObservable() as Observable<ICreateStats>;
+    return this.quizPlayedBehavor.asObservable().pipe(
+      delay(300)
+    )
   }
 
   /**
