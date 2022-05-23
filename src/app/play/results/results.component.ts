@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styles: [
-  ]
+  styleUrls: ['./results.component.css']
+
 })
 export class ResultsComponent implements OnInit {
 

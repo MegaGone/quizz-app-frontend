@@ -17,7 +17,7 @@
 
                         <div class="card-header bg-white">
                             <div class="text-muted text-center">
-                                <h2>STATS</h2>
+                                <h2>{{ userStats?.title | uppercase }}</h2>
                             </div>
                         </div>
 
@@ -25,9 +25,9 @@
                             <div class="row">
                                 <!-- ANSWERS -->
                                 <div class="col-4">
-                                    <ul *ngIf="loaded"  class="list-group">
+                                    <ul *ngIf="loaded" class="list-group">
                                         <li class="list-group-item">START</li>
-                                        <li class="list-group-item" *ngFor="let item of userStats.answers">{{ item.title }}</li>
+                                        <li class="list-group-item" *ngFor="let answer of userStats.answers">{{ answer?.title }}</li>
                                     </ul>
                                 </div>
 
