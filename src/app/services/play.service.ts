@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ICreateStats, IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlayerStats, IStats, QuizInterface } from '../interfaces';
 import { BehaviorSubject, Observable, of, fromEvent } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 
@@ -75,8 +75,11 @@ export class PlayService {
  * @param userId: string - Player Id
  * @returns Observable<ICreateStats>
  */
-  getUserStats(quizId: string, userId: string): Observable<ICreateStats> {
-    return this.http.get<ICreateStats>(`${base_url}/stats/player/${quizId}/${userId}`);
+  getUserStats(quizId: string, userId: string): Observable<ICreateStats | undefined> {
+    return this.http.get<IPlayerStats>(`${base_url}/stats/player/${quizId}/${userId}`)
+    .pipe(
+      map((res: IPlayerStats) => res.playerStats)
+    )
   }
 
   /** 
@@ -90,9 +93,7 @@ export class PlayService {
       return this.getUserStats(quizId!, playerId!);
     }
 
-    return this.quizPlayedBehavor.asObservable().pipe(
-      delay(300)
-    )
+    return this.quizPlayedBehavor.asObservable();
   }
 
   /**
