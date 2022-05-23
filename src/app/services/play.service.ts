@@ -93,7 +93,9 @@ export class PlayService {
       return this.getUserStats(quizId!, playerId!);
     }
 
-    return this.quizPlayedBehavor.asObservable();
+    return this.quizPlayedBehavor.asObservable().pipe(
+      delay(300)
+    )
   }
 
   /**

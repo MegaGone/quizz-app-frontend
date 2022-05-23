@@ -22,10 +22,23 @@ export class ResultsComponent implements OnInit {
   }
 
   getUserStats() {
-    this.playSvc.getQuizPlayed().subscribe((res: ICreateStats) => {
-      this.userStats = res;
-      console.log(res)
-      this.loaded = true;
-    })
+    const quizId = localStorage.getItem('QuizId');
+    const userId = localStorage.getItem('PlayerId');
+
+    if (!quizId || !userId || quizId == undefined || userId == undefined) {
+      return this.router.navigate(['/play']);
+    }
+
+    this.playSvc.getQuizPlayed().subscribe(
+      (res: ICreateStats) => {
+        this.userStats = res;
+        this.loaded = true;
+      },
+      (err: any) => {
+        this.msgSvc.showMessage('Ooops something was wrong!', 'ERROR', false);
+        return this.router.navigate(['/play']);
+      }
+    )
+    return;
   }
 }

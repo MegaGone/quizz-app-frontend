@@ -24,10 +24,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <!-- ANSWERS -->
-                                <div class="col-4 bg-dark">
-                                    <ul *ngIf="loaded"  class="list-group mt-3">
+                                <div class="col-4">
+                                    <ul *ngIf="loaded"  class="list-group">
                                         <li class="list-group-item">START</li>
-                                        <li *ngFor="let item of userStats.answers">{{ item }}</li>
+                                        <li class="list-group-item" *ngFor="let item of userStats.answers">{{ item.title }}</li>
                                     </ul>
                                 </div>
 
