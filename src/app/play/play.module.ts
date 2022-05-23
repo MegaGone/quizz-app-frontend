@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 import { PlayRoutingModule } from './play-routing.module';
 import { ResultsComponent } from './results/results.component';
@@ -22,7 +23,8 @@ import { GuestComponent } from './guest/guest.component';
     CommonModule,
     PlayRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class PlayModule { }
