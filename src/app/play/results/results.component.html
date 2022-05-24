@@ -27,7 +27,7 @@
                                 <div class="col-4">
                                     <ul *ngIf="loaded" class="list-group">
                                         <li class="list-group-item">START</li>
-                                        <li class="list-group-item" *ngFor="let answer of userStats.answers">{{ answer?.title }}</li>
+                                        <li class="list-group-item" *ngFor="let answer of userStats.answers; let i = index;" (click)="selectAnswer(answer, i)">{{ answer?.title }}</li>
                                     </ul>
                                 </div>
 

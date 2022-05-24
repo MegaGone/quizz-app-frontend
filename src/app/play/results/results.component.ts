@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -11,6 +10,8 @@ import { Observable } from 'rxjs';
 
 })
 export class ResultsComponent implements OnInit {
+
+  @ViewChild('asAnswer') answer!: ElementRef;
 
   public loaded   : boolean = false;
   public userStats!: ICreateStats;
@@ -40,5 +41,14 @@ export class ResultsComponent implements OnInit {
       }
     )
     return;
+  }
+
+  /**
+   * 
+   * @param answer: IAnswerStat - Answer selected
+   * @param i: number - Index
+   */
+  selectAnswer(answer: IAnswerStat, i: number) {
+    console.log(answer)
   }
 }
