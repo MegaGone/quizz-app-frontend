@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit {
 
-  public answer : EventEmitter<IAnswerStat> = new EventEmitter();
+  public answer: EventEmitter<IAnswerStat> = new EventEmitter();
   public details: EventEmitter<ICreateStats> = new EventEmitter();
 
-  public loaded   : boolean = false;
+  public loaded: boolean = false;
   public userStats!: ICreateStats;
+
+  public optionSelected!: any;
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
 
@@ -51,6 +53,7 @@ export class ResultsComponent implements OnInit {
    */
   selectAnswer(answer: IAnswerStat, i: number): void {
     this.answer.emit(answer);
+    this.optionSelected = answer;
   }
 
   /**
@@ -58,5 +61,14 @@ export class ResultsComponent implements OnInit {
    */
   detailSelected(): void {
     this.details.emit(this.userStats);
+  }
+
+  /**
+ * 
+ * @param answer: Answer - Answer selected
+ * @returns Class selectedAnswer (Paint the selected answer)
+ */
+  paintSelectedAnswer(answer: IAnswerStat): string {
+    return (answer === this.optionSelected) ? "selectedtAnswer" : '';
   }
 }

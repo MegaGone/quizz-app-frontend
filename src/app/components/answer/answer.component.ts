@@ -36,6 +36,9 @@ export class AnswerComponent implements OnInit {
     }
   }
 
+  /**
+   * GET QUIZ DETAILS
+   */
   getDetails() {
     if (this.details) {
       this.details.subscribe(res => {
