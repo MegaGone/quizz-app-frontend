@@ -26,14 +26,14 @@
                                 <!-- ANSWERS -->
                                 <div class="col-4">
                                     <ul *ngIf="loaded" class="list-group">
-                                        <li class="list-group-item">START</li>
+                                        <li class="list-group-item" (click)="detailSelected()">START</li>
                                         <li class="list-group-item" *ngFor="let answer of userStats.answers; let i = index;" (click)="selectAnswer(answer, i)">{{ answer?.title }}</li>
                                     </ul>
                                 </div>
 
                                 <!-- ANSWERS CONTENT -->
                                 <div class="col-8">
-                                    <app-answer [answer]="answer"></app-answer>
+                                    <app-answer [answer]="answer" [details]="details"></app-answer>
                                 </div>
                             </div>
                         </div>
