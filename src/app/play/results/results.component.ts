@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit {
 
-  @ViewChild('asAnswer') answer!: ElementRef;
+  public answer: EventEmitter<IAnswerStat> = new EventEmitter();
 
   public loaded   : boolean = false;
   public userStats!: ICreateStats;
@@ -49,6 +49,6 @@ export class ResultsComponent implements OnInit {
    * @param i: number - Index
    */
   selectAnswer(answer: IAnswerStat, i: number) {
-    console.log(answer)
+    this.answer.emit(answer);
   }
 }
