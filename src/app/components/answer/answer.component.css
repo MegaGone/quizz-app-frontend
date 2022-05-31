@@ -66,6 +66,16 @@
 }
 
 .selectedtAnswer {
-    background-color: #5E72E4 !important;
+    background-color: #96a4f1 !important;
     color: white !important;
+}
+
+.correctAnswer {
+    background-color: green;
+    color: white;
+}
+
+.incorrectAnswer {
+    background-color: red;
+    color: white;
 }

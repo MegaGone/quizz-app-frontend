@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
+import { AnswerInterface, IAnswerStat, ICreateStats } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-answer',
@@ -31,7 +31,7 @@ export class AnswerComponent implements OnInit {
     if (this.answer) {
       this.answer.subscribe(res => {
         this.answerSelected = res;
-        console.log(this.answerSelected)
+        console.log(this.answerSelected);
       })
     }
   }
@@ -60,5 +60,14 @@ export class AnswerComponent implements OnInit {
     }
 
     return 'check.png';
+  }
+
+  /**
+   * 
+   * @param i: number - Index of selected answer
+   * @returns paint selected answer
+   */
+  paintCorrectAnswer(i: number): string {
+    return (i == this.answerSelected.selectedIndex) ? 'selectedtAnswer' : '';
   }
 }

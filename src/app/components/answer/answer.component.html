@@ -9,7 +9,7 @@
 
         <div class="card-body" id="answersContent">
             <div class="wrapper">
-                <div class="box" *ngFor="let answer of answerSelected?.answers">
+                <div class="box" *ngFor="let answer of answerSelected?.answers; let i = index" [ngClass]="paintCorrectAnswer(i)">
                     <div class="row" id="answerTitle">
                         <div class="col-12 text-center">
                             <p class="answerTitle">{{ answer?.title }}</p>
