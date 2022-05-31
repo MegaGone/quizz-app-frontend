@@ -79,3 +79,11 @@
     background-color: red;
     color: white;
 }
+
+.time {
+    font-size: 15px;
+}
+
+.bold {
+    font-weight: bold;
+}

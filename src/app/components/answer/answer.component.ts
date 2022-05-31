@@ -31,7 +31,6 @@ export class AnswerComponent implements OnInit {
     if (this.answer) {
       this.answer.subscribe(res => {
         this.answerSelected = res;
-        console.log(this.answerSelected);
       })
     }
   }
