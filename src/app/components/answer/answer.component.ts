@@ -49,4 +49,16 @@ export class AnswerComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * @param state: boolean - IsValid answer
+   * @returns icon
+   */
+  getAnswerIcon(state: boolean | undefined): string {
+    if (!state) {
+      return 'close.png'
+    }
+
+    return 'check.png';
+  }
 }

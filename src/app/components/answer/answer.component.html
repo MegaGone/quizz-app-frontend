@@ -1,15 +1,26 @@
 <div class="col-lg-12 h-100" *ngIf="!startSelected">
     <div class="card bg-secondary shadow border-0" id="answer">
 
-        <div class="card-header bg-white">
+        <div class="card-header bg-white" id="questionTitle">
             <div class="text-muted text-center">
-                <h2>{{ answerSelected?.title }}</h2>
+                <h2 class="title">{{ answerSelected?.title }}</h2>
             </div>
         </div>
 
-        <div class="card-body">
+        <div class="card-body" id="answersContent">
             <div class="wrapper">
-                <div class="box" *ngFor="let answer of answerSelected?.answers">{{ answer?.title }}</div>
+                <div class="box" *ngFor="let answer of answerSelected?.answers">
+                    <div class="row" id="answerTitle">
+                        <div class="col-12 text-center">
+                            <p class="answerTitle">{{ answer?.title }}</p>
+                        </div>
+                    </div>
+                    <div class="row" id="answerStatus">
+                        <div class="col-12 text-center">
+                            <img src="assets/img/icons/{{getAnswerIcon(answer?.isCorrect)}}" width="35" height="35">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
