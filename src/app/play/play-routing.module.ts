@@ -7,17 +7,19 @@ import { AnswersComponent } from './answers/answers.component';
 import { CounterComponent } from './counter/counter.component';
 import { NameComponent } from './name/name.component';
 import { ResultsComponent } from './results/results.component';
+import { GuestComponent } from './guest/guest.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [ AuthGuard ],
+    // canActivate: [ AuthGuard ],
     children: [
-      { path: 'answer',   component: AnswersComponent },
-      { path: 'name',     component: NameComponent    },
-      { path: 'start',    component: CounterComponent },
+      { path: '',         component: NameComponent    },
+      { path: 'questions',component: AnswersComponent },
       { path: 'results',  component: ResultsComponent },
-      { path: '**', redirectTo: 'name' }
+      { path: 'start',    component: CounterComponent },
+      { path: 'guest',    component: GuestComponent   },
+      { path: '**',       redirectTo: ''              }
     ]
   }
 ];

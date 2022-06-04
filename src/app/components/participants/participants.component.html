@@ -15,7 +15,7 @@
                 <td>{{ member.name }}</td>
                 <td>{{ member.joinIn | date: 'longDate' }}</td>
                 <td>
-                    <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, member.userId, i)"><i class="far fa-ellipsis-v"></i></button>
+                    <button class="rounded-button-elipsis" type="button" (click)="openVerticallyCentered(content, member.userId, i)"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -47,7 +47,7 @@
                 <div class="col-12">
                     <button type="button" class="btn btn-info" (click)="viewResults(tempId)">
                         View Results
-                        <i class="fad fa-user-check"></i>
+                        <i class="fa-solid fa-user-check"></i>
                     </button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="col-12">
                     <button type="button" class="btn btn-danger" (click)="removeParticipant(tempId)">
                         Remove Participant
-                        <i class="fad fa-user-minus"></i>
+                        <i class="fa-solid fa-user-minus"></i>
                     </button>
                 </div>
             </div>

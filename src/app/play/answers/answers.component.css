@@ -1,0 +1,9 @@
+.selectedtAnswer {
+    background-color: #5E72E4;
+    color: white !important;
+}
+
+.list-group-item {
+    color: black;
+    cursor: pointer;
+}

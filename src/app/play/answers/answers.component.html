@@ -1,1 +1,46 @@
-<p>answers works!</p>
+<main>
+    <section class="section section-shaped section-lg page">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="container pt-lg-md">
+            <div class="row justify-content-center animate__animated animate__backInLeft">
+                <div class="col-lg-5">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-header bg-white">
+                            <div class="text-muted text-center">
+                                <h2>{{ getTitle }}</h2>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center text-muted mb-4">
+                                <h3>{{ getSeconds }}S</h3>
+                            </div>
+                            
+                        <ul class="list-group mt-3">
+                            <li 
+                            class="list-group-item" 
+                            *ngFor="let answer of getQuestions[questionIndex].answers; let i = index;" 
+                            (click)="selectedQuestion(answer, i)"
+                            [ngClass]="paintSelectedAnswer(answer)"
+                            >{{ answer.title }}</li>
+                        </ul>
+
+                        <div class="text-right">
+                            <button (click)="nextQuestion()" [disabled]="!optionSelected" type="submit" class="btn btn-primary my-4">NEXT</button>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
