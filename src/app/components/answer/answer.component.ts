@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { AnswerInterface, IAnswerStat, ICreateStats } from 'src/app/interfaces';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-answer',
@@ -10,6 +10,7 @@ export class AnswerComponent implements OnInit {
 
   @Input() public answer  !: EventEmitter<IAnswerStat>
   @Input() public details !: EventEmitter<ICreateStats>
+  @Output() public nonDetails: EventEmitter<boolean> = new EventEmitter(false);
 
   public answerSelected !: IAnswerStat;
   public quizDetails    !: ICreateStats;
@@ -20,8 +21,8 @@ export class AnswerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAnswerSelected();
     this.getDetails();
+    this.getAnswerSelected();
   }
 
   /**
@@ -40,10 +41,16 @@ export class AnswerComponent implements OnInit {
    * GET QUIZ DETAILS
    */
   getDetails() {
+    if(!this.quizDetails) {
+      this.nonDetails.emit(true);
+    }
+
+    
+    
     if (this.details) {
       this.details.subscribe(res => {
-        this.quizDetails = res;
         this.startSelected = true;
+        this.quizDetails = res;
         console.log(this.quizDetails);
       })
     }
