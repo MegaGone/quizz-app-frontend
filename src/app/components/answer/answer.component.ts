@@ -32,7 +32,7 @@ export class AnswerComponent implements OnInit {
    */
   getAnswerSelected(): void {
     if (this.answer) {
-      this.answer.subscribe(res => {
+      this.answer.subscribe((res: number) => {
         this.answerSelected = this.answersArray[res];
         this.startSelected = false;
       })
