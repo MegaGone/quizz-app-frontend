@@ -13,3 +13,16 @@
 .pt-lg-md-answers {
     padding-top: 0rem !important;
 }
+
+.stats-weight {
+    font-weight: 600;
+}
+
+.stats-size {
+    font-size: 20px;
+    width: 33.3%;
+}
+
+.stats {
+    display: inline-flex;
+}

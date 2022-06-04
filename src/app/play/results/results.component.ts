@@ -37,6 +37,7 @@ export class ResultsComponent implements OnInit {
       (res: ICreateStats) => {
         this.userStats = res;
         this.loaded = true;
+        this.details.emit(this.userStats);
       },
       (err: any) => {
         this.msgSvc.showMessage('Ooops something was wrong!', 'ERROR', false);
@@ -57,18 +58,21 @@ export class ResultsComponent implements OnInit {
   }
 
   /**
-   * SHOW DETAILS
-   */
-  detailSelected(): void {
-    this.details.emit(this.userStats);
-  }
-
-  /**
  * 
  * @param answer: Answer - Answer selected
  * @returns Class selectedAnswer (Paint the selected answer)
  */
   paintSelectedAnswer(answer: IAnswerStat): string {
     return (answer === this.optionSelected) ? "selectedtAnswer" : '';
+  }
+
+  /**
+   * 
+   * @param correct: number - Total correct answers
+   * @param incorrect: number - Total incorrect answers
+   * @returns total answers
+   */
+  getTotalPoints(correct: number, incorrect: number): number {
+    return correct + incorrect;
   }
 }

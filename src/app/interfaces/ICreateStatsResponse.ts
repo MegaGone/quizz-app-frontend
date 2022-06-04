@@ -12,7 +12,7 @@ export interface ICreateStats {
     title           : string;
     correctAnswers  : number;
     incorrectAnswers: number;
-    laspe           : number;
+    lapse           : number;
     description     : string;
     playerId        : string;
     playerName      : string;
