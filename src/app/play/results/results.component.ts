@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit {
 
-  public answer: EventEmitter<IAnswerStat> = new EventEmitter();
+  public answer: EventEmitter<number> = new EventEmitter();
   public details: EventEmitter<ICreateStats> = new EventEmitter();
+  public answers: EventEmitter<IAnswerStat[]> = new EventEmitter();
 
   public loaded: boolean = false;
   public userStats!: ICreateStats;
@@ -38,6 +39,7 @@ export class ResultsComponent implements OnInit {
         this.userStats = res;
         this.loaded = true;
         this.details.emit(this.userStats);
+        this.answers.emit(this.userStats.answers);
       },
       (err: any) => {
         this.msgSvc.showMessage('Ooops something was wrong!', 'ERROR', false);
@@ -52,8 +54,8 @@ export class ResultsComponent implements OnInit {
    * @param answer: IAnswerStat - Answer selected
    * @param i: number - Index
    */
-  selectAnswer(answer: IAnswerStat, i: number): void {
-    this.answer.emit(answer);
+  selectAnswer(answer: IAnswerStat, i: number = 0): void {
+    this.answer.emit(i);
     this.optionSelected = answer;
   }
 

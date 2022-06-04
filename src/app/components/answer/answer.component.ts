@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 
 @Component({
@@ -8,19 +8,21 @@ import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 })
 export class AnswerComponent implements OnInit {
 
-  @Input() public answer  !: EventEmitter<IAnswerStat>
-  @Input() public details !: EventEmitter<ICreateStats>
-  @Output() public nonDetails: EventEmitter<boolean> = new EventEmitter(false);
+  @Input() public answer  !: EventEmitter<number>;
+  @Input() public details !: EventEmitter<ICreateStats>;
+  @Input() public answers !: EventEmitter<IAnswerStat[]>;
 
   public answerSelected !: IAnswerStat;
   public quizDetails    !: ICreateStats;
   public startSelected   : boolean;
+  public answersArray   !: IAnswerStat[];
 
   constructor() { 
     this.startSelected = false;
   }
 
   ngOnInit(): void {
+    this.getAnswers();
     this.getDetails();
     this.getAnswerSelected();
   }
@@ -31,7 +33,7 @@ export class AnswerComponent implements OnInit {
   getAnswerSelected(): void {
     if (this.answer) {
       this.answer.subscribe(res => {
-        this.answerSelected = res;
+        this.answerSelected = this.answersArray[res];
         this.startSelected = false;
       })
     }
@@ -41,17 +43,21 @@ export class AnswerComponent implements OnInit {
    * GET QUIZ DETAILS
    */
   getDetails() {
-    if(!this.quizDetails) {
-      this.nonDetails.emit(true);
-    }
-
-    
-    
     if (this.details) {
       this.details.subscribe(res => {
         this.startSelected = true;
         this.quizDetails = res;
-        console.log(this.quizDetails);
+      })
+    }
+  }
+
+  /**
+   * GET ANSWERS
+   */
+  getAnswers(): void {
+    if (this.answers) {
+      this.answers.subscribe(res => {
+        this.answersArray = res;        
       })
     }
   }
