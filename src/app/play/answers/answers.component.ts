@@ -164,10 +164,10 @@ export class AnswersComponent implements OnInit, OnDestroy {
         }
       )
       return;
+    } else {
+          this.questionIndex++; // Increment the question
+          this.seconds = this.currentQuiz.lapse;
     }
-
-    this.questionIndex++; // Increment the question
-    this.seconds = this.currentQuiz.lapse;
   }
 
   /**
@@ -176,7 +176,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
    */
   verifyAnswer() {
 
-    if ( this.optionSelected === undefined) {
+    if ( this.optionSelected === undefined || !this.optionSelected) {
       return this.incorrectAnswers++;
 
     } else if (!this.optionSelected.isCorrect) {
@@ -213,8 +213,8 @@ export class AnswersComponent implements OnInit, OnDestroy {
    * @returns Lapse of answer's responses 
    */
   get getAnswerLapse(): string {
-    if (this.optionSelected === undefined) {
-      return "NO RESPONSE"
+    if (this.optionSelected === undefined || !this.optionSelected) {
+      return "-1"
     }
 
     const lapse: number = this.currentQuiz.lapse;
@@ -227,8 +227,8 @@ export class AnswersComponent implements OnInit, OnDestroy {
    * @returns Index of the answer selected by user
    */
   get getIndexSelectedAnswer(): any {
-    if (this.optionSelected === undefined) {
-      return '';
+    if (this.optionSelected === undefined || !this.optionSelected) {
+      return -1;
     }
 
     return this.indexSelected;

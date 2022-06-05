@@ -26,8 +26,13 @@
         </div>
 
         <div class="row" *ngIf="answerSelected">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center" *ngIf="answerSelected?.time != -1">
                 <h5 class="time">Response time <span class="bold">{{ answerSelected?.time }} seconds</span></h5>
+            </div>
+
+            <!-- If its not selected -->
+            <div class="col-12 text-center" *ngIf="answerSelected?.time == -1">
+                <h5 class="time"><span class="bold">Time over</span></h5>
             </div>
         </div>
 
