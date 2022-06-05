@@ -60,10 +60,8 @@ export class PlayService {
   createStats(stats: IStats): Observable<IPlayerStats> {
     return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
       tap((res: IPlayerStats) => {
-        if (res.playerStats) {
-          localStorage.setItem('QuizId', res.playerStats.quizId);
-          localStorage.setItem('PlayerId', res.playerStats.playerId);
-          this.quizPlayedBehavor.next(res.playerStats);
+        if (res.token) {
+          localStorage.setItem('token', res.token)
         }
       })
     )

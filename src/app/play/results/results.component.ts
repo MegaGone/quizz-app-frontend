@@ -22,8 +22,8 @@ export class ResultsComponent implements OnInit {
 
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
 
-  async ngOnInit() {
-    await this.getUserStats();
+  async ngOnInit() {    
+    // await this.getUserStats();
   }
 
   getUserStats() {
