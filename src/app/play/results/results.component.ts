@@ -40,7 +40,6 @@ export class ResultsComponent implements OnInit {
           this.details.emit(this.userStats);
           this.answers.emit(this.userStats.answers);
           this.selectAnswer(this.userStats.answers[0], 0)
-        
       },
       err => {        
         this.msgSvc.showMessage('Ooops something was wrong!', 'ERROR', false);
