@@ -88,7 +88,7 @@ export class PlayService {
     return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
       tap((res: IPlayerStats) => {
         if (res.token) {
-          localStorage.setItem('token', res.token)
+          localStorage.setItem('y-token', res.token)
         }
       })
     )

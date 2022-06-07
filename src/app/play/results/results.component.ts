@@ -27,7 +27,7 @@ export class ResultsComponent implements OnInit {
   }
 
   getUserStats() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('y-token');
 
     if (!token || token == undefined) {
       return this.router.navigate(['/play']);
