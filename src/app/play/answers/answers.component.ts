@@ -153,7 +153,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
 
       this.playSvc.createStats(stats).subscribe(
         res => {
-          if (res.Ok && res.playerStats) {
+          if (res.Ok && res.token) {
             return this.router.navigate(['/play/results'])
           }
           return;

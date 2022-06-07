@@ -60,10 +60,8 @@ export class PlayService {
   createStats(stats: IStats): Observable<IPlayerStats> {
     return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
       tap((res: IPlayerStats) => {
-        if (res.playerStats) {
-          localStorage.setItem('QuizId', res.playerStats.quizId);
-          localStorage.setItem('PlayerId', res.playerStats.playerId);
-          this.quizPlayedBehavor.next(res.playerStats);
+        if (res.token) {
+          localStorage.setItem('token', res.token)
         }
       })
     )
@@ -75,40 +73,15 @@ export class PlayService {
  * @param userId: string - Player Id
  * @returns Observable<ICreateStats>
  */
-  getUserStats(quizId: string, userId: string): Observable<ICreateStats | undefined> {
-    return this.http.get<IPlayerStats>(`${base_url}/stats/player/${quizId}/${userId}`)
+  getUserStats(token: string): Observable<ICreateStats | undefined> {
+    return this.http.get<IPlayerStats>(`${base_url}/stats/guest`, {
+      headers: {
+        'y-token': token
+      }
+    })
     .pipe(
       map((res: IPlayerStats) => res.playerStats)
     )
-  }
-
-  /** 
-   * @returns Observable<ICreateStats>
-   */
-  getQuizPlayed(): Observable<ICreateStats> | any {
-    if (this.quizPlayedBehavor.getValue() == undefined || !this.quizPlayedBehavor.getValue()) {
-      const quizId   = localStorage.getItem('QuizId');
-      const playerId = localStorage.getItem('PlayerId');
-
-      return this.getUserStats(quizId!, playerId!);
-    }
-
-    return this.quizPlayedBehavor.asObservable().pipe(
-      delay(300)
-    )
-  }
-
-  /**
- * 
- * @returns Observable<QuizInterface>
- */
-  getCurrentQuiz(): Observable<QuizInterface | undefined> | Promise<boolean> {
-    if (this.currentQuizBehavor.value == undefined) {
-      return this.router.navigate(['/play']);
-    }
-
-    this.router.navigate(['/play/guest'])
-    return this.currentQuizBehavor.asObservable();
   }
 
   /**
