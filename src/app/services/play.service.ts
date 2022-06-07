@@ -5,7 +5,6 @@ import { ICreateStats, IGetQuizByCodeResponse, IJoinToQuizGuest, IPlayer, IPlaye
 import { BehaviorSubject, Observable, of, fromEvent } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { delay } from 'rxjs/operators';
 
 const base_url = environment.base_url;
 
@@ -20,6 +19,34 @@ export class PlayService {
   public quizPlayedBehavor: BehaviorSubject<ICreateStats | undefined> = new BehaviorSubject<ICreateStats | undefined>(undefined);
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  /**
+ * 
+ * @param code: string - Quiz code
+ * @returns Observable<IGetQuizByCodeResponse>
+ */
+  getQuizByCode(code: string): Observable<IGetQuizByCodeResponse> {
+    return this.http.get<IGetQuizByCodeResponse>(`${base_url}/quiz/code/${code}`, {
+      headers: {
+        'x-token': this.getToken
+      }
+    }).pipe(
+      tap((res: IGetQuizByCodeResponse) => this.currentCodeBehavor.next(res.code!))
+    );
+  };
+
+  /**
+   * 
+   * @param code: string - Quiz Code
+   * @returns Join to quiz code
+   */
+  joinToQuiz(code: string): Observable<IGetQuizByCodeResponse> {
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/join`, code, {
+      headers: {
+        'x-token': this.getToken
+      }
+    });
+  };
 
   /**
    * 
@@ -79,9 +106,9 @@ export class PlayService {
         'y-token': token
       }
     })
-    .pipe(
-      map((res: IPlayerStats) => res.playerStats)
-    )
+      .pipe(
+        map((res: IPlayerStats) => res.playerStats)
+      )
   }
 
   /**
@@ -93,5 +120,12 @@ export class PlayService {
     }
 
     return this.currentGuestPlayerBehavor.asObservable();
+  }
+
+  /**
+   * TOKEN
+   */
+  get getToken(): string {
+    return localStorage.getItem('token')!;
   }
 }
