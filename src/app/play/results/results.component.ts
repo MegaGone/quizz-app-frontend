@@ -23,26 +23,26 @@ export class ResultsComponent implements OnInit {
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
 
   async ngOnInit() {    
-    // await this.getUserStats();
+    await this.getUserStats();
   }
 
   getUserStats() {
-    const quizId = localStorage.getItem('QuizId');
-    const userId = localStorage.getItem('PlayerId');
+    const token = localStorage.getItem('token');
 
-    if (!quizId || !userId || quizId == undefined || userId == undefined) {
+    if (!token || token == undefined) {
       return this.router.navigate(['/play']);
     }
 
-    this.playSvc.getQuizPlayed().subscribe(
-      (res: ICreateStats) => {
-        this.userStats = res;
-        this.loaded = true;
-        this.details.emit(this.userStats);
-        this.answers.emit(this.userStats.answers);
-        this.selectAnswer(this.userStats.answers[0], 0)
+    this.playSvc.getUserStats(token).subscribe(
+      res => {
+          this.userStats = res!;
+          this.loaded = true;
+          this.details.emit(this.userStats);
+          this.answers.emit(this.userStats.answers);
+          this.selectAnswer(this.userStats.answers[0], 0)
+        
       },
-      (err: any) => {
+      err => {        
         this.msgSvc.showMessage('Ooops something was wrong!', 'ERROR', false);
         return this.router.navigate(['/play']);
       }
