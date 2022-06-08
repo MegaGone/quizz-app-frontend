@@ -1,34 +1,36 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { UserService, AuthService, ValidationMessageService } from 'src/app/services';
+import { UserService, AuthService, ValidationMessageService, PlayService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IUser } from 'src/app/interfaces';
+import { IGetQuizByCodeResponse, IUser } from 'src/app/interfaces';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  public isCollapsed    : boolean = true;
+  public isCollapsed: boolean = true;
   public modalClose     !: NgbModalRef;
   public passwordForm   !: FormGroup;
   public submitted      !: boolean;
   public User           !: IUser;
   public toggle         !: boolean;
-  public innerWidth     : any;
+  public innerWidth: any;
   public passRegex      !: RegExp;
   public playForm       !: FormGroup;
 
   constructor(
-    public location : Location,
-    private authSvc : AuthService,
+    public location: Location,
+    private authSvc: AuthService,
     private modalSvc: NgbModal,
-    private fb      : FormBuilder,
-    private userSvc : UserService,
-    private msgSvc  : ValidationMessageService
-  ) { 
+    private fb: FormBuilder,
+    private userSvc: UserService,
+    private msgSvc: ValidationMessageService,
+    private playSvc: PlayService,
+    private router: Router
+  ) {
     this.passRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
   }
 
@@ -40,7 +42,7 @@ export class NavbarComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.innerWidth = window.innerWidth;
-    if(this.innerWidth == 991) {
+    if (this.innerWidth == 991) {
       this.toggle = true;
     }
   }
@@ -59,7 +61,7 @@ export class NavbarComponent implements OnInit {
    */
   openModal(content: any, flag: 'password' | 'play') {
     this.modalClose = this.modalSvc.open(content, { centered: true });
-    
+
     if (flag == 'password') {
       this.submitted = false;
       return this.initPasswordForm();
@@ -83,10 +85,10 @@ export class NavbarComponent implements OnInit {
    */
   initPasswordForm() {
     this.passwordForm = this.fb.group({
-        currentPassword:  ['', [Validators.required, Validators.pattern(this.passRegex)]],
-        newPassword:      ['', [Validators.required, Validators.pattern(this.passRegex)]],
-        confirmPassword:  ['', Validators.required],
-      },
+      currentPassword: ['', [Validators.required, Validators.pattern(this.passRegex)]],
+      newPassword: ['', [Validators.required, Validators.pattern(this.passRegex)]],
+      confirmPassword: ['', Validators.required],
+    },
       {
         validators: [this.MustMatch('newPassword', 'confirmPassword')],
       });
@@ -139,7 +141,19 @@ export class NavbarComponent implements OnInit {
 
     const { code } = this.playForm.value;
 
+    this.playSvc.getQuizByCode(code).subscribe(
+      (res: IGetQuizByCodeResponse) => {
 
+        if (res.quizDB) {
+          console.log(res);          
+        }
+
+      },
+      err => {
+        this.modalClose.close();
+        return this.msgSvc.showMessage('ERROR', 'Error to play quiz', false);
+      }
+    )
 
   }
 
