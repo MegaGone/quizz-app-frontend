@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   public toggle         !: boolean;
   public innerWidth     : any;
   public passRegex      !: RegExp;
+  public playForm       !: FormGroup;
 
   constructor(
     public location : Location,
@@ -56,10 +57,25 @@ export class NavbarComponent implements OnInit {
    * @param content: any - Content to render in the modal
    * @returns Open the modal
    */
-  openModal(content: any) {
-    this.submitted = false;
+  openModal(content: any, flag: 'password' | 'play') {
     this.modalClose = this.modalSvc.open(content, { centered: true });
-    this.initPasswordForm();
+    
+    if (flag == 'password') {
+      this.submitted = false;
+      return this.initPasswordForm();
+    } else if (flag == 'play') {
+      return this.initPlayForm();
+    }
+
+  }
+
+  /**
+   * Init play quiz form
+   */
+  initPlayForm(): void {
+    this.playForm = this.fb.group({
+      code: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]]
+    })
   }
 
   /**
@@ -109,6 +125,22 @@ export class NavbarComponent implements OnInit {
         return this.msgSvc.showMessage('ERROR', 'To change password', false);
       }
     );
+  };
+
+  /**
+   * @returns Play Quiz 
+   */
+  playQuiz() {
+    if (this.playForm.invalid) {
+      return Object.values(this.playForm.controls).forEach((control) => {
+        control.markAsTouched()
+      })
+    }
+
+    const { code } = this.playForm.value;
+
+
+
   }
 
   /**
@@ -166,5 +198,15 @@ export class NavbarComponent implements OnInit {
   // Confirm Password reference
   get confirmPass() {
     return this.passwordForm.get('confirmPassword')?.invalid && this.passwordForm.get('confirmPassword')?.touched;
+  }
+
+  // Play form reference
+  get p() {
+    return this.playForm.controls;
+  }
+
+  // Code reference
+  get code() {
+    return this.playForm.get('code')?.invalid && this.playForm.get('code')?.touched;
   }
 }
