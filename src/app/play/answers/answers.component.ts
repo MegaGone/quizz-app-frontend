@@ -49,6 +49,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
         if(res == undefined) {
           return this.router.navigate(['/play']);
         }
+        console.log(res);
         return this.currentQuiz = res;
       },
       err => {
@@ -67,6 +68,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
         if(res == undefined) {
           return this.router.navigate(['/play']);
         }
+        console.log(res);
         return this.currentPlayer = res;
       },
       err => {

@@ -201,9 +201,9 @@ export class NavbarComponent implements OnInit {
       (res: IGetQuizByCodeResponse) => {
         if (res.Ok && res.message == "Joined" && res.player) {
           this.playSvc.currentGuestPlayerBehavor.next(res.player);
-          console.log(res);
+          return this.router.navigate(['/play/questions']);
         }
-
+        return;
       },
       (err: any) => {
         console.log(err);
