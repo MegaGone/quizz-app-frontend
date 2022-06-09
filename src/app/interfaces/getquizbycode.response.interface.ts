@@ -2,7 +2,7 @@ import { Question, Participant } from './quizzresponse.interface';
 
 export interface GetQuizByCodeResponse {
     status: string;
-    quizDB: QuizDB[];
+    quizDB: QuizDB;
 }
 
 export interface QuizDB {

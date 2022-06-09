@@ -187,7 +187,7 @@ export class QuizService {
    */
   private transformQuizByCode(res: GetQuizByCodeResponse): QuizInterface {
 
-    const quiz: QuizDB = res.quizDB[0];
+    const quiz: QuizDB = res.quizDB;
 
     const temporalQuiz: QuizInterface = {
       _id: quiz._id,

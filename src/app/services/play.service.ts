@@ -88,7 +88,7 @@ export class PlayService {
    * @param stats: IStats - Stats to save
    * @returns Observable<IPlayerStats>
    */
-  createStats(stats: IStats): Observable<IPlayerStats> {
+  createStatsGuest(stats: IStats): Observable<IPlayerStats> {
     return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
       tap((res: IPlayerStats) => {
         if (res.token) {

@@ -143,6 +143,8 @@ export class AnswersComponent implements OnInit, OnDestroy {
 
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
 
+      const token = localStorage.getItem('token');
+
       const stats : IStats = {
         quizId          : this.currentQuiz._id,
         playerId        : this.currentPlayer.userId,
@@ -153,7 +155,12 @@ export class AnswersComponent implements OnInit, OnDestroy {
         questions       : this.userAnswers
       }
 
-      this.playSvc.createStats(stats).subscribe(
+      if (token) {
+        console.log(stats)
+        return;
+      }
+
+      this.playSvc.createStatsGuest(stats).subscribe(
         res => {
           if (res.Ok && res.token) {
             return this.router.navigate(['/play/results'])
