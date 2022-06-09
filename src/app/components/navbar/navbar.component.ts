@@ -145,7 +145,9 @@ export class NavbarComponent implements OnInit {
       (res: IGetQuizByCodeResponse) => {
 
         if (res.quizDB) {
-          console.log(res);          
+          this.modalClose.close();
+          this.playSvc.currentQuizBehavor.next(res.quizDB);
+          this.joinToQuiz(code);
         }
 
       },
@@ -188,6 +190,26 @@ export class NavbarComponent implements OnInit {
         matchingControl.setErrors(null);
       }
     };
+  }
+
+  /**
+   * 
+   * @param code: string - Quiz code to join
+   */
+  joinToQuiz(code: string) {
+    this.playSvc.joinToQuiz(code).subscribe(
+      (res: IGetQuizByCodeResponse) => {
+        if (res.Ok && res.message == "Joined" && res.player) {
+          this.playSvc.currentGuestPlayerBehavor.next(res.player);
+          console.log(res);
+        }
+
+      },
+      (err: any) => {
+        console.log(err);
+        return this.msgSvc.showMessage('ERROR', 'Error to join to quiz', false);
+      }
+    )
   }
 
   /**

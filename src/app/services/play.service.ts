@@ -41,7 +41,11 @@ export class PlayService {
    * @returns Join to quiz code
    */
   joinToQuiz(code: string): Observable<IGetQuizByCodeResponse> {
-    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/join`, code, {
+
+    const data: FormData = new FormData();
+    data.append('code', code.toUpperCase());
+
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/quiz/join`, data, {
       headers: {
         'x-token': this.getToken
       }
