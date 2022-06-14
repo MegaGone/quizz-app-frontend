@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface, IStats } from 'src/app/interfaces';
+import { Answer, IPlayer, IUserAnswer, QuestionInterface, QuizInterface, IStats, IGetQuizByCodeResponse } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
 
@@ -49,7 +49,6 @@ export class AnswersComponent implements OnInit, OnDestroy {
         if(res == undefined) {
           return this.router.navigate(['/play']);
         }
-        console.log(res);
         return this.currentQuiz = res;
       },
       err => {
@@ -68,7 +67,6 @@ export class AnswersComponent implements OnInit, OnDestroy {
         if(res == undefined) {
           return this.router.navigate(['/play']);
         }
-        console.log(res);
         return this.currentPlayer = res;
       },
       err => {
@@ -156,7 +154,23 @@ export class AnswersComponent implements OnInit, OnDestroy {
       }
 
       if (token) {
-        console.log(stats)
+        const { playerName, playerId, ...userStats } = stats;
+
+        this.playSvc.createStats(userStats).subscribe(
+          (res: IGetQuizByCodeResponse) => {
+
+            if (res.Ok && res.message == "Created") {
+              console.log(res);
+              return;
+            }
+
+          },
+          err => {
+            this.router.navigate(['/home/myquizzes'])
+            return this.msgSvc.showMessage('ERROR', 'Error to save your stats', false);
+          }
+        )
+
         return;
       }
 
@@ -168,7 +182,6 @@ export class AnswersComponent implements OnInit, OnDestroy {
           return;
         },
         err => {
-          console.log(err)
           return this.msgSvc.showMessage('ERROR', 'Error to save your stats', false);
         }
       )

@@ -2,8 +2,8 @@ import { IUserAnswer } from './IUserAnswer';
 
 export interface IStats {
     quizId              : string;
-    playerId            : string;
-    playerName          : string;
+    playerId           ?: string;
+    playerName         ?: string;
     incorrectAnswers    : number;
     joinIn              : Date | string;
     correctAnswers      : number;

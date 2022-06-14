@@ -86,10 +86,23 @@ export class PlayService {
   /**
    * 
    * @param stats: IStats - Stats to save
+   * @returns Observable<IGetQuizByCodeResponse>
+   */
+  createStats(stats: IStats): Observable<IGetQuizByCodeResponse> {
+    return this.http.post<IGetQuizByCodeResponse>(`${base_url}/stats`, stats, {
+      headers: {
+        'x-token': this.getToken
+      }
+    });
+  }
+
+  /**
+   * 
+   * @param stats: IStats - Stats to save
    * @returns Observable<IPlayerStats>
    */
   createStatsGuest(stats: IStats): Observable<IPlayerStats> {
-    return this.http.post<IPlayerStats>(`${base_url}/stats`, stats).pipe(
+    return this.http.post<IPlayerStats>(`${base_url}/stats/guest`, stats).pipe(
       tap((res: IPlayerStats) => {
         if (res.token) {
           localStorage.setItem('y-token', res.token)
