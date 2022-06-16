@@ -8,6 +8,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'myquizzes',      component: HomeComponent    },
       { path: 'profile',        component: ProfileComponent },
       { path: 'quiz/:quizCode', component: QuizComponent    },
+      { path: 'stats/:id'     , component: StatsComponent   },
       { path: '**', redirectTo: 'myquizzes' },
     ],
   },

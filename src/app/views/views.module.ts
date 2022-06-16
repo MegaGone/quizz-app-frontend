@@ -4,18 +4,20 @@ import { CommonModule } from '@angular/common';
 import { ViewsRoutingModule } from './views-routing.module';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
+import { PlayModule } from '../play/play.module';
 
 // My Components
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { StatsComponent } from './stats/stats.component';
 @NgModule({
   declarations: [
     HomeComponent,
     ProfileComponent,
     QuizComponent,
+    StatsComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     ComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PlayModule
   ]
 })
 export class ViewsModule { }

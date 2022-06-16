@@ -112,12 +112,25 @@ export class PlayService {
   }
 
   /**
+   * 
+   * @param quizId: string - QuizID 
+   * @returns 
+   */
+  getUsersStats(quizId: string) {
+    return this.http.get<IPlayerStats>(`${base_url}/stats/${quizId}`, {
+      headers: {
+        'x-token': this.getToken
+      }
+    })
+  }
+
+  /**
  * 
  * @param quizId: string - Quiz id
  * @param userId: string - Player Id
  * @returns Observable<ICreateStats>
  */
-  getUserStats(token: string): Observable<ICreateStats | undefined> {
+  getUserStatsGuest(token: string): Observable<ICreateStats | undefined> {
     return this.http.get<IPlayerStats>(`${base_url}/stats/guest`, {
       headers: {
         'y-token': token

@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { PlayModule } from './play/play.module';
+import { ViewsModule } from './views/views.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PlayModule } from './play/play.module';
     AuthModule,
     NgbModule,
     ComponentsModule,
-    PlayModule
+    PlayModule,
+    ViewsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

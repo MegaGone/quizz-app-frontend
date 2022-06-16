@@ -33,7 +33,7 @@ export class ResultsComponent implements OnInit {
       return this.router.navigate(['/play']);
     }
 
-    this.playSvc.getUserStats(token).subscribe(
+    this.playSvc.getUserStatsGuest(token).subscribe(
       res => {
           this.userStats = res!;
           this.loaded = true;

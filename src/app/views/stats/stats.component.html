@@ -1,0 +1,62 @@
+<main>
+    <section class="section section-shaped-answers section-lg page">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="container pt-lg-md-answers">
+            <div class="row justify-content-center animate__animated animate__backInLeft">
+                <div class="col-lg-12">
+                    <div class="card bg-secondary shadow border-0">
+
+                        <div class="card-header bg-white">
+                            <div class="text-muted text-center">
+                                <h2>{{ stats.title }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- ANSWERS -->
+                                <div class="col-4">
+                                    <ul *ngIf="loaded" class="list-group">
+                                        <li 
+                                        class="list-group-item" 
+                                        *ngFor="let answer of stats.answers; let i = index;" 
+                                        (click)="selectAnswer(answer, i)"
+                                        [ngClass]="paintSelectedAnswer(answer)">{{ answer.title }}</li>
+                                    </ul>
+                                </div>
+
+                                <!-- ANSWERS CONTENT -->
+                                <div class="col-8">
+                                    <app-answer [details]="details" [answers]="answers" [answer]="answer"></app-answer>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-3">
+                            <div class="col-10 pl-4 my-2 stats">
+                                <p class="stats-size"><span class="stats-weight">Points: </span>{{ stats?.correctAnswers | number }} / {{ getTotalPoints(stats?.correctAnswers!, stats?.incorrectAnswers!) | number }}</p>
+                                <p class="stats-size"><span class="stats-weight">Player: </span>{{ stats?.playerName }} </p>
+                                <p class="stats-size"><span class="stats-weight">Time lapse: </span>{{ stats?.lapse }} </p>
+                            </div>
+                            <div class="col-2">
+                                <div class="text-right mr-4">
+                                    <button type="button" class="btn btn-primary my-2">EXIT</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

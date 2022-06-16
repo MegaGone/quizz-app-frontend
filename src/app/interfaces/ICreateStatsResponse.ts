@@ -23,5 +23,5 @@ export interface ICreateStats {
 export interface IPlayerStats {
     Ok              : boolean;
     playerStats?    : ICreateStats;
-    token           : string;
+    token          ?: string;
 }
