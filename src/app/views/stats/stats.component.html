@@ -17,7 +17,7 @@
 
                         <div class="card-header bg-white">
                             <div class="text-muted text-center">
-                                <h2>{{ stats.title }}</h2>
+                                <h2>{{ stats?.title }}</h2>
                             </div>
                         </div>
 
@@ -30,7 +30,7 @@
                                         class="list-group-item" 
                                         *ngFor="let answer of stats.answers; let i = index;" 
                                         (click)="selectAnswer(answer, i)"
-                                        [ngClass]="paintSelectedAnswer(answer)">{{ answer.title }}</li>
+                                        [ngClass]="paintSelectedAnswer(answer)">{{ answer?.title }}</li>
                                     </ul>
                                 </div>
 
@@ -44,7 +44,6 @@
                         <div class="row p-3">
                             <div class="col-10 pl-4 my-2 stats">
                                 <p class="stats-size"><span class="stats-weight">Points: </span>{{ stats?.correctAnswers | number }} / {{ getTotalPoints(stats?.correctAnswers!, stats?.incorrectAnswers!) | number }}</p>
-                                <p class="stats-size"><span class="stats-weight">Player: </span>{{ stats?.playerName }} </p>
                                 <p class="stats-size"><span class="stats-weight">Time lapse: </span>{{ stats?.lapse }} </p>
                             </div>
                             <div class="col-2">

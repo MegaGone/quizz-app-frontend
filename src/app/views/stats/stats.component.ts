@@ -49,8 +49,8 @@ export class StatsComponent implements OnInit {
       (res: IPlayerStats) => {
 
         if (res.Ok && res.playerStats) {
-          this.loaded = true;
           this.stats = res.playerStats;
+          this.loaded = true;
           this.details.emit(this.stats);
           this.answers.emit(this.stats.answers);
           this.selectAnswer(this.stats.answers[0], 0)
@@ -71,10 +71,8 @@ export class StatsComponent implements OnInit {
    * @param i: number - Index
    */
   selectAnswer(answer: IAnswerStat, i: number = 0): void {
-    this.answer.emit(i);
-    this.optionSelected = answer;
-    console.log(this.optionSelected);
-    
+    this.answer.emit(i);    
+    this.optionSelected = answer;    
   }
 
   /**

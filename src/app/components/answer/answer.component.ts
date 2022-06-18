@@ -30,7 +30,7 @@ export class AnswerComponent implements OnInit {
   /**
    * GET SELECTED ANSWER TO SHOW IN HTML
    */
-  getAnswerSelected(): void {
+  getAnswerSelected(): void {    
     if (this.answer) {
       this.answer.subscribe((res: number) => {
         this.answerSelected = this.answersArray[res];
