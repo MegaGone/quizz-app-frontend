@@ -77,4 +77,13 @@ export class ResultsComponent implements OnInit {
   getTotalPoints(correct: number, incorrect: number): number {
     return correct + incorrect;
   }
+
+  /**
+   * 
+   * @returns EXIT
+   */
+  exit() {
+    localStorage.removeItem('y-token');
+    return this.router.navigate(['/play'])
+  }
 }

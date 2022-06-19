@@ -160,7 +160,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
           (res: IGetQuizByCodeResponse) => {
 
             if (res.Ok && res.message == "Created") {
-              console.log(res);
+              this.router.navigate([`/home/stats/${this.currentQuiz._id}/${this.currentPlayer.userId}`])
               return;
             }
 
