@@ -140,6 +140,7 @@ export class AnswersComponent implements OnInit, OnDestroy {
     this.indexSelected  = undefined;
 
     if (this.currentQuiz.questions.length - 1 === this.questionIndex) {
+      clearInterval(this.setInterval);
 
       const token = localStorage.getItem('token');
 
