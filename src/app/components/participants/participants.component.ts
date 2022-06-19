@@ -90,7 +90,7 @@ export class ParticipantsComponent implements OnInit {
       res => {
         this.modalSvc.dismissAll();
         this.refreshQuizzes();
-        return this.messagesSvc.showMessage(`${res}`, 'Removed', true);
+        return this.messagesSvc.showMessage('Participant removed', 'Removed', true);
       },
       err => {
         return this.messagesSvc.showMessage('Error removing participant', 'Error', false);
