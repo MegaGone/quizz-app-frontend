@@ -102,11 +102,11 @@ export class ParticipantsComponent implements OnInit {
   /**
    *
    * @param id : String | Number = View result of the participant
+   * @returns Navigate to get user stats
    */
   viewResults(id: number | string) {
     this.modalSvc.dismissAll();
-
-    // TODO: Call the method to get the results of the participant using the id    
+    return this.router.navigate([`/home/stats/${this.getQuizId}/${id}`])
   }
 
   // Copy to clipboard

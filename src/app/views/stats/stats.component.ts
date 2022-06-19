@@ -65,7 +65,6 @@ export class StatsComponent implements OnInit {
       },
       err => {
         console.log(err);
-        
         return this.router.navigate(['/home/myquizzes']);
       }
     )
