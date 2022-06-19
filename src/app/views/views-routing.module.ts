@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: 'myquizzes',      component: HomeComponent    },
       { path: 'profile',        component: ProfileComponent },
       { path: 'quiz/:quizCode', component: QuizComponent    },
-      { path: 'stats/:id'     , component: StatsComponent   },
+      { path: 'stats/:id/:user'     , component: StatsComponent   },
       { path: '**', redirectTo: 'myquizzes' },
     ],
   },

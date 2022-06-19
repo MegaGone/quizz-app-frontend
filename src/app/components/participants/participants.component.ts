@@ -106,9 +106,7 @@ export class ParticipantsComponent implements OnInit {
   viewResults(id: number | string) {
     this.modalSvc.dismissAll();
 
-    // TODO: Call the method to get the results of the participant using the id
-
-    this.router.navigate(['play/results']);
+    // TODO: Call the method to get the results of the participant using the id    
   }
 
   // Copy to clipboard

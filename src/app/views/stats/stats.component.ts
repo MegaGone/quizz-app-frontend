@@ -11,6 +11,8 @@ import { PlayService } from 'src/app/services';
 export class StatsComponent implements OnInit {
 
   public quizId !: string;
+  public userId !: string;
+
   public stats  !: ICreateStats;
   public loaded !: boolean;
 
@@ -32,20 +34,22 @@ export class StatsComponent implements OnInit {
    * @returns QuizID
    */
   getQuizId() {
-    const param = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
+    const user = this.route.snapshot.paramMap.get('user');
 
-    if (!param || param == null) {
+    if (!id || id == undefined || !user || user == undefined) {
       return this.router.navigate(['/home/myquizzes']);
     }
 
-    return this.quizId = param;
+    this.userId = user;
+    return this.quizId = id;
   }
 
   /**
    * GET STATS
    */
   getStats() {
-    this.playSvc.getUsersStats(this.quizId).subscribe(
+    this.playSvc.getUsersStats(this.quizId, this.userId).subscribe(
       (res: IPlayerStats) => {
 
         if (res.Ok && res.playerStats) {
@@ -60,6 +64,8 @@ export class StatsComponent implements OnInit {
         return this.router.navigate(['/home/myquizzes']);
       },
       err => {
+        console.log(err);
+        
         return this.router.navigate(['/home/myquizzes']);
       }
     )

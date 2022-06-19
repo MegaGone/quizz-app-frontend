@@ -114,10 +114,11 @@ export class PlayService {
   /**
    * 
    * @param quizId: string - QuizID 
-   * @returns 
+   * @param userId: string - UserID
+   * @returns Stats
    */
-  getUsersStats(quizId: string) {
-    return this.http.get<IPlayerStats>(`${base_url}/stats/${quizId}`, {
+  getUsersStats(quizId: string, userId: string) {
+    return this.http.get<IPlayerStats>(`${base_url}/stats/${quizId}/${userId}`, {
       headers: {
         'x-token': this.getToken
       }
