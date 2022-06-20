@@ -83,13 +83,13 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let stat of [1, 2, 3]; let i = index;">
+                      <tr *ngFor="let stat of User?.quizzesPlayeds; let i = index;">
                           <td class="text-center">{{ i + 1 }}</td>
-                          <td>Quiz Test</td>
-                          <td>4/24/2022</td>
-                          <td>10</td>
+                          <td>{{ stat?.title }}</td>
+                          <td>{{ stat?.joinIn }}</td>
+                          <td>{{ stat?.correctAnswers }}</td>
                           <td class="td-actions">
-                            <button type="button" rel="tooltip" class="btn btn-primary btn-icon btn-sm">
+                            <button type="button" rel="tooltip" class="btn btn-primary btn-icon btn-sm" [routerLink]="['/home/stats/', stat?.quizId, User?.uid]">
                               <i class="fa-regular fa-eye"></i>
                             </button>
                           </td>

@@ -159,4 +159,21 @@ export class PlayService {
   get getToken(): string {
     return localStorage.getItem('token')!;
   }
+
+  /**
+   * SAVE TEMPORAL ID
+   */
+  setTemporalId(id: 'quid' | 'uid', key: string) {
+    (id == 'quid') ? localStorage.setItem('quid', key) : localStorage.setItem('uid', key);
+  }
+
+  /**
+   * Remove Guest Player
+   */
+  removeGuestPlayer() {
+    const quid = localStorage.getItem('quid')!;
+    const uid = localStorage.getItem('uid')!;
+
+    return this.http.delete(`${base_url}/quiz/remove/guest/${quid}/${uid}`);
+  }
 }
