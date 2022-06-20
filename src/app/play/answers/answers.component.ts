@@ -47,8 +47,22 @@ export class AnswersComponent implements OnInit, OnDestroy {
     this.playSvc.currentQuizBehavor.asObservable().subscribe(
       res => {
         if(res == undefined) {
+          this.playSvc.removeGuestPlayer().subscribe(
+            res => {
+              if (res) {
+                localStorage.removeItem('quid');
+                localStorage.removeItem('uid');
+              }
+            },
+            err => {
+              localStorage.removeItem('quid');
+              localStorage.removeItem('uid');
+            }
+          )
           return this.router.navigate(['/play']);
-        }
+        };
+
+        this.playSvc.setTemporalId('quid', res._id);
         return this.currentQuiz = res;
       },
       err => {
@@ -64,9 +78,12 @@ export class AnswersComponent implements OnInit, OnDestroy {
   getCurrentPlayer(): void {
     this.playSvc.currentGuestPlayerBehavor.asObservable().subscribe(
       (res: IPlayer | undefined) => {
+
         if(res == undefined) {
           return this.router.navigate(['/play']);
         }
+
+        this.playSvc.setTemporalId('uid', res.userId);
         return this.currentPlayer = res;
       },
       err => {
