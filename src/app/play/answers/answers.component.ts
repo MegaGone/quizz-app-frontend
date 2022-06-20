@@ -274,6 +274,20 @@ export class AnswersComponent implements OnInit, OnDestroy {
     return this.indexSelected;
   }
 
+  /**
+   * @returns TOTAL RESPONSES
+   */
+  get getQuestionsResolved(): number {
+    return this.userAnswers.length + 1;
+  }
+
+  /**
+   * @returns TOTAL QUESTION
+   */
+  get getTotalQuestions(): number {
+    return this.currentQuiz.questions.length
+  }
+
   ngOnDestroy(): void {
     clearInterval(this.setInterval);
   }
