@@ -1,0 +1,10 @@
+.counter-component {
+    min-height: 100vh !important;
+    background-color: red;
+}
+
+.counter {
+    font-size: 12rem;
+    text-align: center;
+    color: white;
+}

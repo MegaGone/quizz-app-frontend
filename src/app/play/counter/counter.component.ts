@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
-  styles: [
-  ]
+  styleUrls: ['./counter.component.css']
 })
 export class CounterComponent implements OnInit {
 
@@ -12,7 +11,7 @@ export class CounterComponent implements OnInit {
   public setInterval!: ReturnType<typeof setTimeout>;
 
   constructor() { 
-    this.counter = 6;
+    this.counter = 5;
   }
 
   ngOnInit(): void {
