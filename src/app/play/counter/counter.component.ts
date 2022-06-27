@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -9,6 +9,8 @@ export class CounterComponent implements OnInit {
 
   public counter: number;
   public setInterval!: ReturnType<typeof setTimeout>;
+
+  @Output() public counterStatus: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   constructor() { 
     this.counter = 5;
@@ -26,9 +28,15 @@ export class CounterComponent implements OnInit {
       
       this.counter -= 1
       if (this.counter === 0) {
-        clearInterval(this.setInterval)
+        clearInterval(this.setInterval);
+        this.sendCounterStatus();
       }
 
     }, 1000)
   }
+
+  sendCounterStatus() {
+    this.counterStatus.emit(true);    
+  }
+  
 }
