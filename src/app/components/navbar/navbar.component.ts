@@ -11,7 +11,7 @@ import { IGetQuizByCodeResponse, IUser } from 'src/app/interfaces';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  public isCollapsed: boolean = true;
+  public isCollapsed    : boolean = true;
   public modalClose     !: NgbModalRef;
   public passwordForm   !: FormGroup;
   public submitted      !: boolean;
@@ -244,5 +244,13 @@ export class NavbarComponent implements OnInit {
   // Code reference
   get code() {
     return this.playForm.get('code')?.invalid && this.playForm.get('code')?.touched;
+  }
+
+  closeNavbar() {
+    if (this.isCollapsed) {
+      this.isCollapsed = false
+    } else {
+      this.isCollapsed = true
+    }
   }
 }

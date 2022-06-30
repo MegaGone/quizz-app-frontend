@@ -128,3 +128,9 @@
 .email {
     color: gray;
 }
+
+@media screen and (max-width: 992px) {
+    .navbar-collapse {
+        min-height: 200px;
+    }
+}
