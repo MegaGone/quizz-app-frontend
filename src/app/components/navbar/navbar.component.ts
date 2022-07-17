@@ -37,13 +37,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.getUserDetails();
     this.innerWidth = window.innerWidth;
+    this.onResize(null);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth == 991) {
-      this.toggle = true;
+    if (this.innerWidth >= 991) {
+      this.toggle = false;
     }
   }
 
