@@ -7,16 +7,16 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Code</th>
-            <th scope="col">Participants</th>
+            <th scope="col" *ngIf="widthSize >= 509">Participants</th>
             <th scope="col">Stats</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody">
           <tr [ngStyle]="{width: '120px'}" *ngFor="let quiz of QuizzesToList | quizzes:page:term">
             <th>{{ quiz.no }}</th>
             <td>{{ quiz.name }}</td>
             <td>{{ quiz.code }}</td>
-            <td>{{ quiz.participants.length }}</td>
+            <td *ngIf="widthSize >= 509">{{ quiz.participants.length }}</td>
             <td>
               <a href="javascript:void(0)" (click)="navigateToQuiz(quiz.code)"><i class="fa-solid fa-angle-right"></i></a>
             </td>
@@ -26,16 +26,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="ml-2 col-1">
+    <div class="ml-2 col-2 col-md-2 col-xs-3" id="buttons">
       <div class="float-left pb-3" [ngStyle]="{display: 'inline-flex'}">
         <button class="rounded-button mt-1" (click)="prevPage()"><i class="fa-solid fa-angles-left"></i></button>
         <button class="rounded-button mt-1 ml-2" [disabled]="(QuizzesToList | quizzes:page:term).length < 5" (click)="nxtPage()"><i class="fa-solid fa-angles-right"></i></button>
       </div>
     </div>
-    <div class="col-5 text-right">
+    <div class="col-5 col-md-5 col-offset-1 col-xs-4 text-right" *ngIf="widthSize > 455">
       <input type="text" class="form-control" #txtSearch (keyup)="searchQuiz(txtSearch.value)">
     </div>
-    <div class="col-5 text-right">
+    <div class="col-4 col-md-4 col-xs-4 text-right">
       <button class="btn btn-primary" (click)="createQuiz()">New Quiz</button>
     </div>
   </div>

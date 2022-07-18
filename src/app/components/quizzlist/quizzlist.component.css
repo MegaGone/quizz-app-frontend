@@ -53,3 +53,14 @@
   max-height: 365px !important;
   height: 365px !important;
 }
+
+@media (max-width: 455px) {
+
+  .tbody {
+    font-size: 15px;
+  }
+
+  #buttons {
+    max-width: 20%;
+  }
+}

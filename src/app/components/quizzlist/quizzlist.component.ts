@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizToList } from 'src/app/interfaces';
 import { QuizService, ValidationMessageService } from 'src/app/services';
@@ -15,10 +15,13 @@ export class QuizzlistComponent implements OnInit {
   public page: number = 0;
   public term: string = '';
 
+  public widthSize!: number;
+
   constructor(private quizSvc: QuizService, private router: Router, private msgSvc: ValidationMessageService) { }
 
   ngOnInit(): void {
     this.getQuizzes();
+    this.onResize(false);
   }
 
   getQuizzes() {
@@ -65,5 +68,10 @@ export class QuizzlistComponent implements OnInit {
   searchQuiz(term: string) {
     this.page = 0;
     this.term = term;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.widthSize = window.innerWidth
   }
 }
