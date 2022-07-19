@@ -73,3 +73,9 @@ select::-ms-expand {
     margin: 1px;
   }
 }
+
+@media (max-width: 767px) {
+  #description {
+    margin-top: 18px;
+  }
+}

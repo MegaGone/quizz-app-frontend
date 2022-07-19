@@ -14,3 +14,7 @@
         line-height: 30px;
     }
 }
+
+#form {
+    z-index: 1;
+}
