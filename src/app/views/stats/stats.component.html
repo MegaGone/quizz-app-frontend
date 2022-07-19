@@ -42,11 +42,11 @@
                         </div>
 
                         <div class="row p-3">
-                            <div class="col-10 pl-4 my-2 stats">
+                            <div class="col-9 pl-4 my-2 stats col-md-6">
                                 <p class="stats-size"><span class="stats-weight">Points: </span>{{ stats?.correctAnswers | number }} / {{ getTotalPoints(stats?.correctAnswers!, stats?.incorrectAnswers!) | number }}</p>
                                 <p class="stats-size"><span class="stats-weight">Time lapse: </span>{{ stats?.lapse }} </p>
                             </div>
-                            <div class="col-2">
+                            <div class="col-3 col-md-6">
                                 <div class="text-right mr-4">
                                     <button type="button" class="btn btn-primary my-2" [routerLink]="['/home/myquizzes']">EXIT</button>
                                 </div>
