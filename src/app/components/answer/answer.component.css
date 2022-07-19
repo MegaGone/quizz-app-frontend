@@ -87,3 +87,9 @@
 .bold {
     font-weight: bold;
 }
+
+@media (max-width: 499px) {
+    .title {
+        font-size: 17px;
+    }
+}

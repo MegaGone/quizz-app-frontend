@@ -48,7 +48,8 @@
                             </div>
                             <div class="col-3 col-md-6">
                                 <div class="text-right mr-4">
-                                    <button type="button" class="btn btn-primary my-2" [routerLink]="['/home/myquizzes']">EXIT</button>
+                                    <button type="button" *ngIf="innerWidth >= 500" class="btn btn-primary my-2" [routerLink]="['/home/myquizzes']">EXIT</button>
+                                    <button type="button" *ngIf="innerWidth <= 499" class="btn btn-primary btn-sm my-2" [routerLink]="['/home/myquizzes']">EXIT</button>
                                 </div>
                             </div>
                         </div>
