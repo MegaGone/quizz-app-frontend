@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAnswerStat, ICreateStats, IPlayerStats } from 'src/app/interfaces';
 import { PlayService } from 'src/app/services';
@@ -22,11 +22,15 @@ export class StatsComponent implements OnInit {
 
   public optionSelected!: any;
 
+  public innerWidth!: number;
+  public toggle: boolean = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private playSvc: PlayService) { }
 
   ngOnInit(): void {
     this.getQuizId();
     this.getStats();
+    this.onResize(false);
   }
 
   /**
@@ -97,5 +101,13 @@ export class StatsComponent implements OnInit {
    */
   getTotalPoints(correct: number, incorrect: number): number {
     return correct + incorrect;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth =  window.innerWidth;
+    
+    (this.innerWidth <= 767) ? this.toggle = true : this.toggle = false;
+
   }
 }

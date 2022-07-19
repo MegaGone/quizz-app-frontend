@@ -26,3 +26,13 @@
 .stats {
     display: inline-flex;
 }
+
+.hide {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #answers-content {
+        min-width: 100%;
+    }
+}
