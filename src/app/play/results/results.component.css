@@ -41,4 +41,14 @@
     .title {
         font-size: 17px;
     }
+
+    .stats-size {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 443px) {
+    .stats-size {
+        font-size: 11px;
+    }
 }
