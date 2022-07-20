@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, HostListener } from '@angular/core';
 import { IAnswerStat, ICreateStats } from 'src/app/interfaces';
 import { PlayService, ValidationMessageService } from 'src/app/services';
 import { Router } from '@angular/router';
@@ -20,10 +20,14 @@ export class ResultsComponent implements OnInit {
 
   public optionSelected!: any;
 
+  public innerWidth!: number;
+  public toggle!: boolean;
+
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { }
 
   async ngOnInit() {    
     await this.getUserStats();
+    this.onResize(false);
   }
 
   getUserStats() {
@@ -85,5 +89,14 @@ export class ResultsComponent implements OnInit {
   exit() {
     localStorage.removeItem('y-token');
     return this.router.navigate(['/play'])
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+
+    this.innerWidth = window.innerWidth;
+
+    (this.innerWidth <= 767) ? this.toggle = true : this.toggle = false;
+
   }
 }

@@ -26,3 +26,19 @@
 .stats {
     display: inline-flex;
 }
+
+@media (max-width: 767px) {
+    .stats-size {
+        font-size: 16px;
+    }
+
+    #answers-content {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 499px) {
+    .title {
+        font-size: 17px;
+    }
+}

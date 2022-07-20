@@ -25,7 +25,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <!-- ANSWERS -->
-                                <div class="col-4">
+                                <div class="col-4" *ngIf="!toggle">
                                     <ul *ngIf="loaded" class="list-group">
                                         <li 
                                         class="list-group-item" 
@@ -36,21 +36,22 @@
                                 </div>
 
                                 <!-- ANSWERS CONTENT -->
-                                <div class="col-8">
+                                <div id="answers-content" class="col-8">
                                     <app-answer [details]="details" [answers]="answers" [answer]="answer"></app-answer>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row p-3">
-                            <div class="col-10 pl-4 my-2 stats">
+                            <div class="col-9 pl-4 my-2 stats">
                                 <p class="stats-size"><span class="stats-weight">Points: </span>{{ userStats?.correctAnswers | number }} / {{ getTotalPoints(userStats?.correctAnswers!, userStats?.incorrectAnswers!) | number }}</p>
                                 <p class="stats-size"><span class="stats-weight">Player: </span>{{ userStats?.playerName }} </p>
                                 <p class="stats-size"><span class="stats-weight">Time lapse: </span>{{ userStats?.lapse }} </p>
                             </div>
-                            <div class="col-2">
+                            <div class="col-3">
                                 <div class="text-right mr-4">
-                                    <button type="button" class="btn btn-primary my-2" (click)="exit()">EXIT</button>
+                                    <button type="button" *ngIf="innerWidth >= 768" class="btn btn-primary my-2" (click)="exit()">EXIT</button>
+                                    <button type="button" *ngIf="innerWidth <= 767" class="btn btn-primary btn-sm my-2" (click)="exit()">EXIT</button>
                                 </div>
                             </div>
                         </div>
