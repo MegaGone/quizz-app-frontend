@@ -9,6 +9,7 @@ import { NameComponent } from './name/name.component';
 import { CounterComponent } from './counter/counter.component';
 import { AnswersComponent } from './answers/answers.component';
 import { GuestComponent } from './guest/guest.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { GuestComponent } from './guest/guest.component';
     PlayRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    NgbModule
   ]
 })
 export class PlayModule { }

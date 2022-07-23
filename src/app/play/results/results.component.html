@@ -18,7 +18,26 @@
 
                         <div class="card-header bg-white">
                             <div class="text-muted text-center">
-                                <h2>{{ userStats?.title | uppercase }}</h2>
+
+                                <div class="row">
+                                    <div *ngIf="toggle" class="col-1" ngbDropdown>
+                                        <button class="navbar-toggler mt-2" type="button" id="dropdownMenuButton" ngbDropdownToggle>
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </button>
+                                        <div *ngIf="loaded" class="" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                                          <a 
+                                          class="dropdown-item" 
+                                          href="javascript:void(0)"
+                                          *ngFor="let answer of userStats?.answers; let i = index;"
+                                          (click)="selectAnswer(answer, i)"
+                                          [ngClass]="paintSelectedAnswer(answer)"
+                                          >{{ answer?.title }}</a>
+                                        </div>
+                                    </div>
+
+                                    <h2 class="col-11">{{ userStats?.title | uppercase }}</h2>
+                                </div>
+
                             </div>
                         </div>
 
