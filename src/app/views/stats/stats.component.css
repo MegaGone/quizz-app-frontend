@@ -50,3 +50,8 @@
 .dropdown-toggle::after {
     display: none;
 }
+
+.dropdown-menu.show {
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
