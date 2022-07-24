@@ -8,27 +8,28 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Question</th>
-            <th *ngIf="!toggle" scope="col">Answers</th>
-            <th *ngIf="!toggle" scope="col">Delete</th>
-            <th *ngIf="toggle" scope="col">Options</th>
+            <th *ngIf="innerWidth > 767" scope="col">Answers</th>
+            <th *ngIf="innerWidth > 767" scope="col">Delete</th>
+            <th *ngIf="innerWidth <= 767" scope="col">Options</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let question of questions; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
+          <tr scope="row" *ngFor="let question of questions; let i = index">
+            <th>{{ i + 1 }}</th>
             <td>{{ question.title }}</td>
-            <td *ngIf="!toggle">
+            <td *ngIf="innerWidth > 767">
               <button class="rounded-button-edit" type="button" (click)="openVerticallyCentered(content, question)">
                 <i class="fa-regular fa-pen-to-square"></i>
               </button>
             </td>
-            <td *ngIf="!toggle">
+            <td *ngIf="innerWidth > 767">
               <button class="rounded-button-elipsis" type="button" (click)="deleteQuestion(i, question.id)">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </td>
-            <td *ngIf="toggle">
-              <button class="rounded-button-elipsis-mobile" (click)="openMobileOptions(mobileOptions, question, i)" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            <td *ngIf="innerWidth <= 767">
+              <button class="rounded-button-elipsis-mobile" (click)="openMobileOptions(mobileOptions, question, i)"
+                type="button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
             </td>
           </tr>
         </tbody>
@@ -36,10 +37,11 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-1" *ngIf="Questions.length < 12">
       <div class="float-left">
-        <button type="button" class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="rounded-button mt-1" (click)="openVerticallyCentered(content)"><i
+            class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
     </div>
     <div class="col-11">
@@ -155,8 +157,8 @@
                         class="text-danger animate__animated animate__fadeIn">Spaces to start/end not allowed.</small>
                     </div>
                     <div *ngIf="answer.get('title')?.errors?.unique?.message">
-                      <small
-                        class="text-danger animate__animated animate__fadeIn">{{ answer.get('title')?.errors?.unique.message }}</small>
+                      <small class="text-danger animate__animated animate__fadeIn">{{
+                        answer.get('title')?.errors?.unique.message }}</small>
                     </div>
                   </div>
 
@@ -180,7 +182,8 @@
             </div>
             <div class="row text-center mt-2">
               <div class="col-12">
-                <button class="myButton" type="button" (click)="deleteAnswer(formChild)"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="myButton" type="button" (click)="deleteAnswer(formChild)"><i
+                    class="fa-solid fa-trash-can"></i></button>
               </div>
             </div>
           </div>
@@ -201,32 +204,32 @@
 <!-- Participant Modal -->
 <ng-template #mobileOptions let-modal>
   <div class="modal-header">
-      <h4 class="modal-title">OPTIONS</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title">OPTIONS</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <form>
-          <div class="row text-center">
-              <div class="col-12">
-                  <button type="button" class="btn btn-info" (click)="openVerticallyCentered(content, tempQuestion)">
-                      Edit Question
-                      <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-              </div>
-          </div>
-          <div class="row text-center mt-3">
-              <div class="col-12">
-                  <button type="button" class="btn btn-danger" (click)="deleteQuestion(tempIndex, tempQuestion)">
-                      Remove Question
-                      <i class="fa-solid fa-trash-can"></i>
-                  </button>
-              </div>
-          </div>
-      </form>
+    <form>
+      <div class="row text-center">
+        <div class="col-12">
+          <button type="button" class="btn btn-info" (click)="openVerticallyCentered(content, tempQuestion)">
+            Edit Question
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row text-center mt-3">
+        <div class="col-12">
+          <button type="button" class="btn btn-danger" (click)="deleteQuestion(tempIndex, tempQuestion)">
+            Remove Question
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" (click)="modal.close('Close click')">CANCEL</button>
+    <button type="submit" class="btn btn-primary" (click)="modal.close('Close click')">CANCEL</button>
   </div>
 </ng-template>
