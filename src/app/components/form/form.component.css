@@ -66,6 +66,12 @@ select::-ms-expand {
   height: 315px !important;
 }
 
+@media (max-width: 767px) {
+  #description {
+    margin-top: 18px;
+  }
+}
+
 @media (max-width: 503px) {
   .option {
     min-width: 48%;
@@ -74,8 +80,16 @@ select::-ms-expand {
   }
 }
 
-@media (max-width: 767px) {
-  #description {
-    margin-top: 18px;
+@media (max-width: 430px) {
+  
+  .myInput {
+    width: 90%;
+    margin-left: 20px;
   }
+
+  .questions {
+    max-width: 90%;
+    margin-left: 20px;
+  }
+  
 }

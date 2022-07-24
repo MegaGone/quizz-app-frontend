@@ -5,7 +5,7 @@
     
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group myInput">
                             <div class="input-group input-group-alternative">
                                 <input 
                                 class="form-control" 
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="select">
+                        <div class="select myInput">
                             <select name="format" id="format" formControlName="lapse" class="text-center">
                                 <option [ngValue]="lapse" *ngFor="let lapse of lapses">{{ lapse }}</option>
                             </select>
@@ -34,7 +34,7 @@
     
                 <div class="row" id="description">
                     <div class="col-12">
-                        <div class="form-group mb-4">
+                        <div class="form-group mb-4 myInput">
                             <textarea 
                             class="form-control form-control-alternative" 
                             name="name" 
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="row text-center">
-                    <div class="col-12">
+                    <div class="col-12 questions">
                         <app-participants [Form]="quizForm"></app-participants>
                     </div>
                 </div>

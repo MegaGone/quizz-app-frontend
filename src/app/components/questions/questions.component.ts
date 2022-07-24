@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
@@ -16,6 +16,9 @@ import { AnswerInterface } from '../../interfaces/answer.interface';
 export class QuestionsComponent implements OnInit {
 
   @Input() Form!: FormGroup;
+
+  public innerWidth!: number;
+  public toggle!: boolean;
 
   public Questions!: QuestionInterface[];
   public loaded: boolean;
@@ -38,6 +41,8 @@ export class QuestionsComponent implements OnInit {
    *  MODALS
    **/
   public questionClose!: NgbModalRef;
+  public tempId!: string; // Participant Options
+  public tempIndex!: number;
 
   constructor(
     private modalSvc: NgbModal,
@@ -49,6 +54,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onResize(false);
 
     setTimeout(() => {
     this.loaded = true;
@@ -241,6 +247,14 @@ export class QuestionsComponent implements OnInit {
     }
   }
 
+  openMobileOptions(content: any, id: any, i: number) {
+    this.modalSvc.open(content, { centered: true });
+
+    // Save in a temporal variable to send to the options.
+    this.tempId = id;
+    this.tempIndex = i;
+  }
+
   /**
  *  GETTERS TO VALIDATE
  **/
@@ -262,5 +276,12 @@ export class QuestionsComponent implements OnInit {
 
   sendTest(data: QuestionInterface[]) {
     return this.quizSvc.sendTest(data);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+
+    (this.innerWidth <= 430) ? this.toggle = true : this.toggle = false;
   }
 }
