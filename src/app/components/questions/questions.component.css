@@ -166,4 +166,21 @@ select::-ms-expand {
     max-width: 48%;
     margin: 1px;
   }
+
+  .list {
+    min-height: 400px !important;
+    max-height: 400px !important;
+    height: 400px !important;
+    overflow: hidden;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .list {
+    min-height: 350px !important;
+    max-height: 350px !important;
+    height: 350px !important;
+    overflow: hidden;
+  }
 }

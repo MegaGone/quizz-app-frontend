@@ -242,7 +242,9 @@ export class QuestionsComponent implements OnInit {
    *  MODALS METHODS
    **/
   openVerticallyCentered(content: any, question?: QuestionInterface) {
-    this.mobileClose.close();
+    
+    if (this.mobileClose) this.mobileClose.close();
+
     this.clearForm();
 
     this.questionClose = this.modalSvc.open(content, { centered: true });
