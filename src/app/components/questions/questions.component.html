@@ -28,7 +28,7 @@
               </button>
             </td>
             <td *ngIf="toggle">
-              <button class="rounded-button-elipsis-mobile" (click)="openMobileOptions(mobileOptions, question.id, i)" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+              <button class="rounded-button-elipsis-mobile" (click)="openMobileOptions(mobileOptions, question, i)" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
             </td>
           </tr>
         </tbody>
@@ -210,17 +210,17 @@
       <form>
           <div class="row text-center">
               <div class="col-12">
-                  <button type="button" class="btn btn-info">
-                      View Results
-                      <i class="fa-solid fa-user-check"></i>
+                  <button type="button" class="btn btn-info" (click)="openVerticallyCentered(content, tempQuestion)">
+                      Edit Question
+                      <i class="fa-regular fa-pen-to-square"></i>
                   </button>
               </div>
           </div>
           <div class="row text-center mt-3">
               <div class="col-12">
-                  <button type="button" class="btn btn-danger">
-                      Remove Participant
-                      <i class="fa-solid fa-user-minus"></i>
+                  <button type="button" class="btn btn-danger" (click)="deleteQuestion(tempIndex, tempQuestion)">
+                      Remove Question
+                      <i class="fa-solid fa-trash-can"></i>
                   </button>
               </div>
           </div>

@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
-import { QuestionInterface } from 'src/app/interfaces';
+import { Question, QuestionInterface } from 'src/app/interfaces';
 import { QuizService, ValidationMessageService } from 'src/app/services';
 import { AnswersValidations, SpacesValidator } from 'src/app/utils';
 import { AnswerInterface } from '../../interfaces/answer.interface';
@@ -41,7 +41,9 @@ export class QuestionsComponent implements OnInit {
    *  MODALS
    **/
   public questionClose!: NgbModalRef;
-  public tempId!: string; // Participant Options
+
+  public mobileClose!: NgbModalRef;
+  public tempQuestion!: Question; // Participant Options
   public tempIndex!: number;
 
   constructor(
@@ -119,6 +121,8 @@ export class QuestionsComponent implements OnInit {
 
   // DELETE QUESTION
   deleteQuestion(index: number, id: any) {
+    this.mobileClose.close();
+
     this.Questions.splice(index, 1);
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
     this.sendTest(this.Questions);
@@ -238,6 +242,7 @@ export class QuestionsComponent implements OnInit {
    *  MODALS METHODS
    **/
   openVerticallyCentered(content: any, question?: QuestionInterface) {
+    this.mobileClose.close();
     this.clearForm();
 
     this.questionClose = this.modalSvc.open(content, { centered: true });
@@ -247,11 +252,11 @@ export class QuestionsComponent implements OnInit {
     }
   }
 
-  openMobileOptions(content: any, id: any, i: number) {
-    this.modalSvc.open(content, { centered: true });
+  openMobileOptions(content: any, question: QuestionInterface, i: number) {
+    this.mobileClose = this.modalSvc.open(content, { centered: true });
 
     // Save in a temporal variable to send to the options.
-    this.tempId = id;
+    this.tempQuestion = question;
     this.tempIndex = i;
   }
 
