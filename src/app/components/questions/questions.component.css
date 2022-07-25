@@ -160,6 +160,15 @@ select::-ms-expand {
   height: 315px !important;
 }
 
+@media (max-width: 767px) {
+  .list {
+    min-height: 350px !important;
+    max-height: 350px !important;
+    height: 350px !important;
+    overflow: hidden;
+  }
+}
+
 @media (max-width: 503px) {
   .option {
     min-width: 48%;
@@ -168,20 +177,17 @@ select::-ms-expand {
   }
 
   .list {
-    min-height: 400px !important;
-    max-height: 400px !important;
-    height: 400px !important;
+    min-height: 350 !important;
+    max-height: 350 !important;
+    height: 350 !important;
     overflow: hidden;
     font-size: 15px;
   }
 }
 
-@media (max-width: 767px) {
-  .list {
-    min-height: 350px !important;
-    max-height: 350px !important;
-    height: 350px !important;
-    overflow: hidden;
+@media (max-width: 409px) {
+  .myPagination {
+    max-width: 90%;
   }
 }
 
