@@ -184,3 +184,8 @@ select::-ms-expand {
     overflow: hidden;
   }
 }
+
+.table-wrap {
+  height: 100%;
+  overflow-y: auto;
+}
