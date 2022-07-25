@@ -280,7 +280,8 @@ export class AnswersComponent implements OnInit, OnDestroy {
    * @returns TOTAL RESPONSES
    */
   get getQuestionsResolved(): number {
-    return this.userAnswers.length + 1;
+    return (this.userAnswers.length < this.getTotalQuestions) ? this.userAnswers.length + 1 : this.getTotalQuestions;
+    // return this.userAnswers.length + 1;
   }
 
   /**
