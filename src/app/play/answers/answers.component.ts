@@ -25,6 +25,8 @@ export class AnswersComponent implements OnInit, OnDestroy {
   public incorrectAnswers : number;
   public userAnswers      : IUserAnswer[] = [];
 
+  public counter!: boolean;
+
   constructor(private playSvc: PlayService, private router: Router, private msgSvc: ValidationMessageService) { 
     this.questionIndex = 0;
     this.seconds = 0;
@@ -274,7 +276,29 @@ export class AnswersComponent implements OnInit, OnDestroy {
     return this.indexSelected;
   }
 
+  /**
+   * @returns TOTAL RESPONSES
+   */
+  get getQuestionsResolved(): number {
+    return this.userAnswers.length + 1;
+  }
+
+  /**
+   * @returns TOTAL QUESTION
+   */
+  get getTotalQuestions(): number {
+    return this.currentQuiz.questions.length
+  }
+
   ngOnDestroy(): void {
     clearInterval(this.setInterval);
+  }
+
+  getCounterStatus(counter: boolean) {
+    
+    if (counter) {
+      this.counter = counter
+    }
+
   }
 }

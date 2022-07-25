@@ -20,9 +20,38 @@
 
 .stats-size {
     font-size: 20px;
-    width: 33.3%;
+    width: 50.3%;
 }
 
 .stats {
     display: inline-flex;
+}
+
+.hide {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #answers-content {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 499px) {
+    .stats-size {
+        font-size: 15px;
+    }
+
+    .title {
+        font-size: 17px !important;
+    }
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu.show {
+    max-width: 100% !important;
+    overflow: hidden !important;
 }

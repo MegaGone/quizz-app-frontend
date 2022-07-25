@@ -1,54 +1,81 @@
 .rounded-button {
-    width: 31px;
-    height: 31px;
-    background: #5e72e4;
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    border: none;
-    text-decoration: none;
-    transition: background 0.2s;
+  width: 31px;
+  height: 31px;
+  background: #5e72e4;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.rounded-button-elipsis {
+  width: 31px;
+  height: 31px;
+  background: #d3d3d3;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.rounded-button:hover {
+  background: #a3a3a3;
+}
+
+.my-input {
+  background: transparent;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  color: white;
+}
+
+.my-input:focus {
+  outline: none;
+}
+
+::selection {
+  color: #000;
+  cursor: move;
+}
+
+::-moz-selection {
+  color: #000;
+  cursor: move;
+}
+
+@media (max-width: 503px) {
+  .containter {
+    min-height: 350 !important;
+    max-height: 350 !important;
+    height: 350 !important;
+    overflow: hidden;
+    font-size: 15px;
   }
-  
-  .rounded-button-elipsis {
-    width: 31px;
-    height: 31px;
-    background: #d3d3d3;
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    border: none;
-    text-decoration: none;
-    transition: background 0.2s;
+}
+
+@media (max-width: 404px) {
+  .containter {
+    font-size: 13px;
   }
-  
-  .rounded-button:hover {
-    background: #a3a3a3;
+}
+
+@media (max-width: 378px) {
+  .containter {
+    font-size: 11px;
   }
-  
-  .my-input {
-    background: transparent;
-    border: 1px solid #d3d3d3;
-    text-align: center;
-    color: white;
-  }
-  
-  .my-input:focus {
-    outline: none;
-  }
-  
-  ::selection {
-    color: #000;
-    cursor: move;   
-  }
-  
-  ::-moz-selection {
-    color: #000;
-    cursor: move;
-  }
+}
+
+.table-wrap {
+  height: 100%;
+  overflow-y: auto;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { QuizService, ValidationMessageService } from 'src/app/services';
 import { QuizInterface } from '../../interfaces/quiz.interface';
 import { Router } from '@angular/router';
@@ -13,11 +13,15 @@ export class QuizComponent implements OnInit {
   public id?: string;
   public tempId!: string;
 
+  public innerWidth!: number;
+  public toggle: boolean = true;
+
   constructor(private messageSvc: ValidationMessageService, private quizSvc: QuizService, private router: Router) { 
     this.code = 'QUIZ'
   }
 
   ngOnInit(): void {
+    this.onResize(false);
   }
 
   async reciveQuiz(quiz: QuizInterface) {
@@ -68,5 +72,15 @@ export class QuizComponent implements OnInit {
 
   getQuiz(quiz: QuizInterface): string {
     return quiz._id;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+
+    if (this.innerWidth >= 992) {      
+      this.toggle = false;
+    }
+
   }
 }

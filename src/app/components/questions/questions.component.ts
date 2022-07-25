@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
-import { QuestionInterface } from 'src/app/interfaces';
+import { Question, QuestionInterface } from 'src/app/interfaces';
 import { QuizService, ValidationMessageService } from 'src/app/services';
 import { AnswersValidations, SpacesValidator } from 'src/app/utils';
 import { AnswerInterface } from '../../interfaces/answer.interface';
@@ -16,6 +16,9 @@ import { AnswerInterface } from '../../interfaces/answer.interface';
 export class QuestionsComponent implements OnInit {
 
   @Input() Form!: FormGroup;
+
+  public innerWidth!: number;
+  public toggle!: boolean;
 
   public Questions!: QuestionInterface[];
   public loaded: boolean;
@@ -39,6 +42,10 @@ export class QuestionsComponent implements OnInit {
    **/
   public questionClose!: NgbModalRef;
 
+  public mobileClose!: NgbModalRef;
+  public tempQuestion!: Question; // Participant Options
+  public tempIndex!: number;
+
   constructor(
     private modalSvc: NgbModal,
     private toastSvc: ToastrService,
@@ -49,6 +56,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onResize(false);
 
     setTimeout(() => {
     this.loaded = true;
@@ -113,6 +121,8 @@ export class QuestionsComponent implements OnInit {
 
   // DELETE QUESTION
   deleteQuestion(index: number, id: any) {
+    this.mobileClose.close();
+
     this.Questions.splice(index, 1);
     this.messageSvc.showMessage('Question Deleted', 'Successfully', true);
     this.sendTest(this.Questions);
@@ -232,6 +242,9 @@ export class QuestionsComponent implements OnInit {
    *  MODALS METHODS
    **/
   openVerticallyCentered(content: any, question?: QuestionInterface) {
+    
+    if (this.mobileClose) this.mobileClose.close();
+
     this.clearForm();
 
     this.questionClose = this.modalSvc.open(content, { centered: true });
@@ -239,6 +252,14 @@ export class QuestionsComponent implements OnInit {
     if (question) {
       this.loadData(question);
     }
+  }
+
+  openMobileOptions(content: any, question: QuestionInterface, i: number) {
+    this.mobileClose = this.modalSvc.open(content, { centered: true });
+
+    // Save in a temporal variable to send to the options.
+    this.tempQuestion = question;
+    this.tempIndex = i;
   }
 
   /**
@@ -262,5 +283,12 @@ export class QuestionsComponent implements OnInit {
 
   sendTest(data: QuestionInterface[]) {
     return this.quizSvc.sendTest(data);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+
+    (this.innerWidth <= 430) ? this.toggle = true : this.toggle = false;
   }
 }

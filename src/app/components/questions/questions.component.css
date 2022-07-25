@@ -36,6 +36,22 @@
   background: #b43434;
 }
 
+/** MOBILE OPTIONS */
+.rounded-button-elipsis-mobile {
+  width: 31px;
+  height: 31px;
+  background: #d3d3d3;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
 .rounded-button-edit {
   width: 31px;
   height: 31px;
@@ -144,10 +160,38 @@ select::-ms-expand {
   height: 315px !important;
 }
 
+@media (max-width: 767px) {
+  .list {
+    min-height: 350px !important;
+    max-height: 350px !important;
+    height: 350px !important;
+    overflow: hidden;
+  }
+}
+
 @media (max-width: 503px) {
   .option {
     min-width: 48%;
     max-width: 48%;
     margin: 1px;
   }
+
+  .list {
+    min-height: 350 !important;
+    max-height: 350 !important;
+    height: 350 !important;
+    overflow: hidden;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 409px) {
+  .myPagination {
+    max-width: 90%;
+  }
+}
+
+.table-wrap {
+  height: 100%;
+  overflow-y: auto;
 }

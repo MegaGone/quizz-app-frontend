@@ -3,3 +3,7 @@
     max-height: 425px;
     height: 425px;
 }
+
+#quizzlist {
+    z-index: 1;
+}

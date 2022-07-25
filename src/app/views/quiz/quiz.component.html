@@ -19,7 +19,7 @@
       </div>
       
       <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top">
-        <div class="container">
+        <div class="container" *ngIf="innerWidth >= 992">
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link no-caret ml-3 text-white" data-toggle="dropdown" role="button" [routerLink]="['/home/myquizzes']">
@@ -39,6 +39,32 @@
               </li>
             </ul>
         </div>
+
+        <!-- TOGGLE -->
+        <div class="container" *ngIf="innerWidth <= 991">
+
+          <!-- BACK BUTTON TOGGLE -->
+          <a class="navbar-brand" role="button">
+            <i class="fa-solid fa-angle-left fa-2x text-white" [routerLink]="['/home/myquizzes']"></i>
+          </a>
+          <!-- /BACK BUTTON TOGGLE -->
+
+          <!-- NAV OPTIONS TOGGLE -->
+          <ul id="toggleNavs" class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto ">
+            <li *ngIf="code != 'QUIZ'" class="nav-item dropdown mr-2">
+              <button type="button" class="btn btn-outline-danger" (click)="deleteQuestion()">DELETE QUIZ</button>
+            </li>
+            <li class="nav-item dropdown">
+              <h2 class="text-white mr-1">{{ code }}</h2>
+            </li>
+            <li>
+              <span *ngIf="code != 'QUIZ'" class="text-white mr-1" (click)="copyCode(this.code)"><i class="fa-regular fa-copy"></i></span>
+            </li>
+          </ul>
+          <!-- /NAV OPTIONS TOGGLE -->
+        </div>
+        <!-- /TOGGLE -->
+
       </nav>
 
     </section>
@@ -47,7 +73,7 @@
   
         <div class="card card-profile shadow mt--300">
           <div class="row justify-content-center">
-            <app-form (QuizData)="reciveQuiz($event)"></app-form>
+            <app-form id="form" (QuizData)="reciveQuiz($event)"></app-form>
           </div>
         </div>
       </div>

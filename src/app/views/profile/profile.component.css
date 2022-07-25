@@ -199,3 +199,39 @@ input[type=file]::-webkit-file-upload-button {
     /* border: 1px solid #eaeaea; */
     object-fit: cover;
 }
+
+.separator-skew {
+    z-index: 0;
+}
+
+@media (max-width: 767px) {
+    .opts {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 520px) {
+    .tbody {
+        font-size: 12px;
+    }
+}
+
+.card-profile-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+
+@media (max-width: 499px) {
+    .profile-image img {
+        width: 75px !important;
+        height: 75px !important;
+    }
+}
+
+@media (max-width: 399px) {
+    .tbody {
+        font-size: 11px;
+    }
+}

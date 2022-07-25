@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interfaces';
 import { AuthService, UserService, ValidationMessageService } from 'src/app/services';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
   public submitted!: boolean;
   public imgTemp!: any;
 
+  public innerWidth!: number;
+  public toggle!: boolean;
+
   constructor(private authSvc: AuthService, private userSvc: UserService, private modalSvc: NgbModal, private fb: FormBuilder, private msgSvc: ValidationMessageService) { 
     this.editName = false;
     this.extentionsAllowed = ['png', 'jpg', 'jpeg', 'gif'];
@@ -30,6 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUserDetails();
     this.initUserForm();
+    this.onResize(false);
   }
 
   /**
@@ -155,7 +159,15 @@ export class ProfileComponent implements OnInit {
         }
       }
     }
-
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+
+    this.innerWidth = window.innerWidth;
+
+    (this.innerWidth <= 499) ? this.toggle = true : this.toggle = false;
+    
+
+  }
 }

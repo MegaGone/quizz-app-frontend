@@ -2,3 +2,19 @@
     background-color: gray;;
     transition: background 0.2s;
 }
+
+.hide {
+    display: block;
+}
+
+@media (max-width: 991px) {
+    #toggleNavs {
+        flex-direction: row;
+        align-items: center;
+        line-height: 30px;
+    }
+}
+
+#form {
+    z-index: 1;
+}
