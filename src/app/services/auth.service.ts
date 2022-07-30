@@ -103,15 +103,15 @@ export class AuthService {
   }
 
   logOut() {
-    localStorage.removeItem('token');
-
     this.getSession().subscribe(res => {
 
       if (!res?.google) {
+        localStorage.removeItem('token');
         return this.router.navigateByUrl('/auth/login');
       }
       
       return google.accounts.id.revoke(res?.email, () => {
+        localStorage.removeItem('token');
         return this.router.navigateByUrl('/auth/login');
       });
       

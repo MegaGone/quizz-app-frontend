@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   googleInit() {
     google.accounts.id.initialize({
         client_id: "967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com",
-        callback: (response: any) => this.handleCredentialResponse(response.credential)
+        callback: (response: any) => this.handleCredentialResponse(response.credential),
+        login_uri: "http://locahost:8080/home/myquizzes"
     });
     google.accounts.id.renderButton(
         this.googleBtn.nativeElement,
@@ -57,6 +58,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   handleCredentialResponse(response: any) {
     this.authSvc.googleSignIn(response).subscribe(
       res => {
+        console.log(res);
+        
         return this.router.navigate(['/home/myquizzes'])
       },
       err => {
