@@ -106,9 +106,15 @@ export class AuthService {
     localStorage.removeItem('token');
 
     this.getSession().subscribe(res => {
-      google.accounts.id.revoke(res?.email, () => {
+
+      if (!res?.google) {
         return this.router.navigateByUrl('/auth/login');
-      })
+      }
+      
+      return google.accounts.id.revoke(res?.email, () => {
+        return this.router.navigateByUrl('/auth/login');
+      });
+      
     })
   }
 
