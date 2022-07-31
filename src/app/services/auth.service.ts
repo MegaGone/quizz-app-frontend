@@ -97,7 +97,6 @@ export class AuthService {
           tap( (res: ILoginResponse) => {
             
             this.currentUserBehavor.next(res.user);
-            localStorage.setItem('token', res.token)
           })
         )
   }
