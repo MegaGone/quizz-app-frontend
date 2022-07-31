@@ -1,9 +1,11 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { SpacesValidator } from 'src/app/utils';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 declare const google: any;
 
@@ -12,9 +14,11 @@ declare const google: any;
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('googleBtn') googleBtn!: ElementRef;
+
+  private _unSubscribeAll = new Subject<boolean>();
 
   public focus!: boolean;
   public focus1!: boolean;
@@ -29,10 +33,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.googleInit();
   }
 
   ngAfterViewInit(): void {
-    this.googleInit();
+    this.renderGoogleButton();
   }
 
   initForm() {
@@ -43,26 +48,28 @@ export class LoginComponent implements OnInit, AfterViewInit {
     })
   }
 
-  googleInit() {
-    google.accounts.id.initialize({
-        client_id: "967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com",
-        callback: (response: any) => this.handleCredentialResponse(response.credential)
+   googleInit() {
+    return google.accounts.id.initialize({
+      client_id: "967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com",
+      callback: (response: any) => this.handleCredentialResponse(response.credential)
     });
+  }
+
+  /**
+   * RENDER GOOGLE BUTTON
+   */
+  renderGoogleButton() {
     google.accounts.id.renderButton(
         this.googleBtn.nativeElement,
         { theme: "outline", size: "large" }  // customization attributes
     );
   }
 
-  handleCredentialResponse(response: any) {
-    console.log(response);
-    
-    this.authSvc.googleSignIn(response).subscribe(
+  handleCredentialResponse(response: string) {
+    this.authSvc.googleSignIn(response).pipe(takeUntil(this._unSubscribeAll)).subscribe(
       res => {
-        console.log(res);
-        localStorage.setItem('token', res.token)
-        return this.router.navigate(['/home/myquizzes'])
-      },
+        return this.router.navigate(['/home/myquizzes']);
+      }, 
       err => {
         Swal.fire('Error', 'Error to sign in', 'error')
       })
@@ -76,7 +83,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       })
     }
     
-    this.authSvc.login( this.form.value ).subscribe( res => {
+    this.authSvc.login( this.form.value ).pipe(takeUntil(this._unSubscribeAll)).subscribe( res => {
       
       
       if(this.form.get('remember')?.value ){
@@ -106,5 +113,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  ngOnDestroy(): void {
+    this._unSubscribeAll.next();
+    this._unSubscribeAll.complete();
   }
 }

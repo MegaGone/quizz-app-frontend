@@ -25,7 +25,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-
   /**
    * 
    * @returns Boolean
@@ -95,7 +94,7 @@ export class AuthService {
     return this.http.post<ILoginResponse>(`${base_url}/auth/google`, { token })
         .pipe(
           tap( (res: ILoginResponse) => {
-            
+            localStorage.setItem('token', res.token);
             this.currentUserBehavor.next(res.user);
           })
         )
