@@ -1,18 +1,24 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { SpacesValidator } from 'src/app/utils';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-declare const gapi: any;
+declare const google: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('googleBtn') googleBtn!: ElementRef;
+
+  private _unSubscribeAll = new Subject<boolean>();
 
   public focus!: boolean;
   public focus1!: boolean;
@@ -27,7 +33,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.renderButton();
+    this.googleInit();
+  }
+
+  ngAfterViewInit(): void {
+    this.renderGoogleButton();
   }
 
   initForm() {
@@ -38,6 +48,33 @@ export class LoginComponent implements OnInit {
     })
   }
 
+   googleInit() {
+    return google.accounts.id.initialize({
+      client_id: "967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com",
+      callback: (response: any) => this.handleCredentialResponse(response.credential)
+    });
+  }
+
+  /**
+   * RENDER GOOGLE BUTTON
+   */
+  renderGoogleButton() {
+    google.accounts.id.renderButton(
+        this.googleBtn.nativeElement,
+        { theme: "outline", size: "large" }  // customization attributes
+    );
+  }
+
+  handleCredentialResponse(response: string) {
+    this.authSvc.googleSignIn(response).pipe(takeUntil(this._unSubscribeAll)).subscribe(
+      res => {
+        return this.router.navigate(['/home/myquizzes']);
+      }, 
+      err => {
+        Swal.fire('Error', 'Error to sign in', 'error')
+      })
+  }
+
   login() {
   
     if(this.form.invalid){
@@ -46,7 +83,7 @@ export class LoginComponent implements OnInit {
       })
     }
     
-    this.authSvc.login( this.form.value ).subscribe( res => {
+    this.authSvc.login( this.form.value ).pipe(takeUntil(this._unSubscribeAll)).subscribe( res => {
       
       
       if(this.form.get('remember')?.value ){
@@ -78,40 +115,8 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  renderButton() {
-    gapi.signin2.render('my-signin2', {
-      'scope': 'profile email',
-      'width': 240,
-      'height': 50,
-      'longtitle': true,
-      'theme': 'dark'
-    });
-
-    this.startApp();
-  }
-
-  async startApp() {
-    await this.authSvc.googleInit();
-    this.auth2 = this.authSvc.auth2;
-
-    this.attachSignin(document.getElementById('my-signin2'));
-  };
-
-  attachSignin(element: any) {
-    this.auth2.attachClickHandler(element, {}, (googleUser: any) => {
-
-      const id_token = googleUser.getAuthResponse().id_token;
-      
-      this.authSvc.googleSignIn( id_token ).subscribe( res => {
-
-        this.ngZone.run(() => {
-          this.router.navigate(['/home/myquizzes'])
-        })
-
-      });
-
-    }, function(error: any) {
-        alert(JSON.stringify(error, undefined, 2));
-    });
+  ngOnDestroy(): void {
+    this._unSubscribeAll.next();
+    this._unSubscribeAll.complete();
   }
 }

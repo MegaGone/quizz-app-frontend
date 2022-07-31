@@ -12,7 +12,7 @@ import { ILoginResponse, IUser } from '../interfaces';
 
 const base_url = environment.base_url;
 
-declare const gapi: any;
+declare const google: any;
 
 @Injectable({
   providedIn: 'root',
@@ -22,24 +22,7 @@ export class AuthService {
   public currentUserBehavor: BehaviorSubject<IUser | undefined> = new BehaviorSubject<IUser | undefined>(undefined);
   public auth2: any;
 
-  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
-    this.googleInit();
-  }
-
-  /**
-   * @returns Initialize google init
-   */
-  googleInit() {
-    return new Promise<void>(resolve => {
-      gapi.load('auth2', () => {
-        this.auth2 = gapi.auth2.init({
-          client_id: '967919667922-pjp97lfh7j7j6adoudjr1r24m82gm80p.apps.googleusercontent.com',
-          cookiepolicy: 'single_host_origin',
-        });
-
-        resolve();
-      });
-    });
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   /**
@@ -111,22 +94,26 @@ export class AuthService {
     return this.http.post<ILoginResponse>(`${base_url}/auth/google`, { token })
         .pipe(
           tap( (res: ILoginResponse) => {
-            
+            localStorage.setItem('token', res.token);
             this.currentUserBehavor.next(res.user);
-            localStorage.setItem('token', res.token)
           })
         )
   }
 
-  // TODO: Ver porque no redirecciona de forma correcta
   logOut() {
-    localStorage.removeItem('token')
-    
-    this.auth2.signOut().then(() => {
-      this.ngZone.run(() => {
-        this.router.navigate(['/auth/login'])
+    this.getSession().subscribe(res => {
+
+      if (!res?.google) {
+        localStorage.removeItem('token');
+        return this.router.navigateByUrl('/auth/login');
+      }
+      
+      return google.accounts.id.revoke(res?.email, () => {
+        localStorage.removeItem('token');
+        return this.router.navigateByUrl('/auth/login');
       });
-    });
+      
+    })
   }
 
   /**
